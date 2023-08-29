@@ -1,13 +1,13 @@
+import { Container, Typography } from "@mui/material";
 import React from "react";
-import { Box, Container, Typography } from "@mui/material";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import { useNavigate } from "react-router-dom";
 import CHUSE from "../../images/ChuSe.jpg";
 import CHUPAH from "../../images/Chupah.jpg";
 import DUCCO from "../../images/DucCo.jpg";
 import IAGRAI from "../../images/Iagrai.jpg";
 import PLEIKU from "../../images/Pleiku.jpg";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-import { useNavigate } from "react-router-dom";
 
 function PostByImages({ deviceType }) {
   const responsive = {
