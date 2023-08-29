@@ -10,34 +10,41 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSinglePost } from "./postSlice";
 
 function DetailPages() {
+  const dispatch = useDispatch();
   const { postId } = useParams();
 
-  const dispatch = useDispatch();
+  const post = useSelector((state) => state.post.singlePost);
+  const postLoading = useSelector((state) => state.post.isLoading);
 
   useEffect(() => {
     dispatch(getSinglePost({ postId }));
-  });
-  const post = useSelector((state) => state.post.singlePost);
+  }, [dispatch, postId]);
 
-  return (
-    <>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={8}>
-          <Stack spacing={3}>
-            <PostDetailImage post={post} />
-            <PostDetailInfo post={post} />
-            <PostDetailDescription post={post} />
-            <PostDetailAnotherInfo post={post} />
-          </Stack>
+
+  if (!postLoading && !post) return <div>loading...</div>;
+
+  if (!postLoading && post)
+    return (
+      <>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={8}>
+            <Stack spacing={3}>
+              <PostDetailImage post={post} />
+              <PostDetailInfo post={post} />
+              <PostDetailDescription post={post} />
+              <PostDetailAnotherInfo post={post} />
+            </Stack>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Stack spacing={3}>
+              <UserOwner />
+            </Stack>
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <Stack spacing={3}>
-            <UserOwner />
-          </Stack>
-        </Grid>
-      </Grid>
-    </>
-  );
+      </>
+    );
+
+  if (postLoading && !post) return <div>loading...</div>;
 }
 
 export default DetailPages;
