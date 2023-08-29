@@ -22,6 +22,7 @@ function PostDetailImage({ post }) {
   const [nav1, setNav1] = useState();
   const [nav2, setNav2] = useState();
 
+
   return (
     <div>
       <Slider
@@ -30,7 +31,7 @@ function PostDetailImage({ post }) {
         centerMode={true}
         centerPadding="0"
       >
-        {post.image.map((imageUrl, index) => (
+        {post?.image?.map((imageUrl, index) => (
           <ImageSlider key={index}>
             <img src={imageUrl} alt={`Slide ${index}`} />
           </ImageSlider>

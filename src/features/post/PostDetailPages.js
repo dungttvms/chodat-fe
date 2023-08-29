@@ -10,14 +10,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSinglePost } from "./postSlice";
 
 function DetailPages() {
-  const { postId } = useParams();
-
   const dispatch = useDispatch();
+  const { postId } = useParams();
+  const post = useSelector((state) => state.post.singlePost);
+
 
   useEffect(() => {
     dispatch(getSinglePost({ postId }));
-  });
-  const post = useSelector((state) => state.post.singlePost);
+  }, [dispatch, postId]);
 
   return (
     <>
