@@ -115,7 +115,6 @@ export const getSinglePost = ({ postId }) => async (dispatch) => {
   dispatch(slice.actions.startLoading());
   try {
     const response = await apiService.get(`/posts/${postId}`);
-
     dispatch(slice.actions.getSinglePostSuccess(response.data));
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
