@@ -40,8 +40,8 @@ function BlogList() {
           justifyContent="space-around"
           spacing={2}
         >
-          <Typography fontWeight="bold" fontSize="36px" color="#ffffff">
-            BLOGS KINH NGHIỆM
+          <Typography fontWeight="bold" variant="h5" color="#ffffff">
+            BLOGS PHONG THỦY
           </Typography>
           <Pagination
             count={totalPages}
@@ -62,7 +62,7 @@ function BlogList() {
             gap: 2,
             boxSizing: "border-box",
             display: "flex",
-            justifyContent: "space-evenly",
+            justifyContent: "center",
             flexWrap: "wrap",
             backgroundColor: "transparent",
           }}
@@ -71,6 +71,17 @@ function BlogList() {
             <BlogCard key={blog._id} blog={blog} />
           ))}
         </Card>
+        <Pagination
+          count={totalPages}
+          page={page}
+          onChange={handlePageChange}
+          sx={{
+            color: "#FFFFFF",
+            "& .MuiPaginationItem-root": {
+              color: "#FFFFFF",
+            },
+          }}
+        />
       </Stack>
     </Container>
   );

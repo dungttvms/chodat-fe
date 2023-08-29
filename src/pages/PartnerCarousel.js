@@ -1,15 +1,15 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import cattuong from "../images/partner/cattuong.jpg";
-import cityland from "../images/partner/cityland.jpg";
-import duchung from "../images/partner/duchung.jpg";
-import hausland from "../images/partner/hausland.jpg";
-import Kimtinh from "../images/partner/Kimtinh.jpg";
-import sadec from "../images/partner/sadec.jpg";
-import saigonreal from "../images/partner/saigonreal.jpg";
-import spland from "../images/partner/spland.jpg";
-import trustland from "../images/partner/trustland.jpg";
+import Smartvina from "../images/partner/Smartvina.jpg";
+import Phucminh from "../images/partner/Phucminh.jpg";
+import Aic from "../images/partner/Aic.jpg";
+import techpro from "../images/partner/techpro.png";
+import asic from "../images/partner/asic.jpg";
+import dragon from "../images/partner/dragon.jpg";
+import gga from "../images/partner/gga.jpg";
+import loctroi from "../images/partner/loctroi.jpg";
+import nsj from "../images/partner/nsj.png";
 import { Container, Typography } from "@mui/material";
 
 const PartnerCarousel = ({ deviceType }) => {
@@ -33,20 +33,22 @@ const PartnerCarousel = ({ deviceType }) => {
 
   return (
     <Container>
-      <Typography>ĐỐI TÁC THƯƠNG MẠI</Typography>
+      <Typography variant="h5" fontWeight="bold" color="#ffffff">
+        ĐỐI TÁC THƯƠNG MẠI
+      </Typography>
       <Carousel
         swipeable={false}
         draggable={false}
         showDots={false}
-        partialVisible={true}
+        partialVisible={false}
         responsive={responsive}
         ssr={true}
         infinite={true}
         autoPlay={deviceType !== "mobile" ? true : false}
-        autoPlaySpeed={3000}
+        autoPlaySpeed={2000}
         keyBoardControl={true}
         customTransition="all .5"
-        transitionDuration={500}
+        transitionDuration={300}
         containerClass="carousel-container"
         removeArrowOnDeviceType={["tablet", "mobile"]}
         deviceType={deviceType}
@@ -54,31 +56,31 @@ const PartnerCarousel = ({ deviceType }) => {
         itemClass="carousel-item-padding-40-px"
       >
         <div>
-          <img height="150" width="200" src={cattuong} alt="Cattuong" />
+          <img height="200" width="250" src={Smartvina} alt="Smartvina" />
         </div>
         <div>
-          <img height="150" width="200" src={cityland} alt="Cityland" />
+          <img height="200" width="250" src={Phucminh} alt="Phucminh" />
         </div>
         <div>
-          <img height="150" width="200" src={duchung} alt="Duchung" />
+          <img height="200" width="250" src={Aic} alt="Aic" />
         </div>
         <div>
-          <img height="150" width="200" src={hausland} alt="Hausland" />
+          <img height="200" width="250" src={techpro} alt="techpro" />
         </div>
         <div>
-          <img height="150" width="200" src={Kimtinh} alt="Kimtinh" />
+          <img height="200" width="250" src={asic} alt="asic" />
         </div>
         <div>
-          <img height="150" width="200" src={sadec} alt="Sadec" />
+          <img height="200" width="250" src={dragon} alt="dragon" />
         </div>
         <div>
-          <img height="150" width="200" src={saigonreal} alt="Saigonreal" />
+          <img height="200" width="250" src={gga} alt="gga" />
         </div>
         <div>
-          <img height="150" width="200" src={spland} alt="SPLand" />
+          <img height="200" width="250" src={loctroi} alt="loctroi" />
         </div>
         <div>
-          <img height="150" width="200" src={trustland} alt="Trustland" />
+          <img height="200" width="250" src={nsj} alt="nsj" />
         </div>
       </Carousel>
     </Container>

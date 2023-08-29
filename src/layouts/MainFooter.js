@@ -81,6 +81,8 @@ function MainFooter() {
             flexDirection: { xs: "column", sm: "row" },
             justifyContent: "space-evenly",
             p: 1,
+            mb: "20px",
+            mt: "10px",
           }}
         >
           <Box>
@@ -94,17 +96,17 @@ function MainFooter() {
               </Typography>
               <Box sx={styles.contactStyle} component="div">
                 <Typography ml={1} variant="subtitle2">
-                  Thôn 6, Nghĩa Hưng, Chư Păh, Gia Lai
+                  Quy định đăng tin
                 </Typography>
               </Box>
               <Box sx={styles.contactStyle} component="div">
                 <Typography ml={1} variant="subtitle2">
-                  0372.75.7777
+                  Quy chế hoạt động
                 </Typography>
               </Box>
               <Box sx={styles.contactStyle} component="div">
                 <Typography ml={1} variant="subtitle2">
-                  Câu hỏi thường gặp
+                  Điều khoản bảo mật
                 </Typography>
               </Box>
               <Box sx={styles.contactStyle} component="div">
@@ -117,7 +119,7 @@ function MainFooter() {
           <Box>
             <Stack spacing={1} name="contact">
               <Typography
-                sx={{ display: "flex", justifyContent: "center" }}
+                sx={{ display: "flex", justifyContent: "left" }}
                 mb={{ sm: 2, xs: 0 }}
                 variant="h6"
               >
@@ -146,13 +148,13 @@ function MainFooter() {
           <Box>
             <Stack spacing={1} name="contact">
               <Typography
-                sx={{ display: "flex", justifyContent: "center" }}
+                sx={{ display: "flex", justifyContent: "left" }}
                 mb={{ sm: 2, xs: 0 }}
                 variant="h6"
               >
                 KẾT NỐI VỚI CHÚNG TÔI
               </Typography>
-              <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <Box sx={{ display: "flex", justifyContent: "left" }}>
                 <Stack mt={1} spacing={3} direction="row" name="link">
                   {ICON_LINK.map((value) => (
                     <Tooltip

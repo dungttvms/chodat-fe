@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import HomePage from "../pages/HomePage";
-import DetailPages from "../pages/DetailPages";
+import DetailPages from "../features/post/PostDetailPages";
 import NotFoundPage from "../pages/NotFoundPage";
 import BlankLayout from "../layouts/BlankLayout";
 import LoginPage from "../pages/LoginPage";

@@ -35,7 +35,7 @@ function UploadMultipleFiles({
     isDragReject,
     fileRejections,
   } = useDropzone({
-    multiple: true, // Set multiple: true to allow multiple files to be uploaded
+    multiple: true,
     ...other,
   });
 

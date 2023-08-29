@@ -1,8 +1,71 @@
-import { Box, Container, IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import React, { useState } from "react";
 import ChatBot from "react-simple-chatbot";
-import ChatIcon from "@mui/icons-material/Chat";
+
 import CloseIcon from "@mui/icons-material/Close";
+
+import SupportAgentIcon from "../images/customer-service_870175.png";
+import styled, { keyframes } from "styled-components";
+
+const ChatContainer = styled.div`
+  position: relative;
+`;
+const ChatBotAnim = keyframes`
+  0% {
+    transform: rotate(0) scale(0.7) skew(1deg);
+    opacity: 0.6;
+  }
+  50% {
+    transform: rotate(0) scale(1) skew(1deg);
+    opacity: 0.6;
+  }
+  100% {
+    transform: rotate(0) scale(0.7) skew(1deg);
+    opacity: 0.6;
+  }
+`;
+
+const ChatBox = styled.div`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+  animation: ${ChatBotAnim}1s infinite ease-in-out;
+`;
+
+const ChatIconStyled = styled.div`
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+  margin-right: 5px;
+  background-color: #d2691e;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: ${ChatBotAnim} 1s infinite ease-in-out, shake 0.3s infinite;
+
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+      transform: translateY(0);
+    }
+    25% {
+      transform: translateX(-3px);
+      transform: translateY(-3px);
+    }
+    50% {
+      transform: translateX(3px);
+      transform: translateY(3px);
+    }
+    75% {
+      transform: translateX(-3px);
+      transform: translateY(-3px);
+    }
+  }
+`;
 
 function CustomChatBot() {
   const [showChatbot, setShowChatbot] = useState(false);
@@ -23,10 +86,10 @@ function CustomChatBot() {
     {
       id: "Require name",
       message: "Vui lòng nhập tên của bạn!",
-      trigger: "waiting1",
+      trigger: "begin1",
     },
     {
-      id: "waiting1",
+      id: "begin1",
       user: true,
       trigger: "NameMessage",
     },
@@ -58,30 +121,36 @@ function CustomChatBot() {
   ];
 
   return (
-    <Container>
-      <Box onClick={toggleChatbot}>
-        <ChatIcon />
-      </Box>
+    <ChatContainer>
+      <ChatBox onClick={toggleChatbot}>
+        <ChatIconStyled>
+          <img
+            src={SupportAgentIcon}
+            alt="Support Agent"
+            style={{ height: "60px", width: "60px" }}
+          />
+        </ChatIconStyled>
+      </ChatBox>
       {showChatbot && (
         <Box
           sx={{
             position: "fixed",
             bottom: "20px",
             right: "20px",
-            zIndex: 1000,
+            zIndex: 9998,
             display: "flex",
             alignItems: "center",
-            justifyContent: "flex-end",
+            flexDirection: "row",
           }}
         >
           <ChatBot steps={steps} />
           <IconButton
             sx={{
-              top: "-10px",
-              right: "-10px",
-              color: "gray",
-              bgcolor: "white",
-              zIndex: 1001,
+              color: "#ffffff",
+              bgcolor: "#d2691e",
+              zIndex: 9999,
+              left: "-20px",
+              top: "-258px",
             }}
             onClick={closeChatbot}
           >
@@ -89,7 +158,7 @@ function CustomChatBot() {
           </IconButton>
         </Box>
       )}
-    </Container>
+    </ChatContainer>
   );
 }
 

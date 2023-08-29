@@ -18,6 +18,7 @@ import useAuth from "../../hooks/useAuth";
 
 const PostCard = ({ post }) => {
   const postId = post._id;
+
   const shareUrl = `${window.location.origin}/posts/${postId}`;
   const navigate = useNavigate();
 
@@ -41,59 +42,66 @@ const PostCard = ({ post }) => {
         alt="Image Land"
         onClick={() => navigate(`/posts/${postId}`)}
       />
-      <Typography variant="subtitle1" align="left">
-        {post.title.slice(0, 30).toUpperCase()}...
-      </Typography>
-      <Stack
-        display="flex"
-        direction="column"
-        spacing={1}
-        alignItems="left"
-        justifyContent="left"
-      >
-        <Box display="flex" flexDirection="row" justifyContent="space-around">
-          <Typography variant="subtitle2" display="flex" alignItems="center">
-            <AttachMoneyIcon /> {post.price}
-          </Typography>
-          <Typography variant="subtitle2">{post.acreage} m²</Typography>
-        </Box>
-
-        <Typography variant="subtitle2" display="flex" alignItems="center">
-          <PlaceIcon /> {post.address}
-        </Typography>
-      </Stack>
-      <CardActions disableSpacing>
-        <IconButton
-          sx={{
-            fontSize: "24px",
-            padding: "8px",
-          }}
-          aria-label="add to favorites"
-          onClick={handleHeartClick}
+      <Stack>
+        <Typography
+          variant="subtitle1"
+          align="left"
+          sx={{ pt: 2, pr: 1, pl: 1 }}
+          onClick={() => navigate(`/posts/${postId}`)}
         >
-          {isHeart ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-        </IconButton>
-        <IconButton aria-label="share">
-          <FacebookShareButton
+          {post.title.slice(0, 25).toUpperCase()}...
+        </Typography>
+        <Stack
+          display="flex"
+          direction="column"
+          spacing={1}
+          alignItems="left"
+          justifyContent="left"
+        >
+          <Box display="flex" flexDirection="row" justifyContent="space-around">
+            <Typography variant="subtitle2" display="flex" alignItems="center">
+              <AttachMoneyIcon /> {post.price}
+            </Typography>
+            <Typography variant="subtitle2">{post.acreage} m²</Typography>
+          </Box>
+
+          <Typography variant="subtitle2" display="flex" alignItems="center">
+            <PlaceIcon /> {post.address.slice(0, 39)}
+          </Typography>
+        </Stack>
+        <CardActions disableSpacing>
+          <IconButton
             sx={{
-              height: "24px",
-              width: "24px",
+              fontSize: "24px",
               padding: "8px",
             }}
-            url={shareUrl}
+            aria-label="add to favorites"
+            onClick={handleHeartClick}
           >
-            <ShareIcon />
-          </FacebookShareButton>
-        </IconButton>
-        <Box sx={{ flexGrow: 1 }} />
-        <Typography
-          variant="caption"
-          fontStyle="italic"
-          sx={{ display: "block" }}
-        >
-          {fToNow(post.createdAt)}
-        </Typography>
-      </CardActions>
+            {isHeart ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          </IconButton>
+          <IconButton aria-label="share">
+            <FacebookShareButton
+              sx={{
+                height: "24px",
+                width: "24px",
+                padding: "8px",
+              }}
+              url={shareUrl}
+            >
+              <ShareIcon />
+            </FacebookShareButton>
+          </IconButton>
+          <Box sx={{ flexGrow: 1 }} />
+          <Typography
+            variant="caption"
+            fontStyle="italic"
+            sx={{ display: "block" }}
+          >
+            {fToNow(post.createdAt)}
+          </Typography>
+        </CardActions>
+      </Stack>
     </Card>
   );
 };

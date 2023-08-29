@@ -1,7 +1,12 @@
+import { Container, Typography } from "@mui/material";
 import React from "react";
 
-function PostDetailInfo() {
-  return <div>PostDetailInfo</div>;
+function PostDetailInfo({ post }) {
+  return (
+    <Container>
+      <Typography variant="h4"> {post.title}</Typography>
+    </Container>
+  );
 }
 
 export default PostDetailInfo;
