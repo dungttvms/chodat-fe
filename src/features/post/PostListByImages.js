@@ -1,20 +1,9 @@
-<<<<<<< HEAD:src/features/post/PostListByImages.js
 import { Container } from "@mui/material";
-=======
-import { Container, Typography } from "@mui/material";
->>>>>>> 77f249606d78a41ad6a8368c9638bb00e0eb42d7:src/features/post/PostByImages.js
+
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD:src/features/post/PostListByImages.js
-=======
-import CHUSE from "../../images/ChuSe.jpg";
-import CHUPAH from "../../images/Chupah.jpg";
-import DUCCO from "../../images/DucCo.jpg";
-import IAGRAI from "../../images/Iagrai.jpg";
-import PLEIKU from "../../images/Pleiku.jpg";
->>>>>>> 77f249606d78a41ad6a8368c9638bb00e0eb42d7:src/features/post/PostByImages.js
 
 import kontum from "../../images/province_images/kontum.jpg";
 import gialai from "../../images/province_images/gia lai.jpg";
