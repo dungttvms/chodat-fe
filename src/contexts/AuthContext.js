@@ -2,6 +2,7 @@ import { createContext, useReducer, useEffect } from "react";
 import apiService from "../app/apiService";
 import { isValidToken } from "../utils/jwt";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const initialState = {
   isInitialState: false,
@@ -17,11 +18,12 @@ const ADD_FAVORITE_POST_SUCCESS = "AUTH.ADD_FAVORITE_POST_SUCCESS";
 const REMOVE_POST_FROM_FAVORITE_LIST_SUCCESS =
   "AUTH.REMOVE_POST_FROM_FAVORITE_LIST_SUCCESS";
 const LOGOUT = "AUTH.LOGOUT";
+const UPDATE_PROFILE = "AUTH>UPDATE_PROFILE";
 
 const reducer = (state, action) => {
   switch (action.type) {
     case INITIALIZE:
-      const { isAuthenticated, user /*favoritePostList */ } = action.payload;
+      const { isAuthenticated, user } = action.payload;
       return {
         ...state,
         isInitialized: true,
@@ -67,6 +69,15 @@ const reducer = (state, action) => {
         user: null,
       };
 
+    case UPDATE_PROFILE:
+      const { name, phoneNumber, email, role } = action.payload;
+
+      return {
+        ...state,
+        user: { ...state.user, name, phoneNumber, email, role },
+        isAuthenticated: true,
+      };
+
     default:
       return state;
   }
@@ -86,6 +97,7 @@ const AuthContext = createContext({ ...initialState });
 
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const updatedProfile = useSelector((state) => state.user.updatedProfile);
 
   useEffect(() => {
     const initialize = async () => {
@@ -128,6 +140,11 @@ function AuthProvider({ children }) {
     };
     initialize();
   }, []);
+
+  useEffect(() => {
+    if (updatedProfile)
+      dispatch({ type: UPDATE_PROFILE, payload: updatedProfile });
+  }, [updatedProfile]);
 
   const login = async ({ email, password }, callback) => {
     const response = await apiService.post("/auth/login", {
@@ -190,7 +207,7 @@ function AuthProvider({ children }) {
         payload: { user },
       });
 
-      toast.success("Add success");
+      toast.success("Add to your favorite list success");
       callback();
     } catch (error) {
       console.error(error);
@@ -204,54 +221,12 @@ function AuthProvider({ children }) {
         type: REMOVE_POST_FROM_FAVORITE_LIST_SUCCESS,
         payload: { user },
       });
-      toast.success("Remove success");
+      toast.success("Remove to your favorite list success");
       callback();
     } catch (error) {
       console.error(error);
     }
   };
-
-  // const addPostToFavoriteList = ({ postId }, callback) => {
-  //   return async (dispatch) => {
-  //     try {
-  //       const response = await apiService.post(`/users/me/${postId}`);
-  //       console.log(response);
-  //       const user = response.data;
-  //       console.log("lllllllllllllllll", user);
-  //       dispatch({
-  //         type: ADD_FAVORITE_POST_SUCCESS,
-  //         payload: user,
-  //       });
-
-  //       if (callback) {
-  //         callback();
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  // };
-
-  // const removePostFromFavoriteList = ({ postId }, callback) => {
-  //   return async (dispatch) => {
-  //     try {
-  //       const response = await apiService.delete(`/users/me/${postId}`);
-  //       console.log("responseData2222222222", response);
-  //       const favoritePostList = response.data;
-
-  //       dispatch({
-  //         type: REMOVE_POST_FROM_FAVORITE_LIST_SUCCESS,
-  //         payload: favoritePostList,
-  //       });
-
-  //       if (callback) {
-  //         callback();
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  // };
 
   const logout = (callback) => {
     setSession(null);

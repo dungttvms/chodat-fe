@@ -1,15 +1,8 @@
-import {
-  Card,
-  Container,
-  Grid,
-  Pagination,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Card, Container, Grid, Pagination, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import BlogCard from "./BlogCard";
 import { useDispatch, useSelector } from "react-redux";
-import { getBlogs } from "./blogSlice";
+import { getAllBlogs } from "./blogSlice";
 import { NUMBER_BLOGS_OF_LIMIT } from "../../app/config";
 
 function BlogList() {
@@ -19,7 +12,7 @@ function BlogList() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getBlogs({ page }));
+    dispatch(getAllBlogs({ page }));
   }, [dispatch, page]);
 
   const totalPages = Math.ceil(totalBlogs / NUMBER_BLOGS_OF_LIMIT);
@@ -40,9 +33,6 @@ function BlogList() {
           justifyContent="space-around"
           spacing={2}
         >
-          <Typography fontWeight="bold" variant="h5" color="#ffffff">
-            BLOGS PHONG THỦY
-          </Typography>
           <Pagination
             count={totalPages}
             page={page}
@@ -76,6 +66,8 @@ function BlogList() {
           page={page}
           onChange={handlePageChange}
           sx={{
+            display: "flex",
+            justifyContent: "center",
             color: "#FFFFFF",
             "& .MuiPaginationItem-root": {
               color: "#FFFFFF",

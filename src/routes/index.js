@@ -2,59 +2,69 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import HomePage from "../pages/HomePage";
-import DetailPages from "../features/post/PostDetailPages";
+import PostDetail from "../features/post/PostDetail";
 import NotFoundPage from "../pages/NotFoundPage";
 import BlankLayout from "../layouts/BlankLayout";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
-import AccountPage from "../pages/AccountPage";
-import PostForm from "../features/post/PostForm";
-import AuthRequire from "./AuthRequire";
-import VerifyEmailPage from "../features/user/VerifyEmailPage";
-import VerifyEmailTokenPage from "../features/user/VeryfyEmailTokenPage";
+// import AccountPage from "../pages/AccountPage";
 
-import PostChuPah from "../features/post/PostChuPah";
-import PostPleiku from "../features/post/PostPleiku";
-import PostChuSe from "../features/post/PostChuSe";
-import PostDucCo from "../features/post/PostDucCo";
-import PostIagrai from "../features/post/PostIagrai";
+import AuthRequire from "./AuthRequire";
+// import VerifyEmailPage from "../features/user/VerifyEmailPage";
+// import VerifyEmailTokenPage from "../features/user/VeryfyEmailTokenPage";
+
 import ContactPage from "../pages/ContactPage";
 import IntroducePage from "../pages/IntroducePage";
 import UserChangePassword from "../features/user/UserChangePassword";
+import UserProfile from "../features/user/UserProfile";
+import PostCreate from "../features/post/PostCreate";
 import BlogDetail from "../features/blog/BlogDetail";
+import AdminControlPanel from "../features/user/AdminControlPanel";
+import Regulations from "../pages/Regulations";
 
 function Router() {
   return (
     <Routes sx={{ m: 0, padding: 0 }}>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />} />
+
         <Route
           path="/posts/:postId"
           element={
             <AuthRequire>
-              <DetailPages />
+              <PostDetail />
             </AuthRequire>
           }
         />
-        {/* <Route path="/users/:userId/posts" element={<FavoritePages />} /> */}
-        <Route path="/blogs/:blogId" element={<BlogDetail />} />
-        <Route path="/account" element={<AccountPage />} />
-        <Route path="/introduce" element={<IntroducePage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/chu-pah" element={<PostChuPah />} />
-        <Route path="/pleiku" element={<PostPleiku />} />
-        <Route path="/chu-se" element={<PostChuSe />} />
-        <Route path="/duc-co" element={<PostDucCo />} />
-        <Route path="/ia-grai" element={<PostIagrai />} />
-
         <Route
-          path="/createPost"
+          path="/blogs/:blogId"
           element={
             <AuthRequire>
-              <PostForm />
+              <BlogDetail />
             </AuthRequire>
           }
         />
+        <Route
+          path="/admin/controlpanel"
+          element={
+            <AuthRequire>
+              <AdminControlPanel />
+            </AuthRequire>
+          }
+        />
+        <Route path="/users/:userId" element={<UserProfile />} />
+
+        <Route
+          path="/createNewPost"
+          element={
+            <AuthRequire>
+              <PostCreate />
+            </AuthRequire>
+          }
+        />
+        <Route path="/introduce" element={<IntroducePage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/regulation" element={<Regulations />} />
       </Route>
 
       <Route element={<BlankLayout />}>
@@ -68,8 +78,6 @@ function Router() {
         />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/verify-email" component={<VerifyEmailPage />} />
-        <Route path="/verify/:token" component={<VerifyEmailTokenPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

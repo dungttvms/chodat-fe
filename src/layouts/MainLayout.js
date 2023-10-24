@@ -6,6 +6,13 @@ import AlertMsg from "../components/AlertMsg";
 import MainHeader from "./MainHeader";
 
 function MainLayout() {
+  const footerStyles = {
+    flexShrink: 0,
+    position: "fixed",
+    bottom: 0,
+    left: 0,
+    right: 0,
+  };
   return (
     <Stack sx={{ minHeight: "100vh", minWidth: "100vh", padding: 0, m: 0 }}>
       <MainHeader />
@@ -13,7 +20,7 @@ function MainLayout() {
       <AlertMsg />
       <Outlet />
       <Box sx={{ flexGrow: 1 }} />
-      <MainFooter />
+      <MainFooter sx={footerStyles} />
     </Stack>
   );
 }

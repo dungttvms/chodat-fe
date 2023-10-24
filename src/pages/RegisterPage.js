@@ -46,8 +46,9 @@ const defaultValues = {
 function RegisterPage() {
   const auth = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-  const [showPasswordConfirmation, setShowPasswordConfirmation] =
-    useState(false);
+  const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(
+    false
+  );
 
   const methods = useForm({
     resolver: yupResolver(RegisterSchema),
@@ -78,7 +79,7 @@ function RegisterPage() {
   return (
     <Container maxWidth="xs">
       <Helmet>
-        <title>Đăng ký | Chợ đất Gia Lai</title>
+        <title>Đăng ký | Chợ đất Tây Nguyên</title>
       </Helmet>
       <Box
         sx={{ position: "absolute", left: "5%", top: "5%" }}

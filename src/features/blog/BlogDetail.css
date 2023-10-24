@@ -11,6 +11,7 @@
     text-transform: uppercase;
     width: 90%;
     line-height: 1.2;
+    font-weight: bold;
 }
 
 .blog-detail-description {

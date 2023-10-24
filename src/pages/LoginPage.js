@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { Container } from "@mui/system";
+
 import {
   Alert,
   Box,
@@ -44,14 +45,16 @@ import { Helmet } from "react-helmet";
 // });
 
 const loginSchema = yup.object().shape({
-  email: yup.string().email().required("Email is required"),
+  email: yup
+    .string()
+    .email()
+    .required("Email is required"),
   password: yup.string().required("Password is required"),
 });
 
 const defaultValues = {
-  email: "dungttvms@gmail.com",
-  password: "77777777",
-  remember: true,
+  email: "admin@coderschool.vn",
+  password: "1234",
 };
 
 function LoginPage() {
@@ -87,7 +90,7 @@ function LoginPage() {
   return (
     <Container maxWidth="xs">
       <Helmet>
-        <title>Đăng nhập | Chợ đất Gia Lai</title>
+        <title>Đăng nhập | Chợ đất Tây Nguyên</title>
       </Helmet>
       <Box
         sx={{ position: "absolute", left: "5%", top: "5%" }}
@@ -219,6 +222,9 @@ function LoginPage() {
               onError={() => {
                 console.log("Login Failed");
               }}
+              width="400"
+              logo_alignment="center"
+              theme="outlined"
             />
           </GoogleOAuthProvider>
         </Stack>

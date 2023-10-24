@@ -163,6 +163,10 @@ const HotlineBarLink = styled.a`
 const ppsBtnImgImgStyle = {
   width: "20px",
   height: "20px",
+  "&:hover": {
+    backgroundColor: "#f5f5f5",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+  },
 };
 
 const CellPhone = () => {

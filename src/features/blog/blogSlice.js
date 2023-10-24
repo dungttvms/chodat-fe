@@ -21,7 +21,7 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-    getBlogsSuccess(state, action) {
+    getAllBlogsSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
       const { count, blogs } = action.payload.data;
@@ -33,36 +33,49 @@ const slice = createSlice({
       state.error = null;
       state.singleBlog = action.payload.data;
     },
+    deleteSingleBlogSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+    },
   },
 });
 
-export const getBlogs =
-  ({ page, limit = NUMBER_BLOGS_OF_LIMIT }) =>
-  async (dispatch) => {
-    dispatch(slice.actions.startLoading());
-    try {
-      const response = await apiService.get(
-        `/blogs?page=${page}&limit=${limit}`
-      );
+export const getAllBlogs = ({ page, limit = NUMBER_BLOGS_OF_LIMIT }) => async (
+  dispatch
+) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const response = await apiService.get(`/blogs?page=${page}&limit=${limit}`);
 
-      dispatch(slice.actions.getBlogsSuccess(response.data));
-    } catch (error) {
-      dispatch(slice.actions.hasError(error.message));
-      toast.error(error.message);
-    }
-  };
+    dispatch(slice.actions.getAllBlogsSuccess(response.data));
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+    toast.error(error.message);
+  }
+};
 
-export const getSingleBlog =
-  ({ blogId }) =>
-  async (dispatch) => {
-    dispatch(slice.actions.startLoading());
-    try {
-      const response = await apiService.get(`/blogs/${blogId}`);
-      dispatch(slice.actions.getSingleBlogSuccess(response.data));
-    } catch (error) {
-      dispatch(slice.actions.hasError(error.message));
-      toast.error(error.message);
-    }
-  };
+export const getSingleBlog = ({ blogId }) => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const response = await apiService.get(`/blogs/${blogId}`);
+    dispatch(slice.actions.getSingleBlogSuccess(response.data));
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+    toast.error(error.message);
+  }
+};
+
+export const deleteSingleBlog = (id) => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const response = await apiService.delete(`blogs/${id}`);
+    dispatch(slice.actions.deleteSingleBlogSuccess(response.data));
+    toast.success("Deleted Blog successfully");
+    dispatch(getAllBlogs());
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+    toast.error(error.message);
+  }
+};
 
 export default slice.reducer;

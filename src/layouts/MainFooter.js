@@ -11,18 +11,22 @@ import {
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
 import MailIcon from "@mui/icons-material/Mail";
-// import BCT from "../images/Bo_Cong_Thuong.png";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FormCollectEmail from "../components/FormCollectEmail";
+import { useNavigate } from "react-router-dom";
 
 const ICON_LINK = [
   {
     name: "twitter",
     icon: (
-      <Link href="#" target="_blank" rel="twitter">
+      <Link
+        href="https://tiktok.com/@chodattaynguyen.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <TwitterIcon sx={{ color: "#1DA1F2", width: "40px", height: "40px" }} />
       </Link>
     ),
@@ -31,9 +35,9 @@ const ICON_LINK = [
     name: "facebook",
     icon: (
       <Link
-        href="https://facebook.com/SmartVina2019"
+        href="https://facebook.com/ChoDatTayNguyen"
         target="_blank"
-        rel="facebook"
+        rel="noopener noreferrer"
       >
         <FacebookIcon
           sx={{ color: "#1877F2", width: "40px", height: "40px" }}
@@ -44,7 +48,11 @@ const ICON_LINK = [
   {
     name: "youtube",
     icon: (
-      <Link href="#" target="_blank" rel="youtube">
+      <Link
+        href="https://www.youtube.com/@Chodat_TayNguyen"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <YouTubeIcon sx={{ color: "#FF0000", width: "40px", height: "40px" }} />
       </Link>
     ),
@@ -52,7 +60,11 @@ const ICON_LINK = [
   {
     name: "instagram",
     icon: (
-      <Link href="#" target="_blank" rel="instagram">
+      <Link
+        href="https://facebook.com/ChoDatTayNguyen"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <InstagramIcon
           sx={{ color: "#E4405F", width: "40px", height: "40px" }}
         />
@@ -60,136 +72,136 @@ const ICON_LINK = [
     ),
   },
 ];
+
 const styles = {
   contactStyle: {
     display: "flex",
-    alignContent: "center",
+    alignItems: "center",
     color: "primary.light",
   },
 };
 
 function MainFooter() {
+  const navigate = useNavigate();
+  const handleChangPage = () => {
+    navigate("/regulation");
+  };
+
+  const footerLinks = [
+    { text: "Quy định đăng tin", onClick: handleChangPage },
+    { text: "Quy chế hoạt động", onClick: handleChangPage },
+    { text: "Điều khoản bảo mật", onClick: handleChangPage },
+    { text: "Góp ý, báo lỗi", onClick: handleChangPage },
+  ];
+
   return (
-    <Container maxWidth={false}>
-      <Grid>
-        <Box
-          name="contact"
-          sx={{
-            height: { xs: 450, md: 180 },
-            backgroundColor: "#ffffff",
-            display: "flex",
-            flexDirection: { xs: "column", sm: "row" },
-            justifyContent: "space-evenly",
-            p: 1,
-            mb: "20px",
-            mt: "10px",
-          }}
-        >
-          <Box>
-            <Stack spacing={1} name="contact">
+    <Container maxWidth="lg" sx={{ pt: 3 }}>
+      <Grid container>
+        <Grid item xs={12} sm={4}>
+          <Stack spacing={1}>
+            <Typography
+              variant="h6"
+              fontWeight="bold"
+              sx={{ textAlign: "left" }}
+            >
+              CHỢ ĐẤT TÂY NGUYÊN
+            </Typography>
+            {footerLinks.map((link, index) => (
               <Typography
-                sx={{ display: "flex", justifyContent: "left" }}
-                mb={{ sm: 2, xs: 0 }}
-                variant="h6"
+                key={index}
+                variant="subtitle2"
+                color="primary.light"
+                sx={{ textAlign: "left", cursor: "pointer" }}
+                onClick={link.onClick}
               >
-                CHỢ ĐẤT GIA LAI
+                {link.text}
               </Typography>
-              <Box sx={styles.contactStyle} component="div">
-                <Typography ml={1} variant="subtitle2">
-                  Quy định đăng tin
-                </Typography>
-              </Box>
-              <Box sx={styles.contactStyle} component="div">
-                <Typography ml={1} variant="subtitle2">
-                  Quy chế hoạt động
-                </Typography>
-              </Box>
-              <Box sx={styles.contactStyle} component="div">
-                <Typography ml={1} variant="subtitle2">
-                  Điều khoản bảo mật
-                </Typography>
-              </Box>
-              <Box sx={styles.contactStyle} component="div">
-                <Typography ml={1} variant="subtitle2">
-                  Góp ý, báo lỗi
-                </Typography>
-              </Box>
-            </Stack>
-          </Box>
-          <Box>
-            <Stack spacing={1} name="contact">
-              <Typography
-                sx={{ display: "flex", justifyContent: "left" }}
-                mb={{ sm: 2, xs: 0 }}
-                variant="h6"
-              >
-                LIÊN HỆ
+            ))}
+          </Stack>
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <Stack spacing={1}>
+            <Typography
+              variant="h6"
+              fontWeight="bold"
+              sx={{ textAlign: "left" }}
+            >
+              LIÊN HỆ
+            </Typography>
+            <Box sx={styles.contactStyle}>
+              <AddBusinessIcon />
+              <Typography ml={1} variant="subtitle2">
+                Nghĩa Hưng, Chư Păh, Gia Lai
               </Typography>
-              <Box sx={styles.contactStyle} component="div">
-                <AddBusinessIcon />
-                <Typography ml={1} variant="subtitle2">
-                  Nghĩa Hưng, Chư Păh, Gia Lai
-                </Typography>
-              </Box>
-              <Box sx={styles.contactStyle} component="div">
-                <ContactPhoneIcon />
-                <Typography ml={1} variant="subtitle2">
-                  +84 372 75 7777
-                </Typography>
-              </Box>
-              <Box sx={styles.contactStyle} component="div">
-                <MailIcon />
-                <Typography ml={1} variant="subtitle2">
-                  info@chodatgialai.com
-                </Typography>
-              </Box>
-            </Stack>
-          </Box>
-          <Box>
-            <Stack spacing={1} name="contact">
-              <Typography
-                sx={{ display: "flex", justifyContent: "left" }}
-                mb={{ sm: 2, xs: 0 }}
-                variant="h6"
-              >
-                KẾT NỐI VỚI CHÚNG TÔI
+            </Box>
+            <Box sx={styles.contactStyle}>
+              <ContactPhoneIcon />
+              <Typography ml={1} variant="subtitle2">
+                +84 372 75 7777
               </Typography>
-              <Box sx={{ display: "flex", justifyContent: "left" }}>
-                <Stack mt={1} spacing={3} direction="row" name="link">
-                  {ICON_LINK.map((value) => (
-                    <Tooltip
-                      sx={{
-                        "&:hover": {
-                          opacity: [0.9, 0.8, 0.7],
-                          cursor: "pointer",
-                        },
-                      }}
-                      key={value.name}
-                      title={value.name}
-                      enterDelay={500}
-                      leaveDelay={200}
-                    >
-                      {value.icon}
-                    </Tooltip>
-                  ))}
-                </Stack>
-              </Box>
-              <Box>
-                <FormCollectEmail />
-              </Box>
-            </Stack>
-          </Box>
-        </Box>
+            </Box>
+            <Box sx={styles.contactStyle}>
+              <MailIcon />
+              <Typography ml={1} variant="subtitle2">
+                info@chodattaynguyen.com
+              </Typography>
+            </Box>
+          </Stack>
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <Stack spacing={1}>
+            <Typography
+              variant="h6"
+              fontWeight="bold"
+              sx={{ textAlign: "left" }}
+            >
+              KẾT NỐI VỚI CHÚNG TÔI
+            </Typography>
+            <Box sx={{ display: "flex", justifyContent: "left" }}>
+              <Stack mt={1} spacing={3} direction="row" name="link">
+                {ICON_LINK.map((value) => (
+                  <Tooltip
+                    sx={{
+                      "&:hover": {
+                        opacity: [0.9, 0.8, 0.7],
+                        cursor: "pointer",
+                      },
+                    }}
+                    key={value.name}
+                    title={value.name}
+                    enterDelay={500}
+                    leaveDelay={200}
+                  >
+                    {value.icon}
+                  </Tooltip>
+                ))}
+              </Stack>
+            </Box>
+            <Box>
+              <FormCollectEmail />
+            </Box>
+          </Stack>
+        </Grid>
       </Grid>
-      <Typography variant="body2" color="text.secondary" align="center" p={1}>
-        {"Copyright © "}
-        <Link color="inherit" href="https://www.chodatgialai.com">
-          www.chodatgialai.com
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        align="center"
+        sx={{ my: 1 }}
+      >
+        {`Copyright © `}
+        <Link color="inherit" href="https://www.chodattaynguyen.com">
+          www.chodattaynguyen.com
         </Link>{" "}
         {new Date().getFullYear()}
         {"."}
       </Typography>
-      <Typography variant="body2" color="text.secondary" align="center" p={1}>
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        align="center"
+        sx={{ my: 1 }}
+      >
         Website đang trong quá trình xây dựng và hoàn thiện
       </Typography>
     </Container>

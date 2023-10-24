@@ -17,10 +17,12 @@ import ListIcon from "@mui/icons-material/List";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import LogoutIcon from "@mui/icons-material/Logout";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 
-import { Divider, Stack, Tooltip } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import EditNoteIcon from "@mui/icons-material/EditNote";
+
+import { Avatar, Divider, Stack, Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 import useAuth from "../hooks/useAuth";
@@ -30,7 +32,9 @@ function MainHeader() {
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
   const { logout, isAuthenticated, user } = useAuth();
+
   const favoritePostCount = user?.favoritePostList?.length;
 
   const handleOpenNavMenu = (event) => {
@@ -43,6 +47,9 @@ function MainHeader() {
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
+    setTimeout(() => {
+      handleCloseUserMenu();
+    }, 3000);
   };
 
   const handleCloseUserMenu = () => {
@@ -67,18 +74,20 @@ function MainHeader() {
       console.error(error);
     }
   };
-
-  // const handleCancelPassword = () => {
-  //   try {
-  //     toast.message("You can not change password with Google Account ");
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const handleAdminControl = () => {
+    // Navigate to the change password page
+    try {
+      navigate("admin/controlpanel");
+    } catch (error) {
+      console.error(error);
+    }
+    handleCloseUserMenu();
+  };
 
   const handleProfile = () => {
     try {
-      navigate(`/users/${user._id}`);
+      navigate(`/users/me`);
+      handleCloseUserMenu();
     } catch (error) {
       console.error(error);
     }
@@ -87,58 +96,45 @@ function MainHeader() {
   const handlePosts = () => {
     try {
       navigate(`/posts/${user._id}`);
+      handleCloseUserMenu();
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleScrollToBlogList = () => {
-    const blogListSection = document.getElementById("blog-list-section");
-    if (blogListSection) {
-      blogListSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const handlePhongThuyClick = () => {
-    const currentPath = window.location.pathname;
-    console.log(currentPath);
-
-    if (currentPath === "/") {
-      handleScrollToBlogList();
-    } else {
-      navigate("/");
-
-      const delayTime = 1000;
-      setTimeout(() => {
-        handleScrollToBlogList();
-      }, delayTime);
+  const handleCreateNewPost = () => {
+    try {
+      navigate("/createNewPost");
+      handleCloseUserMenu();
+    } catch (error) {
+      console.error(error);
     }
   };
 
   const pages = [
     {
-      title: "CHỢ ĐẤT GIA LAI",
+      title: "CHỢ ĐẤT TÂY NGUYÊN",
       action: () => navigate("/"),
     },
     {
       title: "GIỚI THIỆU",
       action: () => navigate("/introduce"),
     },
-    {
-      title: "TIN TỨC",
-      action: () => navigate("/news"),
-    },
 
     {
       title: "PHONG THỦY",
-      action: handlePhongThuyClick,
+      action: () => navigate("/blogs?q=Phong%20th%E1%BB%A7y"),
+    },
+    {
+      title: "TIN TỨC",
+      action: () => navigate("/blogs?q=Tin%20t%E1%BB%A9c"),
     },
     {
       title: "LIÊN HỆ",
       action: () => navigate("/contact"),
     },
   ];
-  const settings = [
+  let settings = [
     {
       title: "Quản lý tin đăng",
       action: handlePosts,
@@ -149,18 +145,40 @@ function MainHeader() {
       action: handleProfile,
       icon: <AccountBoxIcon />,
     },
-    {
-      title: "Thay đổi mật khẩu",
-      // action: user.isGoogleAuth ? handleCancelPassword : handleCancelPassword,
-      action: handlePassword,
-      icon: <LockOpenIcon />,
-    },
-    {
+  ];
+
+  if (isAuthenticated) {
+    if (user?.isGoogleAuth === false) {
+      settings.push({
+        title: "Thay đổi mật khẩu",
+        action: handlePassword,
+        icon: <LockOpenIcon />,
+      });
+    }
+
+    if (user && user.role === "admin") {
+      settings.push(
+        {
+          title: "Đăng tin",
+          action: handleCreateNewPost,
+          icon: <EditNoteIcon />,
+        },
+        {
+          title: "Quản lý Website",
+          action: handleAdminControl,
+          icon: <AdminPanelSettingsIcon />,
+        }
+      );
+    }
+
+    settings.push({
       title: "Đăng xuất",
       action: handleLogOut,
       icon: <LogoutIcon />,
-    },
-  ];
+    });
+  }
+
+  settings = settings.filter((item) => item !== null);
 
   return (
     <AppBar position="sticky">
@@ -204,6 +222,8 @@ function MainHeader() {
             >
               {pages.map((page) => (
                 <MenuItem
+                  pl={1}
+                  pr={1}
                   key={page.title}
                   onClick={page.action}
                   sx={{
@@ -248,13 +268,13 @@ function MainHeader() {
                       sx={{
                         color: "white",
                         fontSize: "16px",
+                        ml: 1,
+                        mr: 3,
                       }}
                     >
                       {favoritePostCount}
                     </Typography>
-                    <NotificationsNoneIcon
-                      sx={{ marginLeft: 2, marginRight: 2 }}
-                    />
+
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                       <Typography
                         sx={{
@@ -264,6 +284,7 @@ function MainHeader() {
                       >
                         {user.name}
                       </Typography>
+                      <Avatar src={user?.avatar} sx={{ ml: 2 }} />
                     </IconButton>
                   </Typography>
                 </Tooltip>
@@ -296,13 +317,6 @@ function MainHeader() {
                   ))}
                 </Menu>
               </Box>
-              <Button
-                onClick={() => navigate("/createPost")}
-                variant="contained"
-                sx={{ m: 2 }}
-              >
-                Đăng tin
-              </Button>
             </Stack>
           ) : (
             <Stack direction="row" spacing={2}>
@@ -311,12 +325,6 @@ function MainHeader() {
               </Button>
               <Button onClick={() => navigate("/register")} variant="contained">
                 Đăng ký
-              </Button>
-              <Button
-                onClick={() => navigate("/createPost")}
-                variant="contained"
-              >
-                Đăng tin
               </Button>
             </Stack>
           )}

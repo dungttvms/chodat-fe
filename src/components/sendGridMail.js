@@ -1,5 +1,3 @@
-// using Twilio SendGrid's v3 Node.js Library
-// https://github.com/sendgrid/sendgrid-nodejs
 require("dotenv").config();
 const sgMail = require("@sendgrid/mail");
 const SEND_GRID_API_KEY = require("../app/config");

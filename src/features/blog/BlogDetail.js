@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getSingleBlog } from "./blogSlice";
 import "./BlogDetail.css";
+import { Container, Typography } from "@mui/material";
 
 function BlogDetail() {
   const dispatch = useDispatch();
@@ -27,19 +28,27 @@ function BlogDetail() {
   );
 
   return (
-    <div className="blog-detail-container">
+    <Container className="blog-detail-container">
       <Helmet>
-        <title>Phong thủy | Chợ đất Gia Lai</title>
+        <title>{`Chợ đất Tây Nguyên | ${blog.type}`}</title>
       </Helmet>
       <div
         className="blog-detail-title"
         dangerouslySetInnerHTML={renderHtmlSafety(blog.title)}
       />
+      <Typography
+        variant="caption"
+        display="flex"
+        textAlign="right"
+        marginTop={8}
+      >
+        Lượt đọc: {blog.readCount}
+      </Typography>
       <div
         className="blog-detail-description"
         dangerouslySetInnerHTML={renderHtmlSafety(blog.descriptionDetail)}
-      />
-    </div>
+      />{" "}
+    </Container>
   );
 }
 

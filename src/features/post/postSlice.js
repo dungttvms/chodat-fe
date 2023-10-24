@@ -8,6 +8,8 @@ const initialState = {
   isLoading: false,
   error: null,
   posts: [],
+  postsById: {},
+  currentPagePosts: [],
   singlePost: "",
 };
 
@@ -22,17 +24,20 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-    createPostSuccess(state, action) {
+
+    createNewPostSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
     },
-    getPostsSuccess(state, action) {
+
+    getAllPostsSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
       const { count, posts } = action.payload.data;
       state.totalPosts = count;
       state.posts = posts;
     },
+
     getSinglePostSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
@@ -40,57 +45,135 @@ const slice = createSlice({
       state.singlePost = singlePost;
     },
 
-    // addPostToFavoriteListSuccess(state, action) {
-    //   state.isLoading = false;
-    //   state.error = null;
-    //   const favoritePosts = action.payload.data;
-    //   state.favoritePosts = favoritePosts;
-    // },
-    // removePostFromFavoriteListSuccess(state, action) {
-    //   state.isLoading = false;
-    //   state.error = null;
-    //   // const { _id } = action.payload.data;
-    //   // state.favoritePosts = state.favoritePosts.filter(
-    //   //   (postId) => postId !== _id
-    //   // );
-    // },
+    updateSinglePostSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const {
+        _id,
+        title,
+        address,
+        acreage,
+        length,
+        width,
+        legal,
+        type,
+        description,
+        images,
+        legal_images,
+        province,
+        price,
+        googleMapLocation,
+        videoFacebook,
+        videoYoutube,
+        videoTiktok,
+        contact_name,
+        contact_phoneNumber,
+        isSoldOut,
+      } = action.payload.data;
+      state.postsById[_id].title = title;
+      state.postsById[_id].address = address;
+      state.postsById[_id].acreage = acreage;
+      state.postsById[_id].length = length;
+      state.postsById[_id].width = width;
+      state.postsById[_id].legal = legal;
+      state.postsById[_id].type = type;
+      state.postsById[_id].description = description;
+      state.postsById[_id].images = images;
+      state.postsById[_id].legal_images = legal_images;
+      state.postsById[_id].province = province;
+      state.postsById[_id].price = price;
+      state.postsById[_id].googleMapLocation = googleMapLocation;
+      state.postsById[_id].videoFacebook = videoFacebook;
+      state.postsById[_id].videoYoutube = videoYoutube;
+      state.postsById[_id].videoTiktok = videoTiktok;
+      state.postsById[_id].contact_name = contact_name;
+      state.postsById[_id].contact_phoneNumber = contact_phoneNumber;
+      state.postsById[_id].isSoldOut = isSoldOut;
+    },
+    deleteSinglePostSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const { _id } = action.payload.data;
+      state.currentPagePosts = state.currentPagePosts.filter(
+        (postId) => postId !== _id
+      );
+      state.posts = state.posts.filter(
+        (post) => post._id !== action.payload.data
+      );
+      state.totalPosts -= 1;
+    },
   },
 });
 
-export const createPost = ({
-  type,
-  district,
-  address,
+export const createNewPost = ({
   title,
-  description,
+  address,
   acreage,
+  length,
+  width,
   direction,
-  price,
-  wish,
+  legal,
+  status,
+  type,
+  description,
   images,
+  legal_images,
+  province,
+  price,
+  toilet,
+  bedroom,
+  videoYoutube,
+  videoFacebook,
+  videoTiktok,
+  googleMapLocation,
+  contact_name,
+  contact_phoneNumber,
 }) => async (dispatch) => {
   dispatch(slice.actions.startLoading());
   try {
-    //Upload image to Cloudinary
+    //Upload images to Cloudinary
     const imageUrls = [];
     for (let i = 0; i < images.length; i++) {
       const imageUrl = await cloudinaryUpload(images[i]);
       imageUrls.push(imageUrl);
     }
+
+    // Upload legal images to the Cloudinary
+    const legal_imageUrls = [];
+    for (let j = 0; j < legal_images.length; j++) {
+      const legal_imageUrl = await cloudinaryUpload(legal_images[j]);
+      legal_imageUrls.push(legal_imageUrl);
+    }
+
+    //Process NumberOfPost
+
     const response = await apiService.post("/posts", {
-      type,
-      district,
-      address,
       title,
-      description,
+      address,
       acreage,
+      length,
+      width,
       direction,
+      legal,
+      status,
+      type,
+      description,
+      province,
       price,
-      wish,
-      image: imageUrls,
+      toilet,
+      bedroom,
+      videoYoutube,
+      videoFacebook,
+      videoTiktok,
+      googleMapLocation,
+      contact_name,
+      contact_phoneNumber,
+
+      images: imageUrls,
+      legal_images: legal_imageUrls,
     });
 
-    dispatch(slice.actions.createPostSuccess(response.data));
+    dispatch(slice.actions.createNewPostSuccess(response.data));
 
     toast.success("Create a new post success");
   } catch (error) {
@@ -99,18 +182,26 @@ export const createPost = ({
   }
 };
 
-export const getPosts = ({ page, limit = NUMBER_POSTS_OF_LIMIT }) => async (
-  dispatch
-) => {
+export const getAllPosts = ({
+  page,
+  limit = NUMBER_POSTS_OF_LIMIT,
+  filter = {},
+}) => async (dispatch) => {
   dispatch(slice.actions.startLoading());
   try {
-    const response = await apiService.get(`/posts?page=${page}&limit=${limit}`);
-    dispatch(slice.actions.getPostsSuccess(response.data));
+    const queryParams = new URLSearchParams({
+      page: page,
+      limit: limit,
+      ...filter,
+    });
+    const response = await apiService.get(`/posts?${queryParams.toString()}`);
+    dispatch(slice.actions.getAllPostsSuccess(response.data));
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
     toast.error(error.message);
   }
 };
+
 export const getSinglePost = ({ postId }) => async (dispatch) => {
   dispatch(slice.actions.startLoading());
   try {
@@ -119,35 +210,75 @@ export const getSinglePost = ({ postId }) => async (dispatch) => {
     dispatch(slice.actions.getSinglePostSuccess(response.data));
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
+    toast.error(error.message);
   }
 };
 
-// export const addPostToFavoriteList =
-//   ({ postId }) =>
-//   async (dispatch) => {
-//     dispatch(slice.actions.startLoading());
-//     try {
-//       const response = await apiService.post(`/users/me/${postId}`);
-//       console.log("response: ", response);
-//       dispatch(slice.actions.addPostToFavoriteListSuccess(response.data));
-//     } catch (error) {
-//       dispatch(slice.actions.hasError(error.message));
-//       toast.error(error.message);
-//     }
-//   };
+export const updateSinglePost = ({
+  postId,
+  title,
+  address,
+  acreage,
+  length,
+  width,
+  legal,
+  type,
+  description,
+  images,
+  legal_images,
+  province,
+  price,
+  googleMapLocation,
+  videoFacebook,
+  videoYoutube,
+  videoTiktok,
+  contact_name,
+  contact_phoneNumber,
+  isSoldOut,
+}) => async (dispatch) => {
+  dispatch(slice.actions.isLoading());
+  try {
+    const imageUrls = await cloudinaryUpload(images);
+    const legal_imageUrls = await cloudinaryUpload(legal_images);
+    const response = await apiService.put(`posts/${postId}`, {
+      title,
+      address,
+      acreage,
+      length,
+      width,
+      legal,
+      type,
+      description,
+      province,
+      price,
+      googleMapLocation,
+      videoFacebook,
+      videoYoutube,
+      videoTiktok,
+      contact_name,
+      contact_phoneNumber,
+      isSoldOut,
+      images: imageUrls,
+      legal_images: legal_imageUrls,
+    });
+    dispatch(slice.actions.updateSinglePostSuccess(response.data));
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+    toast.error(error.message);
+  }
+};
 
-// export const removePostFromFavoriteList =
-//   ({ postId }) =>
-//   async (dispatch) => {
-//     dispatch(slice.actions.startLoading());
-//     try {
-//       const response = await apiService.delete(`/users/me/${postId}`);
-//       dispatch(slice.actions.removePostFromFavoriteListSuccess(response.data));
-//       console.log(response.data);
-//     } catch (error) {
-//       dispatch(slice.actions.hasError(error.message));
-//       toast.error(error.message);
-//     }
-//   };
+export const deletePost = (id) => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const response = await apiService.delete(`posts/${id}`);
+    dispatch(slice.actions.deleteSinglePostSuccess(response.data));
+    toast.success("Deleted Post successfully");
+    dispatch(getAllPosts());
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+    toast.error(error.message);
+  }
+};
 
 export default slice.reducer;

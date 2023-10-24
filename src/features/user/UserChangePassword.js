@@ -38,8 +38,10 @@ function UserChangePassword() {
 
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showNewPasswordConfirmation, setShowNewPasswordConfirmation] =
-    useState(false);
+  const [
+    showNewPasswordConfirmation,
+    setShowNewPasswordConfirmation,
+  ] = useState(false);
 
   const methods = useForm({
     resolver: yupResolver(PasswordSchema),
@@ -68,7 +70,7 @@ function UserChangePassword() {
 
   return (
     <Container maxWidth="xs">
-      <Helmet>Chợ đất Gia Lai | Thay đổi mật khẩu</Helmet>
+      <Helmet>Chợ đất Tây Nguyên | Thay đổi mật khẩu</Helmet>
       <Box
         sx={{ position: "absolute", left: "5%", top: "5%" }}
         name="breadcrumbs"

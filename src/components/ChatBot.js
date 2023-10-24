@@ -79,43 +79,75 @@ function CustomChatBot() {
   };
   const steps = [
     {
-      id: "Begin",
-      message: "Chào mừng bạn đến với Chợ đất Gia Lai",
-      trigger: "Require name",
-    },
-    {
-      id: "Require name",
-      message: "Vui lòng nhập tên của bạn!",
-      trigger: "begin1",
-    },
-    {
-      id: "begin1",
-      user: true,
-      trigger: "NameMessage",
-    },
-    {
-      id: "NameMessage",
+      id: "Step_1",
       message:
-        "Chào {previousValue}, Bạn cần chúng tôi hỗ trợ bạn BÁN hay MUA bất động sản",
-      trigger: "issues",
+        "Chào mừng bạn đến với website Chợ đất Tây Nguyên - Nơi kết nối các giá trị Bất động sản khu vực Tây Nguyên",
+      trigger: "Step_2",
     },
     {
-      id: "issues",
+      id: "Step_2",
+      message: "Để tiện xưng hô, vui lòng nhập tên của bạn!",
+      trigger: "Step_3",
+    },
+    {
+      id: "Step_3",
+      user: true,
+      trigger: "Step_4",
+    },
+    {
+      id: "Step_4",
+      message: "Chào {previousValue}, Bạn vui lòng nhập số điện thoại",
+      trigger: "Step_5",
+    },
+    {
+      id: "Step_5",
+      user: true,
+      trigger: "Step_6",
+    },
+    {
+      id: "Step_6",
+      message: "Bạn cần chúng tôi hỗ trợ bạn tìm bất động sản của tỉnh nào",
+      trigger: "Step_7",
+    },
+
+    {
+      id: "Step_7",
       options: [
-        { value: "sell", label: "Tôi Cần BÁN", trigger: "sell" },
-        { value: "buy", label: "Tôi Cần MUA", trigger: "buy" },
+        { value: "Gia Lai", label: "GIA LAI", trigger: "gialai" },
+        { value: "Kon Tum", label: "KON TUM", trigger: "kontum" },
+        { value: "Đăk Lăk", label: "ĐĂK LĂK", trigger: "daklak" },
+        { value: "Đăk Nông", label: "ĐĂK NÔNG", trigger: "daknong" },
+        { value: "Lâm Đồng", label: "LÂM ĐỒNG", trigger: "lamdong" },
       ],
     },
     {
-      id: "sell",
+      id: "gialai",
       message:
-        "Cảm ơn bạn, bạn vui lòng liên hệ 0372.75.7777 để chúng tôi hỗ trợ bạn đăng tin BÁN bất động sản nhé",
+        "Cảm ơn bạn, bạn vui lòng liên hệ 0372.75.7777 - Mr. Trần Tiến Dũng để được hỗ trợ tìm kiếm bất động sản ở khu vực Gia Lai nhé",
       end: true,
     },
     {
-      id: "buy",
+      id: "kontum",
       message:
-        "Cảm ơn bạn, bạn vui lòng liên hệ 0372.75.7777 để chúng tôi hỗ trợ bạn TÌM KIẾM bất động sản theo yêu cầu nhé",
+        "Cảm ơn bạn, bạn vui lòng liên hệ 0972.722.677 - Mr. Nguyễn Cao Nguyên để được hỗ trợ tìm kiếm bất động sản ở khu vực tỉnh Kon Tum nhé",
+      end: true,
+    },
+    {
+      id: "daklak",
+      message:
+        "Cảm ơn bạn, bạn vui lòng liên hệ 0908.375.666 - Mr. Võ Trí Tú để được hỗ trợ tìm kiếm bất động sản ở khu vực tỉnh Đăk Lăk nhé",
+      end: true,
+    },
+    {
+      id: "daknong",
+      message:
+        "Cảm ơn bạn, bạn vui lòng liên hệ 0908.375.666 - Mr. Võ Trí Tú để được hỗ trợ tìm kiếm bất động sản ở khu vực tỉnh Đăk Nông nhé",
+      end: true,
+    },
+    {
+      id: "lamdong",
+      message:
+        "Cảm ơn bạn, bạn vui lòng liên hệ 098.4435.656 - Mr. Tống Phước Hoàng để được hỗ trợ tìm kiếm bất động sản ở khu vực tỉnh Lâm Đồng nhé",
       end: true,
     },
   ];
@@ -151,6 +183,10 @@ function CustomChatBot() {
               zIndex: 9999,
               left: "-20px",
               top: "-258px",
+              "&:hover": {
+                backgroundColor: "#f5f5f5",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+              },
             }}
             onClick={closeChatbot}
           >

@@ -20,7 +20,7 @@ const DropZoneStyle = styled("div")(({ theme }) => ({
 }));
 
 // to upload multiple files by drag-and-drop
-function UploadMultipleFiles({
+function UploadMultipleFilesLegal({
   error = false,
   file,
   helperText,
@@ -68,7 +68,7 @@ function UploadMultipleFiles({
             sx={{ color: "#637381" }}
             textAlign="center"
           >
-            Hình ảnh thực tế
+            Hình ảnh pháp lý
           </Typography>
         </Stack>
 
@@ -137,4 +137,4 @@ function UploadMultipleFiles({
   );
 }
 
-export default UploadMultipleFiles;
+export default UploadMultipleFilesLegal;

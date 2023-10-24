@@ -1,16 +1,8 @@
 import React, { useEffect, useState } from "react";
 import PostCard from "./PostCard";
-import {
-  Box,
-  Card,
-  Container,
-  Grid,
-  Pagination,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Card, Container, Grid, Pagination, Stack } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts } from "./postSlice";
+import { getAllPosts } from "./postSlice";
 import { NUMBER_POSTS_OF_LIMIT } from "../../app/config";
 
 const PostList = () => {
@@ -20,7 +12,7 @@ const PostList = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPosts({ page }));
+    dispatch(getAllPosts({ page }));
   }, [dispatch, page]);
 
   const totalPages = Math.ceil(totalPosts / NUMBER_POSTS_OF_LIMIT);
@@ -40,22 +32,7 @@ const PostList = () => {
           alignItems="center"
           justifyContent="space-around"
           spacing={2}
-        >
-          <Typography variant="h5" fontWeight="bold" color="#ffffff">
-            BẤT ĐỘNG SẢN NỔI BẬT
-          </Typography>
-          <Pagination
-            count={totalPages}
-            page={page}
-            onChange={handlePageChange}
-            sx={{
-              color: "#FFFFFF",
-              "& .MuiPaginationItem-root": {
-                color: "#FFFFFF",
-              },
-            }}
-          />
-        </Grid>
+        ></Grid>
 
         <Card
           sx={{

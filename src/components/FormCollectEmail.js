@@ -16,7 +16,7 @@ const FormCollectionEmail = () => {
 
     try {
       await apiService.post("/emails", { email });
-      toast.success("Thanks you ");
+      toast.success("Cảm ơn bạn ");
       setEmail("");
     } catch (error) {
       toast.error(error.message);

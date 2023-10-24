@@ -1,15 +1,16 @@
 import React from "react";
-import { Box, Container, Stack } from "@mui/material";
+import { Box, Container, Grid, Stack, Typography } from "@mui/material";
 import { Helmet } from "react-helmet";
 import ImgPage from "../images/background.png";
 import Lazy from "../layouts/LazyPage";
-import PostList from "../features/post/PostList";
-import PostByImages from "../features/post/PostByImages";
-import BlogList from "../features/blog/BlogList";
-import PostSearch from "../features/post/PostSearch";
-import PartnerCarousel from "./PartnerCarousel";
 import CellPhone from "../components/CellPhone";
 import CustomChatBot from "../components/ChatBot";
+
+import PostList from "../features/post/PostList";
+import PostListByImages from "../features/post/PostListByImages";
+import PartnerCarousel from "./PartnerCarousel";
+import BlogList from "../features/blog/BlogList";
+// import SimpleForm from "../components/SimpleForm";
 
 function HomePage() {
   return (
@@ -25,19 +26,39 @@ function HomePage() {
       }}
     >
       <Helmet>
-        <title>Trang chủ | Chợ đất Gia Lai</title>
+        <title>Trang chủ | Chợ đất Tây Nguyên</title>
       </Helmet>
-
       <Lazy />
-      <PostSearch />
-      <PostList />
-      <PostByImages />
-      <div id="blog-list-section">
-        <BlogList />
-      </div>
+      <Stack sx={{ m: 3, p: 3 }} display="flex">
+        {[
+          { title: "BẤT ĐỘNG SẢN NỔI BẬT", component: <PostList /> },
+          { title: "BẤT ĐỘNG SẢN ĐỊA PHƯƠNG", component: <PostListByImages /> },
+          { title: "BLOGS CHỢ ĐẤT TÂY NGUYÊN", component: <BlogList /> },
+        ].map((section, index) => (
+          <Grid
+            key={index}
+            container
+            alignItems="center"
+            justifyContent="start"
+            spacing={2}
+          >
+            <Typography
+              variant="h5"
+              marginLeft={10}
+              marginTop={5}
+              fontWeight="bold"
+              color="#ffffff"
+            >
+              {section.title}
+            </Typography>
+            {section.component}
+          </Grid>
+        ))}
+      </Stack>
       <PartnerCarousel />
       <Box>
         <CellPhone />
+        {/* <SimpleForm /> */}
         <CustomChatBot />
       </Box>
       <Stack style={{ mt: 10 }}>

@@ -14,7 +14,7 @@ function ChatBotOpenAI() {
   const [typing, setTyping] = useState(false);
   const [messages, setMessages] = useState([
     {
-      message: "Xin chào, Chợ đất Gia Lai có thể hỗ trợ gì được cho bạn",
+      message: "Xin chào, Chợ đất Tây Nguyên có thể hỗ trợ gì được cho bạn",
       sender: "ChatGPT",
     },
   ]);

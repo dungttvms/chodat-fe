@@ -1,47 +1,66 @@
+import { Container } from "@mui/material";
 import React from "react";
-import { Box, Container, Typography } from "@mui/material";
-import CHUSE from "../../images/ChuSe.jpg";
-import CHUPAH from "../../images/Chupah.jpg";
-import DUCCO from "../../images/DucCo.jpg";
-import IAGRAI from "../../images/Iagrai.jpg";
-import PLEIKU from "../../images/Pleiku.jpg";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useNavigate } from "react-router-dom";
 
-function PostByImages({ deviceType }) {
+import kontum from "../../images/province_images/kontum.jpg";
+import gialai from "../../images/province_images/gia lai.jpg";
+import daklak from "../../images/province_images/dak lak.png";
+import daknong from "../../images/province_images/dak nong.jpg";
+import lamdong from "../../images/province_images/lam dong.jpg";
+
+function PostListByImages({ deviceType }) {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
       items: 3,
-      partialVisibilityGutter: 30,
+      partialVisibilityGutter: 20,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
       items: 2,
-      partialVisibilityGutter: 30,
+      partialVisibilityGutter: 20,
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
       items: 1,
-      partialVisibilityGutter: 30,
+      partialVisibilityGutter: 20,
     },
   };
+
   const navigate = useNavigate();
 
-  const images = [
-    { src: CHUSE, slug: "chu-se", title: "huyện Chư Sê" },
-    { src: CHUPAH, slug: "chu-pah", title: "huyện Chư Păh" },
-    { src: PLEIKU, slug: "pleiku", title: "TP. Pleiku" },
-    { src: DUCCO, slug: "duc-co", title: "huyện Đức Cơ" },
-    { src: IAGRAI, slug: "ia-grai", title: "huyện Ia Grai" },
+  const provinces = [
+    {
+      name: "kontum",
+      title: "Kon Tum",
+      image: kontum,
+    },
+    {
+      name: "gialai",
+      title: "Gia Lai",
+      image: gialai,
+    },
+    {
+      name: "daklak",
+      title: "Đăk Lăk",
+      image: daklak,
+    },
+    {
+      name: "daknong",
+      title: "Đăk Nông",
+      image: daknong,
+    },
+    {
+      name: "lamdong",
+      title: "Lâm Đồng",
+      image: lamdong,
+    },
   ];
 
   return (
-    <Container>
-      <Typography Container variant="h5" fontWeight="bold" color="#ffffff">
-        TIN ĐĂNG THEO ĐỊA ĐIỂM
-      </Typography>
+    <Container sx={{ p: 3 }}>
       <Carousel
         swipeable={false}
         draggable={false}
@@ -63,22 +82,27 @@ function PostByImages({ deviceType }) {
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-20-px"
       >
-        {images.map((item, index) => (
+        {provinces.map((province, index) => (
           <div
             key={index}
-            onClick={() => navigate(`/district?q=${item.slug}`)}
+            onClick={() => navigate(`/posts?province=${province.name}`)}
             style={{
-              width: "250px",
-              height: "200px",
-              margin: "20px",
-              backgroundImage: `url(${item.src})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              cursor: "pointer",
               position: "relative",
+              cursor: "pointer",
+              margin: "10px",
+              transition: "opacity 0.3s, transform 0.3s", // Thêm hiệu ứng cho hover
+              "&:hover": {
+                opacity: 0.8, // Giảm độ trong suốt khi hover
+                transform: "scale(1.05)", // Phóng to hình ảnh khi hover
+              },
             }}
-            className="image-box"
           >
+            <img
+              height="200"
+              width="250"
+              src={province.image}
+              alt={province.name}
+            />
             <span
               style={{
                 position: "absolute",
@@ -89,9 +113,8 @@ function PostByImages({ deviceType }) {
                 padding: "5px",
                 fontSize: "12px",
               }}
-              className="image-text"
             >
-              {`Chợ đất ${item.title}`}
+              {`Chợ đất ${province.title}`}
             </span>
           </div>
         ))}
@@ -100,4 +123,4 @@ function PostByImages({ deviceType }) {
   );
 }
 
-export default PostByImages;
+export default PostListByImages;

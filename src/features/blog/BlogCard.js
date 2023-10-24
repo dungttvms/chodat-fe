@@ -16,7 +16,7 @@ const BlogCard = ({ blog }) => {
   const blogId = blog._id;
   const shareUrl = `${window.location.origin}/blogs/${blogId}`;
   const handleCardClick = () => {
-    navigate(`/blogs/${blog._id}`);
+    navigate(`/blogs/${blogId}`);
   };
 
   return (
@@ -28,17 +28,15 @@ const BlogCard = ({ blog }) => {
           width: "100vh",
           height: "auto",
         }}
-        onClick={handleCardClick}
       >
         <CardMedia
           component="img"
           sx={{
             height: "100%",
             width: "50%",
-            // objectFit: "cover",
           }}
           image={blog.imageCover}
-          alt="green iguana"
+          alt="image-cover"
         />
 
         <CardContent>
@@ -56,7 +54,7 @@ const BlogCard = ({ blog }) => {
             <Typography variant="body2" color="text.secondary">
               {blog.descriptionTitle}
             </Typography>
-            <Box flexWrap={1} />
+            <Box sx={{ flexGrow: 1 }}></Box>
             <Box
               sx={{
                 display: "flex",
@@ -78,6 +76,20 @@ const BlogCard = ({ blog }) => {
               </IconButton>
               <Typography variant="caption" sx={{ display: "block" }}>
                 {fDate(blog.createdAt)}
+              </Typography>
+              <Typography
+                variant="caption"
+                sx={{
+                  display: "block",
+                  "&:hover": {
+                    // Định nghĩa kiểu cho hiệu ứng hover tại đây
+                    color: "blue", // Ví dụ: màu chữ mà bạn muốn thay đổi khi hover
+                    // Thêm các kiểu CSS khác tùy ý
+                  },
+                }}
+                onClick={handleCardClick}
+              >
+                Đọc tiếp
               </Typography>
             </Box>
           </Stack>

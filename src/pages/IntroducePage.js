@@ -6,85 +6,73 @@ function IntroducePage() {
   return (
     <Container>
       <Helmet>
-        <title>Giới thiệu | Chợ đất Gia Lai</title>
+        <title>Giới thiệu | Chợ đất Tây Nguyên</title>
       </Helmet>
       <Typography
         variant="h4"
         sx={{ m: 3, textAlign: "center", fontWeight: "bold" }}
       >
-        VỀ CHÚNG TÔI
+        GIỚI THIỆU VỀ CHODATTAYNGUYEN.COM
       </Typography>
       <Typography variant="h5" sx={{ mb: 2, fontWeight: "bold" }}>
-        GIỚI THIỆU VỀ CHODATGIALAI.COM
+        1. Tổng quan:
       </Typography>
       <Typography
         sx={{ textAlign: "justify", marginLeft: "auto", marginRight: "auto" }}
       >
-        chodatgialai.com là website số 1 về bất động sản tại Việt Nam(*) giúp
-        những người tìm kiếm bất động sản tìm được ngôi nhà của mình với hàng
-        triệu tin đăng bất động sản mỗi tháng và những thông tin, tư vấn giúp họ
-        có thể tự tin hơn mỗi khi ra quyết định liên quan tới bất động sản.
-        chodatgialai.com cũng là nền tảng công nghệ và đối tác tin cậy đối với
-        các cá nhân, doanh nghiệp kinh doanh bất động sản và các chủ đầu tư
-        trong việc truyền thông, nghiên cứu thị trường dựa trên các dữ liệu lớn
-        (big data) trực tuyến và cung cấp các ứng dụng, giải pháp bán hàng và
-        quản lý bán hàng, marketing trong lĩnh vực bất động sản.
+        chodattaynguyen.com là nơi hội tụ các thông tin về bất động sản tại khu
+        vực Tây Nguyên, bao gồm các loại tài sản như đất đai, nhà ở, căn hộ,
+        trang trại, vườn, đồi núi và nhiều loại bất động sản khác. Với sự phát
+        triển nhanh chóng, chúng tôi cung cấp một nền tảng hiện đại để bạn dễ
+        dàng tìm kiếm và đăng tin mua/bán bất động sản tại khu vực Tây Nguyên.
       </Typography>
-      <Typography sx={{ fontStyle: "italic" }}>
-        (*) Theo kết quả báo cáo điều tra thị trường “Property Portal Usage
-        2021” ngày 17/08/21 của Kadence International.
+
+      <Typography variant="h5" sx={{ mb: 2, mt: 2, fontWeight: "bold" }}>
+        2. Đa dạng và độc đáo:
+      </Typography>
+      <Typography
+        sx={{ textAlign: "justify", marginLeft: "auto", marginRight: "auto" }}
+      >
+        Chúng tôi hiểu rằng mỗi bất động sản ở Tây Nguyên có một sự độc đáo
+        riêng. Từ những cánh đồng xanh ngút ngàn ở Đắk Lắk, những trang trại
+        tĩnh lặng ở Kon Tum, đến những căn hộ hiện đại tại Pleiku - chúng tôi
+        cung cấp một loạt các loại tài sản đa dạng để bạn lựa chọn.
       </Typography>
       <Typography variant="h5" sx={{ mb: 2, mt: 2, fontWeight: "bold" }}>
-        GIỚI THIỆU CÔNG TY TNHH CODERSCHOOL
+        3. Thông tin chi tiết:
       </Typography>
       <Typography
         sx={{ textAlign: "justify", marginLeft: "auto", marginRight: "auto" }}
       >
-        Nguồn nhân lực lập trình viên chất lượng tại khu vực châu Á nói chung và
-        Việt Nam nói riêng vẫn đang trong tình trạng thiếu hụt. CoderSchool mong
-        muốn giải quyết vấn đề này với những khóa học dễ tiếp cận và chất lượng.
-        <br />
-        Từ 2015, CoderSchool đã giúp hàng ngàn học viên từ đủ các ngành nghề bắt
-        đầu sự nghiệp mới trong ngành Tech.
-        <br />
-        CoderSchool mang đến cho học viên giáo trình thực tế chuẩn Silicon
-        Valley và luôn được cập nhật kết hợp với phương pháp học trực tuyến hiệu
-        quả cùng Mentor. Trên hành trình thực hiện mục tiêu của mình.
-        <br />
-        CoderSchool vui mừng được được đồng hành bởi những quỹ đầu tư Monk's
-        Hill Ventures, TRIVE, Iterative, XA Network, và iSeed Ventures.
+        Mỗi danh mục bất động sản được cung cấp trên trang web
+        chodattaynguyen.com đi kèm với thông tin chi tiết về mô tả, giá cả, kích
+        thước, vị trí và hình ảnh. Bạn có thể dễ dàng tìm hiểu chi tiết về từng
+        tài sản trước khi liên hệ với người bán hoặc chủ sở hữu.
       </Typography>
       <Typography variant="h5" sx={{ mb: 2, mt: 2, fontWeight: "bold" }}>
-        CÁC SẢN PHẨM/DỊCH VỤ
+        4. Đội ngũ hỗ trợ:
       </Typography>
       <Typography
         sx={{ textAlign: "justify", marginLeft: "auto", marginRight: "auto" }}
       >
-        - Dịch vụ truyền thông trên nền tảng website https://chodatgialai.com:
-        <br />
-        + Tin đăng
-        <br />
-        + Banner
-        <br />
-        + Bài PR
-        <br />
-        - FastKey
-        <br />
-        - Giải pháp công nghệ dành riêng cho doanh nghiệp bất động sản (chủ đầu
-        tư, sàn giao dịch) <br />
-        - Các sự kiện trong ngành bất động sản: <br />
-        + Hội nghị Bất động sản Việt Nam (Viet Nam Real Estate Summit - VRES)
-        <br />
-        + Giải thưởng Bất động sản Việt Nam CoderSchool (CoderSchool Vietnam
-        Property Awards - VPA) <br />
-        + Các sự kiện và chương trình đào tạo đồng hành cùng nhà môi giới bất
-        động sản (Expert Talk, Expert Coaching…) <br />
-        - Giải pháp và dữ liệu nghiên cứu thị trường <br />
-        - Giải thưởng Bất động sản Việt Nam CoderSchool (CoderSchool Vietnam
-        Property Awards - VPA) <br />
-        - Sản xuất nội dung với nhiều định dạng khác nhau như video, bài viết,
-        bài viết long-form, phỏng vấn chuyên sâu... <br />- Tư vấn và thực hiện
-        các kế hoạch truyền thông, marketing trong lĩnh vực bất động sản
+        Chúng tôi luôn sẵn sàng hỗ trợ bạn trong việc tìm kiếm và giao dịch bất
+        động sản. Đội ngũ hỗ trợ của chúng tôi sẽ hỗ trợ bạn trong mọi bước của
+        quá trình - từ tìm kiếm đến đàm phán và thủ tục pháp lý.
+      </Typography>
+      <Typography variant="h5" sx={{ mb: 2, mt: 2, fontWeight: "bold" }}>
+        5. Đăng tin miễn phí:
+      </Typography>
+      <Typography
+        sx={{ textAlign: "justify", marginLeft: "auto", marginRight: "auto" }}
+      >
+        Chúng tôi cung cấp dịch vụ đăng tin miễn phí để giúp bạn đưa thông tin
+        về tài sản của bạn lên trang web và tiếp cận một lượng lớn người tìm
+        kiếm.
+        <br /> Chodattaynguyen.com là nơi tuyệt vời để bạn bắt đầu tìm kiếm bất
+        động sản tại khu vực Tây Nguyên, cũng như để đăng tin nếu bạn muốn bán
+        hoặc cho thuê tài sản của mình. Hãy khám phá trang web của chúng tôi và
+        khám phá những cơ hội độc đáo mà khu vực Tây Nguyên có thể mang lại cho
+        bạn.
       </Typography>
     </Container>
   );

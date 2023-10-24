@@ -9,26 +9,27 @@ import {
   Typography,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts } from "./postSlice";
+import { getAllPosts } from "./postSlice";
 import { NUMBER_POSTS_OF_LIMIT } from "../../app/config";
 import { Helmet } from "react-helmet";
+import { useParams } from "react-router-dom";
 
-const PostChuPah = () => {
+const PostFiltered = () => {
   const [page, setPage] = useState(1);
   const { posts } = useSelector((state) => state.post);
-  console.log(posts);
+  const { province, direction } = useParams();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPosts({ page }));
-  }, [dispatch, page]);
+    dispatch(getAllPosts({ district, page }));
+  }, [dispatch, page, district]);
 
-  const filteredPosts = posts.filter((post) => post.district === "chupah");
-  console.log(filteredPosts);
-  const totalChuPahPosts = filteredPosts.length;
+  const filteredPosts = posts.filter((post) => post.district === district);
 
-  const totalPages = Math.ceil(totalChuPahPosts / NUMBER_POSTS_OF_LIMIT);
+  const totalPosts = filteredPosts.length;
+
+  const totalPages = Math.ceil(totalPosts / NUMBER_POSTS_OF_LIMIT);
   const startIndex = (page - 1) * NUMBER_POSTS_OF_LIMIT;
   const endIndex = startIndex + NUMBER_POSTS_OF_LIMIT;
   const handlePageChange = (e, page) => {
@@ -88,4 +89,4 @@ const PostChuPah = () => {
   );
 };
 
-export default PostChuPah;
+export default PostFiltered;
