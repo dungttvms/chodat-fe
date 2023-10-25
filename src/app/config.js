@@ -11,3 +11,5 @@ export const NUMBER_BLOGS_OF_LIMIT =
   process.env.REACT_APP_NUMBER_BLOGS_OF_LIMIT;
 export const CHATGPT_API_KEY = process.env.REACT_APP_CHATGPT_API_KEY;
 export const CHATGPT_URL = process.env.REACT_APP_CHATGPT_URL;
+export const FACEBOOK_URL = process.env.REACT_APP_FACEBOOK_URL;
+export const THANK_YOU_EMAIL = process.env.REACT_APP_THANK_YOU_EMAIL;

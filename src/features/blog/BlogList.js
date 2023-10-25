@@ -15,7 +15,9 @@ function BlogList() {
     dispatch(getAllBlogs({ page }));
   }, [dispatch, page]);
 
-  const totalPages = Math.ceil(totalBlogs / NUMBER_BLOGS_OF_LIMIT);
+  const totalPages = totalBlogs
+    ? Math.ceil(totalBlogs / NUMBER_BLOGS_OF_LIMIT)
+    : 1;
 
   const handlePageChange = (e, page) => {
     setPage(page);

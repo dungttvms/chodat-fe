@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import * as React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import logoImg from "../images/Logo.png";
 
@@ -9,7 +10,7 @@ function Logo({ disabledLink = false, sx }) {
     </Box>
   );
   if (disabledLink) {
-    return <>{logo}</>;
+    return <React.Fragment key="logo">{logo}</React.Fragment>;
   }
   return <RouterLink to="/"> {logo}</RouterLink>;
 }

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { TableCell, Typography, Pagination } from "@mui/material";
+import { Pagination, TableCell } from "@mui/material";
 
 function UserFavoritePosts({ user }) {
-  const itemsPerPage = 3; // Số bài yêu thích hiển thị trên mỗi trang
+  const itemsPerPage = 2;
   const [page, setPage] = useState(1);
 
   const totalFavoritePosts = user.favoritePostList.length;
@@ -22,17 +22,20 @@ function UserFavoritePosts({ user }) {
 
   return (
     <TableCell>
-      <ul>
-        {favoritePostsToDisplay.map((favoritePost, index) => (
-          <li key={index}>
-            <Typography>{favoritePost}</Typography>
-          </li>
-        ))}
-      </ul>
+      {favoritePostsToDisplay.map((favoritePost, index) => (
+        <a
+          key={index}
+          href={`/posts/${favoritePost}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h4>{favoritePost}</h4>
+        </a>
+      ))}
       {totalPages > 1 && (
-        <Typography variant="body2" color="primary">
+        <h6 variant="body2" color="primary">
           Trang {page} / {totalPages}
-        </Typography>
+        </h6>
       )}
       {totalPages > 1 && (
         <Pagination

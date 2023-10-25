@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deletePost, getAllPosts } from "./postSlice";
+import { deletePost, getAllPosts, updateSinglePost } from "./postSlice";
 import {
   Box,
   Card,
@@ -16,6 +16,8 @@ import {
   TableBody,
   Link,
   Button,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -23,6 +25,8 @@ function PostControlByAdmin() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const dispatch = useDispatch();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
@@ -47,7 +51,6 @@ function PostControlByAdmin() {
       <Card sx={{ p: 3 }}>
         <Stack spacing={2}>
           <Stack spacing={2} direction="column" alignItems="center">
-            {/* <Box sx={{ flexGrow: 1 }} /> */}
             <Typography
               variant="subtitle"
               sx={{ color: "text.secondary", ml: 1 }}
@@ -81,60 +84,80 @@ function PostControlByAdmin() {
                 <TableRow>
                   <TableCell
                     sx={{
-                      width: { xs: "none", sm: "30%" },
+                      width: { xs: "none", sm: "25%" },
                       fontWeight: "bold",
+                      textAlign: "center",
                     }}
                   >
                     Tiêu đề bài viết
                   </TableCell>
-                  <TableCell
-                    sx={{
-                      width: { xs: "none", md: "10%" },
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Tỉnh
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      width: { xs: "none", md: "10%" },
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Diện tích
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      width: { xs: "none", md: "10%" },
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Pháp lý
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      width: { xs: "none", md: "10%" },
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Giá
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      width: { xs: "none", md: "10%" },
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Lượt xem
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      width: { xs: "none", md: "10%" },
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Xóa bài viết
-                  </TableCell>
+                  {!isMobile && (
+                    <TableCell
+                      sx={{
+                        width: { xs: "none", md: "10%" },
+                        fontWeight: "bold",
+                        textAlign: "center",
+                      }}
+                    >
+                      Tỉnh
+                    </TableCell>
+                  )}
+                  {!isMobile && (
+                    <TableCell
+                      sx={{
+                        width: { xs: "none", md: "10%" },
+                        fontWeight: "bold",
+                        textAlign: "center",
+                      }}
+                    >
+                      Diện tích
+                    </TableCell>
+                  )}
+                  {!isMobile && (
+                    <TableCell
+                      sx={{
+                        width: { xs: "none", md: "10%" },
+                        fontWeight: "bold",
+                        textAlign: "center",
+                      }}
+                    >
+                      Hiện trạng
+                    </TableCell>
+                  )}
+                  {!isMobile && (
+                    <TableCell
+                      sx={{
+                        width: { xs: "none", md: "10%" },
+                        fontWeight: "bold",
+                        textAlign: "center",
+                      }}
+                    >
+                      Giá
+                    </TableCell>
+                  )}
+                  {!isMobile && (
+                    <TableCell
+                      sx={{
+                        width: { xs: "none", md: "10%" },
+                        fontWeight: "bold",
+                        textAlign: "center",
+                      }}
+                    >
+                      Lượt xem
+                    </TableCell>
+                  )}
+
+                  {!isMobile && (
+                    <TableCell
+                      sx={{
+                        width: { xs: "none", md: "10%" },
+                        fontWeight: "bold",
+                        textAlign: "center",
+                      }}
+                    >
+                      Chỉnh sửa
+                    </TableCell>
+                  )}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -157,56 +180,80 @@ function PostControlByAdmin() {
                           {post.title}
                         </Link>
                       </TableCell>
+                      {!isMobile && (
+                        <TableCell
+                          align="center"
+                          sx={{ display: { xs: "none", md: "table-cell" } }}
+                        >
+                          {post.province}
+                        </TableCell>
+                      )}
+                      {!isMobile && (
+                        <TableCell
+                          align="center"
+                          sx={{ display: { xs: "none", md: "table-cell" } }}
+                        >
+                          {post.acreage} m2
+                        </TableCell>
+                      )}
+                      {!isMobile && (
+                        <TableCell
+                          align="center"
+                          sx={{ display: { xs: "none", md: "table-cell" } }}
+                        >
+                          {post.status}
+                        </TableCell>
+                      )}
+                      {!isMobile && (
+                        <TableCell
+                          align="center"
+                          sx={{ display: { xs: "none", md: "table-cell" } }}
+                        >
+                          {post.price}
+                        </TableCell>
+                      )}
+                      {!isMobile && (
+                        <TableCell
+                          align="center"
+                          sx={{
+                            display: {
+                              xs: "none",
+                              md: "table-cell",
+                            },
+                          }}
+                        >
+                          {post.viewsCount}
+                        </TableCell>
+                      )}
                       <TableCell
-                        align="left"
-                        sx={{ display: { xs: "none", md: "table-cell" } }}
-                      >
-                        {post.province}
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{ display: { xs: "none", md: "table-cell" } }}
-                      >
-                        {post.acreage} m2
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{ display: { xs: "none", md: "table-cell" } }}
-                      >
-                        {post.legal}
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{ display: { xs: "none", md: "table-cell" } }}
-                      >
-                        {post.price}
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{
-                          display: {
-                            xs: "none",
-                            md: "table-cell",
-                          },
-                        }}
-                      >
-                        {post.viewsCount}
-                      </TableCell>
-                      <TableCell
-                        align="left"
+                        align="center"
                         sx={{
                           display: "flex",
                           justifyContent: "center",
                         }}
                       >
-                        <Button
-                          sx={{ fontSize: "0.6rem" }}
-                          size="small"
-                          variant="contained"
-                          onClick={() => dispatch(deletePost(post._id))}
+                        <div
+                          style={{ display: "flex", justifyContent: "center" }}
                         >
-                          XÓA
-                        </Button>
+                          <Button
+                            sx={{ fontSize: "0.6rem" }}
+                            size="small"
+                            variant="contained"
+                            onClick={() =>
+                              dispatch(updateSinglePost(post._id, post.status))
+                            }
+                          >
+                            SỬA
+                          </Button>
+                          <Button
+                            sx={{ fontSize: "0.6rem", marginLeft: 2 }}
+                            size="small"
+                            variant="contained"
+                            onClick={() => dispatch(deletePost(post._id))}
+                          >
+                            XÓA
+                          </Button>
+                        </div>
                       </TableCell>
                     </TableRow>
                   );

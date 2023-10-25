@@ -233,7 +233,7 @@ export const updateSinglePost = ({
   videoTiktok,
   contact_name,
   contact_phoneNumber,
-  isSoldOut,
+  status,
 }) => async (dispatch) => {
   dispatch(slice.actions.isLoading());
   try {
@@ -256,7 +256,7 @@ export const updateSinglePost = ({
       videoTiktok,
       contact_name,
       contact_phoneNumber,
-      isSoldOut,
+      status,
       images: imageUrls,
       legal_images: legal_imageUrls,
     });

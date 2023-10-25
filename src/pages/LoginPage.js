@@ -29,21 +29,6 @@ import apiService from "../app/apiService";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet";
 
-// const loginSchema = yup.object().shape({
-//   email: yup.string().when("phoneNumber", {
-//     is: (val) => !val, // Kiểm tra email chỉ khi không có phoneNumber
-//     then: yup.string().email("Invalid email").required("Email is required"),
-//   }),
-//   phoneNumber: yup.string().when("email", {
-//     is: (val) => !val, // Kiểm tra phoneNumber chỉ khi không có email
-//     then: yup
-//       .string()
-//       .matches(/^(09|03|08|07|05)\d{8}$/, "Invalid phoneNumber")
-//       .required("phoneNumber is required"),
-//   }),
-//   password: yup.string().required("Password is required"),
-// });
-
 const loginSchema = yup.object().shape({
   email: yup
     .string()
@@ -118,10 +103,9 @@ function LoginPage() {
         <Stack spacing={3}>
           {!!errors?.responseError && (
             <Alert severity="error">{errors?.responseError.message}</Alert>
-          )}{" "}
+          )}
           <Alert severity="info">
-            {" "}
-            Bạn chưa có tài khoản{" "}
+            Bạn chưa có tài khoản
             <Link variant="subtitle2" component={RouterLink} to="/register">
               Tạo tài khoản ngay
             </Link>

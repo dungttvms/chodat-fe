@@ -261,6 +261,8 @@ function MainHeader() {
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <Typography
+                    component={"span"}
+                    variant={"body2"}
                     sx={{ display: "flex", alignItems: "center", p: 2 }}
                   >
                     <FavoriteIcon onClick={() => navigate("/favoritePost")} />
@@ -305,7 +307,7 @@ function MainHeader() {
                   onClose={handleCloseUserMenu}
                 >
                   {settings.map((setting) => (
-                    <>
+                    <div key={setting.title}>
                       <MenuItem key={setting.title} onClick={setting.action}>
                         {setting.icon}
                         <Typography textAlign="center">
@@ -313,7 +315,7 @@ function MainHeader() {
                         </Typography>
                       </MenuItem>
                       <Divider sx={{ boderyStyle: "dashed" }} />
-                    </>
+                    </div>
                   ))}
                 </Menu>
               </Box>

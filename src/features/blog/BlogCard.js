@@ -9,14 +9,22 @@ import { useNavigate } from "react-router-dom";
 import { fDate } from "../../utils/formatTime";
 import ShareIcon from "@mui/icons-material/Share";
 import { Link } from "react-scroll";
-import IconButton from "@mui/material/IconButton";
+import { FACEBOOK_URL } from "../../app/config";
 
 const BlogCard = ({ blog }) => {
   const navigate = useNavigate();
   const blogId = blog._id;
   const shareUrl = `${window.location.origin}/blogs/${blogId}`;
+
   const handleCardClick = () => {
     navigate(`/blogs/${blogId}`);
+  };
+
+  const [isSharing, setSharing] = React.useState(false); // State để kiểm soát trạng thái của nút chia sẻ
+
+  const shareFacebook = () => {
+    const facebookShareUrl = `${FACEBOOK_URL}${encodeURIComponent(shareUrl)}`;
+    window.open(facebookShareUrl, "_blank");
   };
 
   return (
@@ -33,7 +41,7 @@ const BlogCard = ({ blog }) => {
           component="img"
           sx={{
             width: "50%",
-            minHeight: "200px", // Đảm bảo tỷ lệ tốt hơn trên màn hình laptop
+            minHeight: "200px",
           }}
           image={blog.imageCover}
           alt="image-cover"
@@ -44,7 +52,6 @@ const BlogCard = ({ blog }) => {
             sx={{
               display: "relative",
               flexDirection: "column",
-              // justifyContent: "space-around",
             }}
           >
             <Link to="title-blog-detail" smooth={true} duration={500}>
@@ -72,18 +79,21 @@ const BlogCard = ({ blog }) => {
                 justifyContent: "space-around ",
               }}
             >
-              <IconButton aria-label="share">
-                <FacebookShareButton
-                  sx={{
-                    height: "24px",
-                    width: "24px",
-                    padding: "8px",
-                  }}
-                  url={shareUrl}
-                >
-                  <ShareIcon />
-                </FacebookShareButton>
-              </IconButton>
+              <FacebookShareButton
+                sx={{
+                  height: "24px",
+                  width: "24px",
+                  padding: "8px",
+                  color: isSharing ? "primary.main" : "inherit",
+                }}
+                url={shareUrl}
+                onClick={shareFacebook}
+                onMouseEnter={() => setSharing(true)}
+                onMouseLeave={() => setSharing(false)}
+              >
+                <ShareIcon />
+              </FacebookShareButton>
+
               <Typography variant="caption" sx={{ display: "block" }}>
                 {fDate(blog.createdAt)}
               </Typography>

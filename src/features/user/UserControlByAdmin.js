@@ -1,6 +1,4 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteSingleUserByAdmin, getAllUsersByAdmin } from "./userSlice";
 import {
@@ -10,7 +8,6 @@ import {
   Card,
   Container,
   Link,
-  // Modal,
   Stack,
   Table,
   TableBody,
@@ -20,18 +17,20 @@ import {
   TablePagination,
   TableRow,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import UserFavoritePosts from "./UserFavoritePosts";
-
-// import UserTable from "./UserTable";
+import { THANK_YOU_EMAIL } from "../../app/config";
 
 function UserControlByAdmin() {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
   const dispatch = useDispatch();
-
   const { user } = useSelector((state) => state.user);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(isMobile ? 5 : 10);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -41,21 +40,6 @@ function UserControlByAdmin() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
-  // const [open, setOpen] = useState(false);
-
-  // const handleOpen = () => {
-  //   setOpen(true);
-  // };
-
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
-
-  // const handleDeleteUser = () => {
-  //   dispatch(deleteSingleUserByAdmin(user._id));
-  //   setOpen(false);
-  // };
 
   useEffect(() => {
     dispatch(getAllUsersByAdmin({ page: page + 1, limit: rowsPerPage }));
@@ -69,7 +53,6 @@ function UserControlByAdmin() {
       <Card sx={{ p: 3 }}>
         <Stack spacing={2}>
           <Stack spacing={2} direction="column" alignItems="center">
-            {/* <Box sx={{ flexGrow: 1 }} /> */}
             <Typography
               variant="subtitle"
               sx={{ color: "text.secondary", ml: 1 }}
@@ -80,7 +63,6 @@ function UserControlByAdmin() {
                 ? `Có 1 User được tìm thấy`
                 : "Không tìm thấy User nào"}
             </Typography>
-
             <TablePagination
               sx={{
                 "& .MuiTablePagination-selectLabel, .MuiTablePagination-select, .MuiTablePagination-selectIcon": {
@@ -113,30 +95,38 @@ function UserControlByAdmin() {
                     sx={{
                       width: { xs: "none", sm: "7%" },
                       fontWeight: "bold",
+                      textAlign: "center",
                     }}
                   >
                     Vai trò
                   </TableCell>
-                  <TableCell
-                    sx={{
-                      width: { xs: "none", md: "table-cell" },
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Số điện thoại
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      width: { xs: "none", md: "table-cell" },
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Email
-                  </TableCell>
+                  {!isMobile && (
+                    <TableCell
+                      sx={{
+                        width: { xs: "none", md: "table-cell" },
+                        fontWeight: "bold",
+                        textAlign: "center",
+                      }}
+                    >
+                      Số điện thoại
+                    </TableCell>
+                  )}
+                  {!isMobile && (
+                    <TableCell
+                      sx={{
+                        width: { xs: "none", md: "table-cell" },
+                        fontWeight: "bold",
+                        textAlign: "center",
+                      }}
+                    >
+                      Email
+                    </TableCell>
+                  )}
                   <TableCell
                     sx={{
                       width: { xs: "none", sm: "25%" },
                       fontWeight: "bold",
+                      textAlign: "center",
                     }}
                   >
                     Đang quan tâm
@@ -145,6 +135,7 @@ function UserControlByAdmin() {
                     sx={{
                       width: { xs: "none", md: "table-cell" },
                       fontWeight: "bold",
+                      textAlign: "center",
                     }}
                   >
                     Xóa người dùng
@@ -177,32 +168,38 @@ function UserControlByAdmin() {
                         </Link>
                       </TableCell>
                       <TableCell
-                        align="left"
+                        align="center"
                         sx={{ display: { xs: "none", md: "table-cell" } }}
                       >
                         {user.role}
                       </TableCell>
+                      {!isMobile && (
+                        <TableCell
+                          align="center"
+                          sx={{ display: { xs: "none", md: "table-cell" } }}
+                        >
+                          {user.phoneNumber}
+                        </TableCell>
+                      )}
+                      {!isMobile && (
+                        <TableCell
+                          align="justify"
+                          sx={{ display: { xs: "none", md: "table-cell" } }}
+                        >
+                          <a href={`mailto:${user.email}?${THANK_YOU_EMAIL}`}>
+                            {user.email}
+                          </a>
+                        </TableCell>
+                      )}
                       <TableCell
-                        align="left"
-                        sx={{ display: { xs: "none", md: "table-cell" } }}
-                      >
-                        {user.phoneNumber}
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{ display: { xs: "none", md: "table-cell" } }}
-                      >
-                        {user.email}
-                      </TableCell>
-                      <TableCell
-                        align="left"
+                        align="center"
                         sx={{ display: { xs: "none", md: "table-cell" } }}
                       >
                         <UserFavoritePosts user={user} />
                       </TableCell>
 
                       <TableCell
-                        align="left"
+                        align="center"
                         sx={{
                           display: "flex",
                           justifyContent: "center",

@@ -15,7 +15,9 @@ const PostList = () => {
     dispatch(getAllPosts({ page }));
   }, [dispatch, page]);
 
-  const totalPages = Math.ceil(totalPosts / NUMBER_POSTS_OF_LIMIT);
+  const totalPages = totalPosts
+    ? Math.ceil(totalPosts / NUMBER_POSTS_OF_LIMIT)
+    : 1;
 
   const handlePageChange = (e, page) => {
     setPage(page);

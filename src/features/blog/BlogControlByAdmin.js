@@ -15,6 +15,8 @@ import {
   TablePagination,
   TableRow,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { deleteSingleBlog, getAllBlogs } from "./blogSlice";
 
@@ -22,6 +24,8 @@ function BlogControlByAdmin() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const dispatch = useDispatch();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
@@ -78,30 +82,38 @@ function BlogControlByAdmin() {
                     sx={{
                       width: { xs: "none", sm: "30%" },
                       fontWeight: "bold",
+                      textAlign: "center",
                     }}
                   >
-                    Tiêu đề
+                    Tiêu đề bài viết
                   </TableCell>
+                  {!isMobile && (
+                    <TableCell
+                      sx={{
+                        width: { xs: "none", md: "10%" },
+                        fontWeight: "bold",
+                        textAlign: "center",
+                      }}
+                    >
+                      Thể loại
+                    </TableCell>
+                  )}
+                  {!isMobile && (
+                    <TableCell
+                      sx={{
+                        width: { xs: "none", md: "10%" },
+                        fontWeight: "bold",
+                        textAlign: "center",
+                      }}
+                    >
+                      Lượt xem
+                    </TableCell>
+                  )}
                   <TableCell
                     sx={{
-                      width: { xs: "none", md: "10%" },
+                      width: { xs: "none", sm: "10%" },
                       fontWeight: "bold",
-                    }}
-                  >
-                    Phân loại
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      width: { xs: "none", md: "10%" },
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Lượt xem
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      width: { xs: "none", md: "10%" },
-                      fontWeight: "bold",
+                      textAlign: "center",
                     }}
                   >
                     Xóa bài đăng
@@ -127,20 +139,24 @@ function BlogControlByAdmin() {
                         </Typography>
                       </RouterLink>
                     </TableCell>
+                    {!isMobile && (
+                      <TableCell
+                        align="center"
+                        sx={{ display: { xs: "none", md: "table-cell" } }}
+                      >
+                        {blog.type}
+                      </TableCell>
+                    )}
+                    {!isMobile && (
+                      <TableCell
+                        align="center"
+                        sx={{ display: { xs: "none", md: "table-cell" } }}
+                      >
+                        {blog.readCount}
+                      </TableCell>
+                    )}
                     <TableCell
-                      align="left"
-                      sx={{ display: { xs: "none", md: "table-cell" } }}
-                    >
-                      {blog.type}
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      sx={{ display: { xs: "none", md: "table-cell" } }}
-                    >
-                      {blog.readCount}
-                    </TableCell>
-                    <TableCell
-                      align="left"
+                      align="center"
                       sx={{
                         display: "flex",
                         justifyContent: "center",

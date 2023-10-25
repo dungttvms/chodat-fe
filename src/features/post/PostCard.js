@@ -9,21 +9,20 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShareIcon from "@mui/icons-material/Share";
 import PlaceIcon from "@mui/icons-material/Place";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import { FacebookShareButton } from "react-share";
 import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 import SellIcon from "@mui/icons-material/Sell";
 import { Box, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { fToNow } from "../../utils/formatTime";
 import useAuth from "../../hooks/useAuth";
+import { FACEBOOK_URL } from "../../app/config";
 
 const PostCard = ({ post }) => {
   const postId = post._id;
-
-  const shareUrl = `${window.location.origin}/posts/${postId}`;
   const navigate = useNavigate();
-
   const { user, addPostToFavoriteList, removePostFromFavoriteList } = useAuth();
+
+  const [isSharing, setSharing] = React.useState(false); // State để kiểm soát trạng thái của nút chia sẻ
 
   const isHeart = user?.favoritePostList?.includes(postId);
 
@@ -34,6 +33,14 @@ const PostCard = ({ post }) => {
       removePostFromFavoriteList({ postId });
     }
   };
+
+  const shareUrl = `${window.location.origin}/posts/${postId}`;
+
+  const shareFacebook = () => {
+    const facebookShareUrl = `${FACEBOOK_URL}${encodeURIComponent(shareUrl)}`;
+    window.open(facebookShareUrl, "_blank");
+  };
+
   return (
     <Card xs={12} md={4} sx={{ m: 2 }}>
       <CardMedia
@@ -131,18 +138,21 @@ const PostCard = ({ post }) => {
           >
             {isHeart ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           </IconButton>
-          <IconButton aria-label="share">
-            <FacebookShareButton
-              sx={{
-                height: "24px",
-                width: "24px",
-                padding: "8px",
-              }}
-              url={shareUrl}
-            >
-              <ShareIcon />
-            </FacebookShareButton>
+
+          <IconButton
+            sx={{
+              fontSize: "24px",
+              padding: "8px",
+              color: isSharing ? "primary.main" : "inherit", // Sử dụng màu chính khi đang chia sẻ
+            }}
+            aria-label="share on Facebook"
+            onClick={shareFacebook}
+            onMouseEnter={() => setSharing(true)} // Khi hover vào nút, đặt trạng thái chia sẻ thành true
+            onMouseLeave={() => setSharing(false)} // Khi rời khỏi nút, đặt trạng thái chia sẻ thành false
+          >
+            <ShareIcon />
           </IconButton>
+
           <Box sx={{ flexGrow: 1 }} />
           <Typography
             variant="caption"
