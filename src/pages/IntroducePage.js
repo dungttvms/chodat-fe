@@ -17,9 +17,7 @@ function IntroducePage() {
       <Typography variant="h5" sx={{ mb: 2, fontWeight: "bold" }}>
         1. Tổng quan:
       </Typography>
-      <Typography
-        sx={{ textAlign: "justify", marginLeft: "auto", marginRight: "auto" }}
-      >
+      <Typography sx={{ textAlign: "justify" }}>
         chodattaynguyen.com là nơi hội tụ các thông tin về bất động sản tại khu
         vực Tây Nguyên, bao gồm các loại tài sản như đất đai, nhà ở, căn hộ,
         trang trại, vườn, đồi núi và nhiều loại bất động sản khác. Với sự phát
@@ -30,9 +28,7 @@ function IntroducePage() {
       <Typography variant="h5" sx={{ mb: 2, mt: 2, fontWeight: "bold" }}>
         2. Đa dạng và độc đáo:
       </Typography>
-      <Typography
-        sx={{ textAlign: "justify", marginLeft: "auto", marginRight: "auto" }}
-      >
+      <Typography sx={{ textAlign: "justify" }}>
         Chúng tôi hiểu rằng mỗi bất động sản ở Tây Nguyên có một sự độc đáo
         riêng. Từ những cánh đồng xanh ngút ngàn ở Đắk Lắk, những trang trại
         tĩnh lặng ở Kon Tum, đến những căn hộ hiện đại tại Pleiku - chúng tôi
@@ -41,9 +37,7 @@ function IntroducePage() {
       <Typography variant="h5" sx={{ mb: 2, mt: 2, fontWeight: "bold" }}>
         3. Thông tin chi tiết:
       </Typography>
-      <Typography
-        sx={{ textAlign: "justify", marginLeft: "auto", marginRight: "auto" }}
-      >
+      <Typography sx={{ textAlign: "justify" }}>
         Mỗi danh mục bất động sản được cung cấp trên trang web
         chodattaynguyen.com đi kèm với thông tin chi tiết về mô tả, giá cả, kích
         thước, vị trí và hình ảnh. Bạn có thể dễ dàng tìm hiểu chi tiết về từng
@@ -52,9 +46,7 @@ function IntroducePage() {
       <Typography variant="h5" sx={{ mb: 2, mt: 2, fontWeight: "bold" }}>
         4. Đội ngũ hỗ trợ:
       </Typography>
-      <Typography
-        sx={{ textAlign: "justify", marginLeft: "auto", marginRight: "auto" }}
-      >
+      <Typography sx={{ textAlign: "justify" }}>
         Chúng tôi luôn sẵn sàng hỗ trợ bạn trong việc tìm kiếm và giao dịch bất
         động sản. Đội ngũ hỗ trợ của chúng tôi sẽ hỗ trợ bạn trong mọi bước của
         quá trình - từ tìm kiếm đến đàm phán và thủ tục pháp lý.
@@ -62,9 +54,7 @@ function IntroducePage() {
       <Typography variant="h5" sx={{ mb: 2, mt: 2, fontWeight: "bold" }}>
         5. Đăng tin miễn phí:
       </Typography>
-      <Typography
-        sx={{ textAlign: "justify", marginLeft: "auto", marginRight: "auto" }}
-      >
+      <Typography sx={{ textAlign: "justify" }}>
         Chúng tôi cung cấp dịch vụ đăng tin miễn phí để giúp bạn đưa thông tin
         về tài sản của bạn lên trang web và tiếp cận một lượng lớn người tìm
         kiếm.

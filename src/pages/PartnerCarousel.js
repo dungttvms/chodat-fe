@@ -23,6 +23,7 @@ const partnerImages = [
   { src: loctroi, alt: "loctroi" },
   { src: nsj, alt: "nsj" },
 ];
+
 const PartnerCarousel = ({ deviceType }) => {
   const responsive = {
     desktop: {

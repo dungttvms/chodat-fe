@@ -20,27 +20,33 @@ const BlogCard = ({ blog }) => {
   };
 
   return (
-    <Card sx={{ m: 2 }}>
+    <Card sx={{ m: 2, display: "flex" }}>
       <CardActionArea
         sx={{
           display: "flex",
           flexDirection: "row",
-          width: "100vh",
+          width: "100%",
           height: "auto",
         }}
       >
         <CardMedia
           component="img"
           sx={{
-            height: "100%",
             width: "50%",
+            minHeight: "200px", // Đảm bảo tỷ lệ tốt hơn trên màn hình laptop
           }}
           image={blog.imageCover}
           alt="image-cover"
         />
 
-        <CardContent>
-          <Stack sx={{ display: "flex", justifyItems: "space-around" }}>
+        <CardContent sx={{ flex: "1" }}>
+          <Stack
+            sx={{
+              display: "relative",
+              flexDirection: "column",
+              // justifyContent: "space-around",
+            }}
+          >
             <Link to="title-blog-detail" smooth={true} duration={500}>
               <Typography
                 gutterBottom
@@ -51,15 +57,19 @@ const BlogCard = ({ blog }) => {
                 {blog.title}
               </Typography>
             </Link>
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ mt: 3, mb: 5 }}
+            >
               {blog.descriptionTitle}
             </Typography>
-            <Box sx={{ flexGrow: 1 }}></Box>
+            <Box sx={{ flexGrow: 1 }} />
             <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "space-around",
+                justifyContent: "space-around ",
               }}
             >
               <IconButton aria-label="share">
@@ -81,11 +91,7 @@ const BlogCard = ({ blog }) => {
                 variant="caption"
                 sx={{
                   display: "block",
-                  "&:hover": {
-                    // Định nghĩa kiểu cho hiệu ứng hover tại đây
-                    color: "blue", // Ví dụ: màu chữ mà bạn muốn thay đổi khi hover
-                    // Thêm các kiểu CSS khác tùy ý
-                  },
+                  cursor: "pointer",
                 }}
                 onClick={handleCardClick}
               >

@@ -9,14 +9,13 @@ function Regulations() {
         <title>Điều khoản | Chợ đất Tây Nguyên</title>
       </Helmet>
       <Typography
-        variant="h5"
+        variant="h4"
         sx={{ m: 3, textAlign: "center", fontWeight: "bold" }}
       >
         ĐIỀU KHOẢN
       </Typography>
-      <Typography
-        sx={{ textAlign: "justify", marginLeft: "auto", marginRight: "auto" }}
-      >
+
+      <Typography sx={{ textAlign: "justify" }}>
         Sàn thương mại điện tử ChodatTayNguyen.com do Công ty TNHH Dịch Vụ
         Thương Mại Dịch vụ SmartVina sở hữu, là kênh thông tin rao vặt chuyên về
         lĩnh vực nhà đất khu vực Tây Nguyên. Website liên tục cập nhật các bất
@@ -27,12 +26,13 @@ function Regulations() {
         người thuê mau tìm được bất động sản ưng ý, người bán và cho thuê mau
         tìm được khách hàng.
       </Typography>
-      <Typography variant="h6" sx={{ mb: 2, mt: 2, fontWeight: "bold" }}>
+      <Typography
+        variant="h4"
+        sx={{ m: 3, textAlign: "center", fontWeight: "bold" }}
+      >
         I. NGUYÊN TẮC CHUNG
       </Typography>
-      <Typography
-        sx={{ textAlign: "justify", marginLeft: "auto", marginRight: "auto" }}
-      >
+      <Typography sx={{ textAlign: "justify" }}>
         - Sàn giao dịch TMĐT ChodatTayNguyen.com là đơn vị trung gian trong việc
         quảng cáo, tiếp thị sản phẩm của khách hàng, khách quan đối với sản phẩm
         được giao dịch.
@@ -48,24 +48,21 @@ function Regulations() {
         các trường hợp cấm kinh doanh, cấm quảng cáo theo quy định của pháp luật
         hiện hành.
       </Typography>
-      <Typography variant="h6" sx={{ mb: 2, mt: 2, fontWeight: "bold" }}>
+      <Typography
+        variant="h4"
+        sx={{ m: 3, textAlign: "center", fontWeight: "bold" }}
+      >
         II. QUY ĐỊNH CHUNG
       </Typography>
-      <Typography variant="h6" sx={{ mb: 2, mt: 2, fontWeight: "bold" }}>
+      <Typography sx={{ textAlign: "justify" }}>
         2.1. Định nghĩa tên gọi
       </Typography>
-      <Typography
-        sx={{ textAlign: "justify", marginLeft: "auto", marginRight: "auto" }}
-      >
+      <Typography sx={{ textAlign: "justify" }}>
         - Người đăng tin bán, cho thuê, cần mua, cần mua được gọi là Thành viên
         <br />- Người có nhu cầu mua, thuê được gọi là Khách hàng.
       </Typography>
-      <Typography variant="h6" sx={{ mb: 2, mt: 2, fontWeight: "bold" }}>
-        2.2. Quy định chung
-      </Typography>
-      <Typography
-        sx={{ textAlign: "justify", marginLeft: "auto", marginRight: "auto" }}
-      >
+      <Typography sx={{ textAlign: "justify" }}>2.2. Quy định chung</Typography>
+      <Typography sx={{ textAlign: "justify" }}>
         Quy trình cho người mua hàng: <br /> ChodatTayNguyen.com được xây dựng
         nhằm phục vụ cho người mua mau tìm kiếm được thông tin về bất động sản
         phù hợp nhất.
@@ -98,12 +95,10 @@ function Regulations() {
         <br />- Link Video giới thiệu review (Youtube, TikTok, Reels Facebook)
         <br />- Đừng quên để lại thông tin của bạn (Tên, Số điện thoại, Email)
       </Typography>
-      <Typography variant="h6" sx={{ mb: 2, mt: 2, fontWeight: "bold" }}>
+      <Typography sx={{ textAlign: "justify" }}>
         2.3. Đảm bảo an toàn giao dịch
       </Typography>
-      <Typography
-        sx={{ textAlign: "justify", marginLeft: "auto", marginRight: "auto" }}
-      >
+      <Typography sx={{ textAlign: "justify" }}>
         - ChodatTayNguyen.com mong muốn tạo điều kiện cho những người mua, bán,
         thuê và cho thuê bất động sản nói chung có thể đến với nhau và tìm được
         những khách hàng phù hợp nhất cho các bất động sản của mình.
@@ -123,12 +118,10 @@ function Regulations() {
         <br /> - Bởi vậy, chúng tôi xin khuyến nghị khách hàng hãy tìm hiểu
         thông tin thật kỹ trước khi đưa đến quyết định của mình.
       </Typography>
-      <Typography variant="h6" sx={{ mb: 2, mt: 2, fontWeight: "bold" }}>
+      <Typography sx={{ textAlign: "justify" }}>
         2.4. Cam kết bảo mật thông tin khách hàng
       </Typography>
-      <Typography
-        sx={{ textAlign: "justify", marginLeft: "auto", marginRight: "auto" }}
-      >
+      <Typography sx={{ textAlign: "justify" }}>
         - ChodatTayNguyen.com cam kết sẽ bảo mật các thông tin cá nhân của thành
         viên, sẽ nỗ lực hết sức và sử dụng các biện pháp thích hợp để các thông
         tin mà thành viên cung cấp cho chúng tôi trong quá trình sử dụng website
@@ -137,16 +130,17 @@ function Regulations() {
         sự đồng ý của thành viên đó, trừ những trường hợp pháp luật có quy định
         khác.
       </Typography>
-      <Typography variant="h6" sx={{ mb: 2, mt: 2, fontWeight: "bold" }}>
+      <Typography
+        variant="h4"
+        sx={{ m: 3, textAlign: "center", fontWeight: "bold" }}
+      >
         III. QUYỀN VÀ NGHĨA VỤ CỦA CÁC BÊN THAM GIA
       </Typography>
-      <Typography variant="h6" sx={{ mb: 2, mt: 2, fontWeight: "bold" }}>
+      <Typography sx={{ textAlign: "justify" }}>
         3.1. Quyền của Ban quản lý Sàn giao dịch/website TMĐT
         ChodatTayNguyen.com
       </Typography>
-      <Typography
-        sx={{ textAlign: "justify", marginLeft: "auto", marginRight: "auto" }}
-      >
+      <Typography sx={{ textAlign: "justify" }}>
         - ChodatTayNguyen.com có toàn quyền thay đổi, chỉnh sửa, bổ sung Quy chế
         sử dụng bất cứ lúc nào mà không cần thông báo. Các thành viên phải tuân
         thủ theo các Quy định mới được bổ sung (nếu có).
@@ -163,13 +157,11 @@ function Regulations() {
         sản đang rao bán/cho thuê này có thật nhằm đảm bảo thông tin đăng tải
         trên website là đúng sự thật.
       </Typography>
-      <Typography variant="h6" sx={{ mb: 2, mt: 2, fontWeight: "bold" }}>
+      <Typography sx={{ textAlign: "justify" }}>
         3.2. Nghĩa vụ của Ban quản lý Sàn giao dịch/website TMĐT
         ChodatTayNguyen.com
       </Typography>
-      <Typography
-        sx={{ textAlign: "justify", marginLeft: "auto", marginRight: "auto" }}
-      >
+      <Typography sx={{ textAlign: "justify" }}>
         - ChodatTayNguyen.com cố gắng sàn lọc để đưa ra những thông tin chính
         xác. Chúng tôi khuyến nghị khách hàng tìm hiểu kỹ thông tin trước khi
         giao dịch. Chúng tôi không giải quyết những tranh chấp này của khách
@@ -218,12 +210,10 @@ function Regulations() {
         thông tin về người bán, tích cực hỗ trợ khách hàng bảo vệ quyền và lợi
         ích hợp pháp của mình.
       </Typography>
-      <Typography variant="h6" sx={{ mb: 2, mt: 2, fontWeight: "bold" }}>
+      <Typography sx={{ textAlign: "justify" }}>
         3.3. Quyền của Thành viên Sàn giao dịch/website TMĐT ChodatTayNguyen.com
       </Typography>
-      <Typography
-        sx={{ textAlign: "justify", marginLeft: "auto", marginRight: "auto" }}
-      >
+      <Typography sx={{ textAlign: "justify" }}>
         - Các thành viên có tài khoản trên Sàn giao dịch TMĐT
         ChodatTayNguyen.com có quyền sử dụng mọi dịch vụ, tiện ích được cung cấp
         trên website theo đúng chức năng, quyền hạn được phân cấp.
@@ -236,13 +226,11 @@ function Regulations() {
         trực tiếp bằng thư, fax hoặc email đến cho Sàn giao dịch TMĐT
         ChodatTayNguyen.com.
       </Typography>
-      <Typography variant="h6" sx={{ mb: 2, mt: 2, fontWeight: "bold" }}>
+      <Typography sx={{ textAlign: "justify" }}>
         3.4. Nghĩa vụ của Thành viên Sàn giao dịch/website TMĐT
         ChodatTayNguyen.com
       </Typography>
-      <Typography
-        sx={{ textAlign: "justify", marginLeft: "auto", marginRight: "auto" }}
-      >
+      <Typography sx={{ textAlign: "justify" }}>
         - Thành viên sẽ tự chịu trách nhiệm về bảo mật và lưu giữ và mọi hoạt
         động sử dụng dịch vụ dưới tên đăng ký, mật khẩu và hộp thư điện tử của
         mình.
@@ -285,12 +273,13 @@ function Regulations() {
         thương mại điện tử.
         <br /> - Thực hiện đầy đủ nghĩa vụ thuế theo quy định của pháp luật.
       </Typography>
-      <Typography variant="h6" sx={{ mb: 2, mt: 2, fontWeight: "bold" }}>
-        IV. Điều khoản áp dụng
-      </Typography>
       <Typography
-        sx={{ textAlign: "justify", marginLeft: "auto", marginRight: "auto" }}
+        variant="h4"
+        sx={{ m: 3, textAlign: "center", fontWeight: "bold" }}
       >
+        IV. ĐIỀU KHOẢN ÁP DỤNG
+      </Typography>
+      <Typography sx={{ textAlign: "justify" }}>
         - Quy chế của Sàn giao dịch điện tử ChodatTayNguyen.com chính thức có
         hiệu lực thi hành kể từ ngày ký Quyết định ban hành kèm theo Quy chế
         này. Sàn giao dịch điện tử ChodatTayNguyen.com có quyền và có thể thay
@@ -309,15 +298,20 @@ function Regulations() {
         ChodatTayNguyen.com.com.vn theo thông tin dưới đây để được giải đáp.
         <br /> <br />
         <br />{" "}
-        <Typography variant="h6" sx={{ mb: 1, mt: 2, fontWeight: "bold" }}>
+        <Typography
+          variant="h4"
+          sx={{ m: 3, textAlign: "center", fontWeight: "bold" }}
+        >
           THÔNG TIN LIÊN HỆ
         </Typography>
-        <br /> Sàn giao dịch Thương mại điện tử ChodatTayNguyen.com
-        <br />
-        CÔNG TY TNHH DỊCH VỤ THƯƠNG MẠI VÀ DỊCH VỤ SMARTVINA
-        <br /> Địa chỉ: Thôn 6, xã Nghĩa Hưng, huyện Chư Păh, tỉnh Gia Lai
-        <br /> Điện thoại liên hệ: 0372.75.7777 0906.814.777
-        <br /> Email: info@chodattaynguyen.com
+        <Typography sx={{ textAlign: "justify" }}>
+          <br /> Sàn giao dịch Thương mại điện tử ChodatTayNguyen.com
+          <br />
+          CÔNG TY TNHH DỊCH VỤ THƯƠNG MẠI VÀ DỊCH VỤ SMARTVINA
+          <br /> Địa chỉ: Thôn 6, xã Nghĩa Hưng, huyện Chư Păh, tỉnh Gia Lai
+          <br /> Điện thoại liên hệ: 0372.75.7777 0906.814.777
+          <br /> Email: info@chodattaynguyen.com
+        </Typography>
       </Typography>
     </Container>
   );
