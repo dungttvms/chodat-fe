@@ -143,12 +143,12 @@ const PostCard = ({ post }) => {
             sx={{
               fontSize: "24px",
               padding: "8px",
-              color: isSharing ? "primary.main" : "inherit", // Sử dụng màu chính khi đang chia sẻ
+              color: isSharing ? "primary.main" : "inherit",
             }}
             aria-label="share on Facebook"
             onClick={shareFacebook}
-            onMouseEnter={() => setSharing(true)} // Khi hover vào nút, đặt trạng thái chia sẻ thành true
-            onMouseLeave={() => setSharing(false)} // Khi rời khỏi nút, đặt trạng thái chia sẻ thành false
+            onMouseEnter={() => setSharing(true)}
+            onMouseLeave={() => setSharing(false)}
           >
             <ShareIcon />
           </IconButton>

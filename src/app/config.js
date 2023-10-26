@@ -13,3 +13,4 @@ export const CHATGPT_API_KEY = process.env.REACT_APP_CHATGPT_API_KEY;
 export const CHATGPT_URL = process.env.REACT_APP_CHATGPT_URL;
 export const FACEBOOK_URL = process.env.REACT_APP_FACEBOOK_URL;
 export const THANK_YOU_EMAIL = process.env.REACT_APP_THANK_YOU_EMAIL;
+export const GOOGLE_MAP_URL = process.env.REACT_APP_GOOGLE_MAP_URL;

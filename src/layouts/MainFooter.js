@@ -190,7 +190,7 @@ function MainFooter() {
         sx={{ my: 1 }}
       >
         {`Copyright © `}
-        <Link color="inherit" href="https://www.chodattaynguyen.com">
+        <Link color="inherit" href="https://chodattaynguyen.com">
           www.chodattaynguyen.com
         </Link>{" "}
         {new Date().getFullYear()}

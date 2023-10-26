@@ -20,7 +20,7 @@ const BlogCard = ({ blog }) => {
     navigate(`/blogs/${blogId}`);
   };
 
-  const [isSharing, setSharing] = React.useState(false); // State để kiểm soát trạng thái của nút chia sẻ
+  const [isSharing, setSharing] = React.useState(false);
 
   const shareFacebook = () => {
     const facebookShareUrl = `${FACEBOOK_URL}${encodeURIComponent(shareUrl)}`;
@@ -87,6 +87,8 @@ const BlogCard = ({ blog }) => {
                   color: isSharing ? "primary.main" : "inherit",
                 }}
                 url={shareUrl}
+                quote={blog.title}
+                hashtag="Chợ đất Tây Nguyên"
                 onClick={shareFacebook}
                 onMouseEnter={() => setSharing(true)}
                 onMouseLeave={() => setSharing(false)}
