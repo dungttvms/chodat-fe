@@ -38,8 +38,8 @@ const loginSchema = yup.object().shape({
 });
 
 const defaultValues = {
-  email: "admin@coderschool.vn",
-  password: "1234",
+  email: "",
+  password: "",
 };
 
 function LoginPage() {

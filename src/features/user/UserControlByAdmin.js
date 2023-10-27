@@ -26,11 +26,12 @@ import { THANK_YOU_EMAIL } from "../../app/config";
 
 function UserControlByAdmin() {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(isMobile ? 5 : 10);
+
+  const { user } = useSelector((state) => state?.user);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

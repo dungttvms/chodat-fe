@@ -29,6 +29,7 @@ import { Helmet } from "react-helmet";
 import "react-image-gallery/styles/css/image-gallery.css";
 import useAuth from "../../hooks/useAuth";
 import { GOOGLE_MAP_URL } from "../../app/config";
+import { fDateTimeNoHour } from "../../utils/formatTime";
 
 function PostDetail() {
   const dispatch = useDispatch();
@@ -95,17 +96,24 @@ function PostDetail() {
                   {post.title}
                 </Typography>
               </Grid>
-              <Grid container margin={1} spacing={2}>
-                <Grid item xs={12} md={8}>
-                  <Typography variant="h7" sx={{ fontWeight: "bold", m: 1 }}>
-                    Địa chỉ: {post.address}
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} md={4}>
-                  <Typography variant="h7" sx={{ fontWeight: "bold", m: 2 }}>
-                    Tỉnh: {post.province}
-                  </Typography>
-                </Grid>
+              <Grid container margin={1} spacing={2} xs={12} md={6}>
+                <Stack margin={1} alignItems="center">
+                  <Grid item>
+                    <Typography variant="h7" sx={{ fontWeight: "bold", m: 1 }}>
+                      Địa chỉ: {post.address}
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <Typography variant="h7" sx={{ fontWeight: "bold", m: 2 }}>
+                      Tỉnh: {post.province}
+                    </Typography>{" "}
+                  </Grid>
+                  <Grid>
+                    <Typography variant="h7" sx={{ fontWeight: "bold", m: 2 }}>
+                      Ngày đăng: {fDateTimeNoHour(post.createdAt)}
+                    </Typography>{" "}
+                  </Grid>
+                </Stack>
               </Grid>
               <Grid container spacing={2} sx={{ m: 2 }}>
                 <Grid item xs={12} sm={6} md={4}>

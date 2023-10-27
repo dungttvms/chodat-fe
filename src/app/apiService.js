@@ -7,10 +7,10 @@ const apiService = axios.create({
 
 apiService.interceptors.request.use(
   (request) => {
-    console.log("Start Request", request);
+    // console.log("Start Request", request);
     return request;
   },
-  function (error) {
+  function(error) {
     console.log("REQUEST ERROR", { error });
     return Promise.reject(error);
   }
@@ -18,10 +18,10 @@ apiService.interceptors.request.use(
 
 apiService.interceptors.response.use(
   (response) => {
-    console.log("response", response);
+    // console.log("response", response);
     return response;
   },
-  function (error) {
+  function(error) {
     console.log("RESPONSE ERROR", { error });
     //--------------------------------------------------------------------
     // return Promise.reject(error); //-----Hay sử dụng cách này

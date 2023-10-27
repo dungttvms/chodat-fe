@@ -6,6 +6,8 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import SupportAgentIcon from "../images/customer-service_870175.png";
 import styled, { keyframes } from "styled-components";
+import apiService from "../app/apiService";
+import { toast } from "react-toastify";
 
 const ChatContainer = styled.div`
   position: relative;
@@ -69,6 +71,28 @@ const ChatIconStyled = styled.div`
 
 function CustomChatBot() {
   const [showChatbot, setShowChatbot] = useState(false);
+  const [username, setUsername] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [province, setProvince] = useState("");
+
+  const handleSentData = async () => {
+    if (!username || !phoneNumber || !province) {
+      return;
+    }
+    const data = {
+      username: username,
+      phoneNumber: phoneNumber,
+      province: province,
+    };
+
+    try {
+      await apiService.post("/chatBots", data);
+
+      toast.success("Cảm ơn bạn ");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   const toggleChatbot = () => {
     setShowChatbot(!showChatbot);
@@ -76,7 +100,12 @@ function CustomChatBot() {
 
   const closeChatbot = () => {
     setShowChatbot(false);
+    handleSentData();
+    setUsername("");
+    setPhoneNumber("");
+    setProvince("");
   };
+
   const steps = [
     {
       id: "Step_1",
@@ -93,6 +122,10 @@ function CustomChatBot() {
       id: "Step_3",
       user: true,
       trigger: "Step_4",
+      validator: (value) => {
+        setUsername(value);
+        return true;
+      },
     },
     {
       id: "Step_4",
@@ -103,51 +136,37 @@ function CustomChatBot() {
       id: "Step_5",
       user: true,
       trigger: "Step_6",
+      validator: (value) => {
+        const phoneRegex = /^(0[35789][0-9]{8})$/;
+        if (phoneRegex.test(value)) {
+          setPhoneNumber(value);
+          return true;
+        } else {
+          return "Vui lòng nhập SĐT đúng định dạng";
+        }
+      },
     },
     {
       id: "Step_6",
-      message: "Bạn cần chúng tôi hỗ trợ bạn tìm bất động sản của tỉnh nào",
+      message: "Bạn đang quan tâm đến Bất động sản khu vực nào?",
       trigger: "Step_7",
     },
 
     {
       id: "Step_7",
-      options: [
-        { value: "Gia Lai", label: "GIA LAI", trigger: "gialai" },
-        { value: "Kon Tum", label: "KON TUM", trigger: "kontum" },
-        { value: "Đăk Lăk", label: "ĐĂK LĂK", trigger: "daklak" },
-        { value: "Đăk Nông", label: "ĐĂK NÔNG", trigger: "daknong" },
-        { value: "Lâm Đồng", label: "LÂM ĐỒNG", trigger: "lamdong" },
-      ],
+      user: true,
+      trigger: "Step_8",
+      validator: (value) => {
+        setProvince(value);
+        return true;
+      },
     },
+
     {
-      id: "gialai",
+      id: "Step_8",
       message:
-        "Cảm ơn bạn, bạn vui lòng liên hệ 0372.75.7777 - Mr. Trần Tiến Dũng để được hỗ trợ tìm kiếm bất động sản ở khu vực Gia Lai nhé",
-      end: true,
-    },
-    {
-      id: "kontum",
-      message:
-        "Cảm ơn bạn, bạn vui lòng liên hệ 0972.722.677 - Mr. Nguyễn Cao Nguyên để được hỗ trợ tìm kiếm bất động sản ở khu vực tỉnh Kon Tum nhé",
-      end: true,
-    },
-    {
-      id: "daklak",
-      message:
-        "Cảm ơn bạn, bạn vui lòng liên hệ 0908.375.666 - Mr. Võ Trí Tú để được hỗ trợ tìm kiếm bất động sản ở khu vực tỉnh Đăk Lăk nhé",
-      end: true,
-    },
-    {
-      id: "daknong",
-      message:
-        "Cảm ơn bạn, bạn vui lòng liên hệ 0908.375.666 - Mr. Võ Trí Tú để được hỗ trợ tìm kiếm bất động sản ở khu vực tỉnh Đăk Nông nhé",
-      end: true,
-    },
-    {
-      id: "lamdong",
-      message:
-        "Cảm ơn bạn, bạn vui lòng liên hệ 098.4435.656 - Mr. Tống Phước Hoàng để được hỗ trợ tìm kiếm bất động sản ở khu vực tỉnh Lâm Đồng nhé",
+        "Cảm ơn bạn, Chợ đất Tây Nguyên sẽ liên hệ với bạn trong thời gian sớm nhất",
+
       end: true,
     },
   ];
@@ -176,6 +195,7 @@ function CustomChatBot() {
           }}
         >
           <ChatBot steps={steps} />
+
           <IconButton
             sx={{
               color: "#ffffff",

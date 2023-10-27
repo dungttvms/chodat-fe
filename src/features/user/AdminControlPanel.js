@@ -7,9 +7,11 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import UserControlByAdmin from "./UserControlByAdmin";
 import PostControlByAdmin from "../post/PostControlByAdmin";
 import BlogControlByAdmin from "../blog/BlogControlByAdmin";
+import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
 import { Box, Card, Container, Tab, Tabs } from "@mui/material";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import ChatBotControl from "./ChatBotControlByAdmin";
 
 function AdminControlPanel() {
   const { user } = useAuth();
@@ -39,6 +41,12 @@ function AdminControlPanel() {
       component: <BlogControlByAdmin />,
       title: "Quản lý Blogs",
     },
+    {
+      value: "Chat_Bot_List",
+      icon: <PrecisionManufacturingIcon sx={{ fontSize: 24 }} />,
+      component: <ChatBotControl />,
+      title: "Quản lý ChatBot",
+    },
   ];
   useEffect(() => {
     if (user.role !== "admin") {
@@ -48,11 +56,19 @@ function AdminControlPanel() {
 
   return (
     <Container>
-      <Card sx={{ m: 3, position: "relative", justifyContent: "center" }}>
+      <Card
+        sx={{
+          m: 3,
+          position: "relative",
+          justifyContent: "center",
+          paddingRight: "16px",
+          paddingLeft: "16px",
+        }}
+      >
         <Tabs
           sx={{
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "space-between",
           }}
           value={currentTab}
           scrollButtons="auto"

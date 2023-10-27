@@ -22,7 +22,7 @@ import {
 import { Link as RouterLink } from "react-router-dom";
 
 function PostControlByAdmin() {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const dispatch = useDispatch();
   const theme = useTheme();
@@ -40,7 +40,7 @@ function PostControlByAdmin() {
   };
 
   useEffect(() => {
-    dispatch(getAllPosts({ page: page + 1, limit: rowsPerPage }));
+    dispatch(getAllPosts({ page, limit: rowsPerPage }));
   }, [page, rowsPerPage, dispatch]);
 
   return (
@@ -161,8 +161,8 @@ function PostControlByAdmin() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {posts?.map((post) => {
-                  return (
+                {Array.isArray(posts) ? (
+                  posts.map((post) => (
                     <TableRow key={post._id} hover>
                       <TableCell
                         sx={{
@@ -256,8 +256,16 @@ function PostControlByAdmin() {
                         </div>
                       </TableCell>
                     </TableRow>
-                  );
-                })}
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={6}>
+                      <Typography variant="subtitle">
+                        Không có dữ liệu Bài đăng
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                )}
               </TableBody>
             </Table>
           </TableContainer>

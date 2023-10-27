@@ -8,6 +8,7 @@ import UserOwner from "../user/UserOwner";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getSinglePost } from "./postSlice";
+import LoadingScreen from "../../components/LoadingScreen";
 
 function DetailPages() {
   const dispatch = useDispatch();
@@ -20,8 +21,7 @@ function DetailPages() {
     dispatch(getSinglePost({ postId }));
   }, [dispatch, postId]);
 
-
-  if (!postLoading && !post) return <div>loading...</div>;
+  if (!postLoading && !post) return <LoadingScreen />;
 
   if (!postLoading && post)
     return (

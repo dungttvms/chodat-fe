@@ -9,6 +9,7 @@ const initialState = {
   user: [],
   updatedProfile: null,
   selectedUser: null,
+  chatBot: null,
 };
 
 const slice = createSlice({
@@ -55,6 +56,18 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.selectedUser = action.payload.data;
+    },
+    getChatBotSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const { count, chatBot } = action.payload.data;
+      state.totalChatBot = count;
+      state.chatBot = chatBot;
+    },
+    deleteChatBotSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.chatBot = action.payload.data;
     },
   },
 });
@@ -157,6 +170,31 @@ export const deleteSingleUserByAdmin = (id) => async (dispatch) => {
   try {
     const response = await apiService.delete(`/users/admin/${id}`);
     dispatch(slice.actions.deleteSingleUserByAdminSuccess(response.data));
+    toast.success("Deleted User Success");
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+    toast.error(error.message);
+  }
+};
+
+export const getChatBot = () => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const response = await apiService.get(`/chatBots`);
+    dispatch(slice.actions.getChatBotSuccess(response.data));
+    console.log("Right Here:", response.data);
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+    toast.error(error.message);
+  }
+};
+
+export const deleteChatBot = (id) => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const response = await apiService.delete(`/chatBots/${id}`);
+    dispatch(slice.actions.deleteChatBotSuccess(response.data));
+    dispatch(getChatBot());
     toast.success("Deleted User Success");
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));

@@ -3,6 +3,7 @@
     font-family: 'Montserrat', sans-serif;
     text-align: center;
     margin-bottom: 40px;
+    margin-top: 40px;
 }
 
 .blog-detail-title {
@@ -19,10 +20,10 @@
     line-height: 1.6;
 }
 
-/* Sử dụng Media Queries để điều chỉnh bố cục cho các màn hình nhỏ hơn */
+
 @media (max-width: 320px) {
 
-    /* Kích thước màn hình tương ứng với iPhone 5 SE */
+
     .blog-detail-title {
         font-size: 28px;
     }
