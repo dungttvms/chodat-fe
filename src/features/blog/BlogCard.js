@@ -3,7 +3,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Box, CardActionArea, Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { FacebookShareButton } from "react-share";
 import { useNavigate } from "react-router-dom";
 import { fDate } from "../../utils/formatTime";
@@ -29,11 +29,11 @@ const BlogCard = ({ blog }) => {
 
   return (
     <Card sx={{ m: 2, display: "flex" }}>
-      <CardActionArea
+      <Card
         sx={{
           display: "flex",
           flexDirection: "row",
-          width: "100%",
+          width: "100vh",
           height: "auto",
         }}
       >
@@ -42,7 +42,9 @@ const BlogCard = ({ blog }) => {
           sx={{
             width: "50%",
             minHeight: "200px",
+            cursor: "pointer",
           }}
+          onClick={handleCardClick}
           image={blog.imageCover}
           alt="image-cover"
         />
@@ -60,6 +62,8 @@ const BlogCard = ({ blog }) => {
                 variant="h5"
                 component="div"
                 className="title-blog-detail"
+                onClick={handleCardClick}
+                sx={{ cursor: "pointer" }}
               >
                 {blog.title}
               </Typography>
@@ -71,48 +75,51 @@ const BlogCard = ({ blog }) => {
             >
               {blog.descriptionTitle}
             </Typography>
-            <Box sx={{ flexGrow: 1 }} />
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-around ",
-              }}
-            >
-              <FacebookShareButton
+            <Stack />
+            <Box flexGrow={1} />
+            <Stack>
+              <Box
                 sx={{
-                  height: "24px",
-                  width: "24px",
-                  padding: "8px",
-                  color: isSharing ? "primary.main" : "inherit",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-around ",
                 }}
-                url={shareUrl}
-                quote={blog.title}
-                hashtag="Chợ đất Tây Nguyên"
-                onClick={shareFacebook}
-                onMouseEnter={() => setSharing(true)}
-                onMouseLeave={() => setSharing(false)}
               >
-                <ShareIcon />
-              </FacebookShareButton>
+                <FacebookShareButton
+                  sx={{
+                    height: "24px",
+                    width: "24px",
+                    padding: "8px",
+                    color: isSharing ? "primary.main" : "inherit",
+                  }}
+                  url={shareUrl}
+                  quote={blog.title}
+                  hashtag="Chợ đất Tây Nguyên"
+                  onClick={shareFacebook}
+                  onMouseEnter={() => setSharing(true)}
+                  onMouseLeave={() => setSharing(false)}
+                >
+                  <ShareIcon />
+                </FacebookShareButton>
 
-              <Typography variant="caption" sx={{ display: "block" }}>
-                {fDate(blog.createdAt)}
-              </Typography>
-              <Typography
-                variant="caption"
-                sx={{
-                  display: "block",
-                  cursor: "pointer",
-                }}
-                onClick={handleCardClick}
-              >
-                Đọc tiếp
-              </Typography>
-            </Box>
+                <Typography variant="caption" sx={{ display: "block" }}>
+                  {fDate(blog.createdAt)}
+                </Typography>
+                <Typography
+                  variant="caption"
+                  sx={{
+                    display: "block",
+                    cursor: "pointer",
+                  }}
+                  onClick={handleCardClick}
+                >
+                  Đọc tiếp
+                </Typography>
+              </Box>
+            </Stack>
           </Stack>
         </CardContent>
-      </CardActionArea>
+      </Card>
     </Card>
   );
 };

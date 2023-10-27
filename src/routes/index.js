@@ -21,6 +21,7 @@ import PostCreate from "../features/post/PostCreate";
 import BlogDetail from "../features/blog/BlogDetail";
 import AdminControlPanel from "../features/user/AdminControlPanel";
 import Regulations from "../pages/Regulations";
+import PostByProvince from "../features/post/PostByProvince";
 
 function Router() {
   return (
@@ -33,6 +34,14 @@ function Router() {
           element={
             <AuthRequire>
               <PostDetail />
+            </AuthRequire>
+          }
+        />
+        <Route
+          path="/posts/:province"
+          element={
+            <AuthRequire>
+              <PostByProvince />
             </AuthRequire>
           }
         />

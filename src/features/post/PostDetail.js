@@ -1,4 +1,5 @@
 import {
+  Box,
   Card,
   CardContent,
   CardHeader,
@@ -37,8 +38,6 @@ function PostDetail() {
   const { user } = useAuth();
 
   const post = useSelector((state) => state.post.singlePost);
-
-  console.log(post);
 
   const images = post?.images?.map((image) => ({
     original: image,
@@ -91,30 +90,52 @@ function PostDetail() {
           <CardHeader />
           <Card>
             <Stack>
-              <Grid container margin={2} spacing={2}>
-                <Typography variant="h4" sx={{ fontWeight: "bold", m: 2 }}>
+              <Grid
+                container
+                margin={1}
+                marginLeft={3}
+                spacing={2}
+                justifyContent="start"
+              >
+                <Typography
+                  variant="h5"
+                  sx={{ fontWeight: "bold", m: 1, textTransform: "uppercase" }}
+                >
                   {post.title}
                 </Typography>
               </Grid>
-              <Grid container margin={1} spacing={2} xs={12} md={6}>
-                <Stack margin={1} alignItems="center">
-                  <Grid item>
-                    <Typography variant="h7" sx={{ fontWeight: "bold", m: 1 }}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={6}>
+                  <Box sx={{ mb: 2 }}>
+                    <Typography variant="h7" sx={{ fontWeight: "bold", ml: 4 }}>
                       Địa chỉ: {post.address}
                     </Typography>
-                  </Grid>
-                  <Grid>
-                    <Typography variant="h7" sx={{ fontWeight: "bold", m: 2 }}>
+                  </Box>
+                  <Box sx={{ mb: 2 }}>
+                    <Typography variant="h7" sx={{ fontWeight: "bold", ml: 4 }}>
                       Tỉnh: {post.province}
-                    </Typography>{" "}
-                  </Grid>
-                  <Grid>
-                    <Typography variant="h7" sx={{ fontWeight: "bold", m: 2 }}>
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Typography variant="h7" sx={{ fontWeight: "bold", ml: 4 }}>
                       Ngày đăng: {fDateTimeNoHour(post.createdAt)}
-                    </Typography>{" "}
-                  </Grid>
-                </Stack>
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Box sx={{ mb: 2 }}>
+                    <Typography variant="h7" sx={{ fontWeight: "bold", ml: 4 }}>
+                      Người đăng: {post.contact_name}
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Typography variant="h7" sx={{ fontWeight: "bold", ml: 4 }}>
+                      Điện thoại: {post.contact_phoneNumber}
+                    </Typography>
+                  </Box>
+                </Grid>
               </Grid>
+
               <Grid container spacing={2} sx={{ m: 2 }}>
                 <Grid item xs={12} sm={6} md={4}>
                   <Stack margin={1} direction="row" alignItems="center">
@@ -304,7 +325,17 @@ function PostDetail() {
               </Grid>
 
               <CardContent>
-                <Typography variant="body1">{post.description}</Typography>
+                <Typography variant="body1" marginLeft={4}>
+                  {post.description
+                    .replace(/<br>/g, "\n")
+                    .split("\n")
+                    .map((line, index) => (
+                      <React.Fragment key={index}>
+                        {line}
+                        <br />
+                      </React.Fragment>
+                    ))}
+                </Typography>
               </CardContent>
             </Stack>
           </Card>

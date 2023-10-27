@@ -121,58 +121,68 @@ function BlogControlByAdmin() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {blogs?.map((blog) => (
-                  <TableRow key={blog._id} hover>
-                    <TableCell
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        cursor: "pointer",
-                      }}
-                    >
-                      <RouterLink to={`/blogs/${blog._id}`}>
-                        <Typography
-                          variant="subtitle2"
-                          sx={{ fontWeight: 600 }}
+                {Array.isArray(blogs) ? (
+                  blogs?.map((blog) => (
+                    <TableRow key={blog._id} hover>
+                      <TableCell
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <RouterLink to={`/blogs/${blog._id}`}>
+                          <Typography
+                            variant="subtitle2"
+                            sx={{ fontWeight: 600 }}
+                          >
+                            {blog.title.slice(0, 50)}...
+                          </Typography>
+                        </RouterLink>
+                      </TableCell>
+                      {!isMobile && (
+                        <TableCell
+                          align="center"
+                          sx={{ display: { xs: "none", md: "table-cell" } }}
                         >
-                          {blog.title.slice(0, 50)}...
-                        </Typography>
-                      </RouterLink>
-                    </TableCell>
-                    {!isMobile && (
+                          {blog.type}
+                        </TableCell>
+                      )}
+                      {!isMobile && (
+                        <TableCell
+                          align="center"
+                          sx={{ display: { xs: "none", md: "table-cell" } }}
+                        >
+                          {blog.readCount}
+                        </TableCell>
+                      )}
                       <TableCell
                         align="center"
-                        sx={{ display: { xs: "none", md: "table-cell" } }}
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
                       >
-                        {blog.type}
+                        <Button
+                          sx={{ fontSize: "0.6rem" }}
+                          size="small"
+                          variant="contained"
+                          onClick={() => dispatch(deleteSingleBlog(blog._id))}
+                        >
+                          XÓA
+                        </Button>
                       </TableCell>
-                    )}
-                    {!isMobile && (
-                      <TableCell
-                        align="center"
-                        sx={{ display: { xs: "none", md: "table-cell" } }}
-                      >
-                        {blog.readCount}
-                      </TableCell>
-                    )}
-                    <TableCell
-                      align="center"
-                      sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Button
-                        sx={{ fontSize: "0.6rem" }}
-                        size="small"
-                        variant="contained"
-                        onClick={() => dispatch(deleteSingleBlog(blog._id))}
-                      >
-                        XÓA
-                      </Button>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={6}>
+                      <Typography variant="subtitle">
+                        Không có dữ liệu Bài đăng
+                      </Typography>
                     </TableCell>
                   </TableRow>
-                ))}
+                )}
               </TableBody>
             </Table>
           </TableContainer>

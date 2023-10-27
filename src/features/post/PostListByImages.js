@@ -34,27 +34,27 @@ function PostListByImages({ deviceType }) {
 
   const provinces = [
     {
-      name: "kontum",
+      name: "Kon Tum",
       title: "Kon Tum",
       image: kontum,
     },
     {
-      name: "gialai",
+      name: "Gia Lai",
       title: "Gia Lai",
       image: gialai,
     },
     {
-      name: "daklak",
+      name: "Đăk Lăk",
       title: "Đăk Lăk",
       image: daklak,
     },
     {
-      name: "daknong",
+      name: "Đăk Nông",
       title: "Đăk Nông",
       image: daknong,
     },
     {
-      name: "lamdong",
+      name: "Lâm Đồng",
       title: "Lâm Đồng",
       image: lamdong,
     },
@@ -86,15 +86,15 @@ function PostListByImages({ deviceType }) {
         {provinces.map((province, index) => (
           <div
             key={index}
-            onClick={() => navigate(`/posts?province=${province.name}`)}
+            onClick={() => navigate(`/posts/${province.name}`)}
             style={{
               position: "relative",
               cursor: "pointer",
               margin: "10px",
-              transition: "opacity 0.3s, transform 0.3s", // Thêm hiệu ứng cho hover
+              transition: "opacity 0.3s, transform 0.3s",
               "&:hover": {
-                opacity: 0.8, // Giảm độ trong suốt khi hover
-                transform: "scale(1.05)", // Phóng to hình ảnh khi hover
+                opacity: 0.8,
+                transform: "scale(1.1)",
               },
             }}
           >

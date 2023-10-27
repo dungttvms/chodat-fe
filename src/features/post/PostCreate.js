@@ -14,7 +14,7 @@ import {
 } from "../../components/form";
 import { LoadingButton } from "@mui/lab";
 import { useDispatch } from "react-redux";
-import useAuth from "../../hooks/useAuth";
+
 import { createNewPost } from "./postSlice";
 import { useNavigate } from "react-router-dom";
 
@@ -41,9 +41,6 @@ const createPostSchema = Yup.object().shape({
 });
 
 function PostCreate() {
-  const { user } = useAuth();
-  console.log("USER:", user.name);
-
   const defaultValues = {
     title: "",
     address: "",
@@ -54,7 +51,7 @@ function PostCreate() {
     legal: "Đã có sổ hồng",
     status: "Đang bán",
     type: "Đất thổ cư",
-    description: "",
+
     province: "Gia Lai",
     images: [],
     legal_images: [],
@@ -73,6 +70,11 @@ function PostCreate() {
     defaultValues,
     resolver: yupResolver(createPostSchema),
   });
+
+  const handleDescriptionChange = (event) => {
+    const updatedDescription = event.target.value.replace(/\n/g, "<br>");
+    methods.setValue("description", updatedDescription);
+  };
 
   const {
     handleSubmit,
@@ -252,6 +254,8 @@ function PostCreate() {
               multiline
               rows={5}
               label="Mô tả chi tiết về Bất động sản"
+              onChange={handleDescriptionChange}
+              value={methods.watch("description")}
             />
             <Grid sx={{ display: "flex", flexDirection: "row" }}>
               <FUploadMultipleImages
