@@ -163,7 +163,7 @@ function UserControlByAdmin() {
                           variant="subtitle2"
                           sx={{ fontWeight: 600 }}
                           component={RouterLink}
-                          to={`/users/${user._id}`}
+                          to={`/admin/updateUser/${user._id}`}
                         >
                           {user.name}
                         </Link>

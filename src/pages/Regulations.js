@@ -309,7 +309,7 @@ function Regulations() {
           <br />
           CÔNG TY TNHH DỊCH VỤ THƯƠNG MẠI VÀ DỊCH VỤ SMARTVINA
           <br /> Địa chỉ: Thôn 6, xã Nghĩa Hưng, huyện Chư Păh, tỉnh Gia Lai
-          <br /> Điện thoại liên hệ: 0372.75.7777 0906.814.777
+          <br /> Điện thoại liên hệ: 0372.75.7777 - 0906.814.777
           <br /> Email: info@chodattaynguyen.com
         </Typography>
       </Typography>

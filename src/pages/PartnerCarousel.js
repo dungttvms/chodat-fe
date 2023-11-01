@@ -2,26 +2,26 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Smartvina from "../images/partner_images/Smartvina.jpg";
-import Phucminh from "../images/partner_images/Phucminh.jpg";
-import Aic from "../images/partner_images/Aic.jpg";
-import techpro from "../images/partner_images/techpro.png";
-import asic from "../images/partner_images/asic.jpg";
-import dragon from "../images/partner_images/dragon.jpg";
-import gga from "../images/partner_images/gga.jpg";
-import loctroi from "../images/partner_images/loctroi.jpg";
-import nsj from "../images/partner_images/nsj.png";
+import Capitalland from "../images/partner_images/Capitalland.png";
+import DLGL from "../images/partner_images/Duc Long.jpg";
+import HAGL from "../images/partner_images/HAGL Logo.png";
+import HungThinh from "../images/partner_images/Hung Thinh.jpg";
+import Masterise from "../images/partner_images/Masterise-Homes.png";
+import QCGL from "../images/partner_images/Quoc Cuong.png";
+import TrungNguyen from "../images/partner_images/Trung Nguyen.jpg";
+import VinHomes from "../images/partner_images/VinHome.png";
 import { Container, Stack, Typography } from "@mui/material";
 
 const partnerImages = [
   { src: Smartvina, alt: "Smartvina" },
-  { src: Phucminh, alt: "Phucminh" },
-  { src: Aic, alt: "Aic" },
-  { src: techpro, alt: "techpro" },
-  { src: asic, alt: "asic" },
-  { src: dragon, alt: "dragon" },
-  { src: gga, alt: "gga" },
-  { src: loctroi, alt: "loctroi" },
-  { src: nsj, alt: "nsj" },
+  { src: Capitalland, alt: "Capitalland" },
+  { src: DLGL, alt: "DLGL" },
+  { src: HAGL, alt: "HAGL" },
+  { src: HungThinh, alt: "HungThinh" },
+  { src: Masterise, alt: "Masterise" },
+  { src: QCGL, alt: "QCGL" },
+  { src: TrungNguyen, alt: "TrungNguyen" },
+  { src: VinHomes, alt: "VinHomes" },
 ];
 
 const PartnerCarousel = ({ deviceType }) => {

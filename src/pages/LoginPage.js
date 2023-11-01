@@ -64,7 +64,7 @@ function LoginPage() {
 
     try {
       await auth.login({ email, password }, () => {
-        navigate("/", { replace: true });
+        navigate("/HomePage", { replace: true });
       });
     } catch (error) {
       reset();
@@ -185,7 +185,7 @@ function LoginPage() {
                           picture,
                         },
                         () => {
-                          navigate("/", { replace: true });
+                          navigate("/HomePage", { replace: true });
                         }
                       );
                     } catch (error) {
@@ -193,7 +193,7 @@ function LoginPage() {
                       navigate("/login");
                     }
 
-                    navigate("/", { replace: true });
+                    navigate("/HomePage", { replace: true });
                   } else {
                     toast.error("Login Error");
                     navigate("/login");

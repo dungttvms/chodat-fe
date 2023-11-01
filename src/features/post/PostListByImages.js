@@ -86,7 +86,7 @@ function PostListByImages({ deviceType }) {
         {provinces.map((province, index) => (
           <div
             key={index}
-            onClick={() => navigate(`/posts/${province.name}`)}
+            onClick={() => navigate(`/posts/province/${province.name}`)}
             style={{
               position: "relative",
               cursor: "pointer",

@@ -5,14 +5,14 @@ import ImgPage from "../images/background.png";
 import Lazy from "../layouts/LazyPage";
 import CellPhone from "../components/CellPhone";
 import CustomChatBot from "../components/ChatBot";
-
 import PostList from "../features/post/PostList";
 import PostListByImages from "../features/post/PostListByImages";
 import PartnerCarousel from "./PartnerCarousel";
 import BlogList from "../features/blog/BlogList";
-// import SimpleForm from "../components/SimpleForm";
 
 function HomePage() {
+  const isLargeScreen = window.innerWidth >= 1024;
+
   return (
     <Container
       maxWidth="false"
@@ -28,7 +28,7 @@ function HomePage() {
       <Helmet>
         <title>Trang chủ | Chợ đất Tây Nguyên</title>
       </Helmet>
-      <Lazy />
+      {isLargeScreen && <Lazy />}
       <Stack sx={{ m: 3, p: 3 }} display="flex">
         {[
           { title: "BẤT ĐỘNG SẢN NỔI BẬT", component: <PostList /> },
@@ -58,7 +58,6 @@ function HomePage() {
       <PartnerCarousel />
       <Box>
         <CellPhone />
-        {/* <SimpleForm /> */}
         <CustomChatBot />
       </Box>
       <Stack style={{ mt: 10 }}>

@@ -59,7 +59,7 @@ function MainHeader() {
   const handleLogOut = async () => {
     try {
       await logout(() => {
-        navigate("/");
+        navigate("/HomePage");
       });
     } catch (error) {
       console.error(error);
@@ -113,21 +113,21 @@ function MainHeader() {
 
   const pages = [
     {
-      title: "CHỢ ĐẤT TÂY NGUYÊN",
-      action: () => navigate("/"),
-    },
-    {
       title: "GIỚI THIỆU",
       action: () => navigate("/introduce"),
     },
 
     {
       title: "PHONG THỦY",
-      action: () => navigate("/blogs?q=Phong%20th%E1%BB%A7y"),
+      action: () => navigate("/blogs/blog/Phong thủy"),
     },
     {
       title: "TIN TỨC",
-      action: () => navigate("/blogs?q=Tin%20t%E1%BB%A9c"),
+      action: () => navigate("/blogs/blog/Tin tức"),
+    },
+    {
+      title: "NHÀ ĐẸP",
+      action: () => navigate("/blogs/blog/Nhà đẹp"),
     },
     {
       title: "LIÊN HỆ",

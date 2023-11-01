@@ -1,50 +1,47 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useEffect } from "react";
 
 import { Box, Card, Container, Grid, Stack, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { useDispatch, useSelector } from "react-redux";
-import { updateCurrentUser } from "./userSlice";
+import { getSingleUserByAdmin, updateSingleUserByAdmin } from "./userSlice";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
-import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+
 import {
   FormProvider,
-  // FSelect,
+  FSelect,
   FTextField,
   FUploadAvatar,
 } from "../../components/form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LoadingScreen from "../../components/LoadingScreen";
 import { fData } from "../../utils/numberFormat";
 
-const updateCurrentUserSchema = Yup.object().shape({
-  name: Yup.string().required("Name is required"),
-  phoneNumber: Yup.string()
-    .matches(/^(09|08|07|05|03)\d{8}$/, "Vui lòng nhập số điện thoại hợp lệ")
-    .required("Phone Number is required"),
-  email: Yup.string()
-    .email("Invalid email")
-    .required("Email is required"),
-});
-
-function UserProfile() {
-  let { user } = useAuth();
+function UpdateUserByAdmin() {
   const navigate = useNavigate();
-  const isLoading = useSelector((state) => state.user.isLoading);
+  const params = useParams();
 
-  const defaultValues = useMemo(
-    () => ({
-      name: user?.name || "",
-      email: user?.email || "",
-      phoneNumber: user?.phoneNumber || "",
-      avatar: user?.avatar || "",
-    }),
-    [user]
-  );
+  const dispatch = useDispatch();
+
+  let { user } = useAuth();
+  const targetUserId = params.userId;
+
+  useEffect(() => {
+    dispatch(getSingleUserByAdmin(targetUserId));
+  }, [dispatch, targetUserId]);
+
+  const isLoading = useSelector((state) => state.user.isLoading);
+  const selectedUser = useSelector((state) => state.user.selectedUser);
+  console.log(selectedUser);
+
+  const defaultValues = {
+    name: selectedUser?.name || "",
+    email: selectedUser?.email || "",
+    phoneNumber: selectedUser?.phoneNumber || "",
+    avatar: selectedUser?.avatar || "",
+  };
 
   const methods = useForm({
-    resolver: yupResolver(updateCurrentUserSchema),
     defaultValues,
   });
 
@@ -54,16 +51,18 @@ function UserProfile() {
     formState: { isSubmitting },
   } = methods;
 
-  const dispatch = useDispatch();
-
   const onSubmit = (data) => {
     try {
-      dispatch(updateCurrentUser({ userId: user._id, ...data }));
+      const updatedData = { ...defaultValues, ...data };
+      dispatch(
+        updateSingleUserByAdmin({ id: selectedUser._id, ...updatedData })
+      );
       navigate("/HomePage");
     } catch (error) {
       console.log(error.message);
     }
   };
+
   const handleDropAvatar = useCallback(
     (acceptedFiles) => {
       const file = acceptedFiles[0];
@@ -79,8 +78,8 @@ function UserProfile() {
     },
     [setValue]
   );
-  if (isLoading || !user) return <LoadingScreen />;
-  if (!isLoading && user)
+  if (isLoading || !selectedUser) return <LoadingScreen />;
+  if (!isLoading && selectedUser && user.role === "admin")
     return (
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Container sx={{ p: 3 }}>
@@ -111,10 +110,13 @@ function UserProfile() {
                 <Typography
                   sx={{ p: 2, fontWeight: "bold", textTransform: "uppercase" }}
                 >
-                  {user.name}
+                  {selectedUser.name}
                 </Typography>
-                <Typography>{user.email}</Typography>
-                <Typography>{user.phoneNumber}</Typography>
+                <Grid item justifyItems="left">
+                  <Typography>{selectedUser.email}</Typography>
+                  <Typography>{selectedUser.phoneNumber}</Typography>
+                  <Typography>{selectedUser.role}</Typography>
+                </Grid>
               </Card>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -135,21 +137,32 @@ function UserProfile() {
                     columnGap: 3,
                   }}
                 >
-                  <FTextField name="name" label="Tên người dùng" />
-                  <FTextField name="phoneNumber" label="Số điện thoại" />
-                  <FTextField name="Email" label="Email *" value={user.email} />
-                  <FTextField name="role" label="Vai trò *" value={user.role} />
-                  {/* <FSelect name="role" label="Vai trò">
+                  {" "}
+                  <FTextField
+                    name="name"
+                    label="Tên người dùng *"
+                    value={selectedUser.name}
+                  />
+                  <FTextField
+                    name="phoneNumber *"
+                    label="Số điện thoại"
+                    value={selectedUser.phoneNumber}
+                  />
+                  <FTextField
+                    name="Email"
+                    label="Email *"
+                    value={selectedUser.email}
+                  />
+                  <FSelect name="role" label="Vai trò">
                     {[
-                      { code: "admin", label: "Quản trị viên" },
                       { code: "client", label: "Khách" },
+                      { code: "admin", label: "Quản trị viên" },
                     ].map((option) => (
                       <option key={option.code} value={option.code}>
                         {option.label}
                       </option>
                     ))}
-                  </FSelect> */}
-                  <Typography variant="h7">(*): Không thay đổi được</Typography>
+                  </FSelect>
                 </Box>
                 <Stack spacing={{ p: 3 }} alignItems="flex-end" sx={{ mt: 3 }}>
                   <LoadingButton
@@ -168,4 +181,4 @@ function UserProfile() {
     );
 }
 
-export default UserProfile;
+export default UpdateUserByAdmin;

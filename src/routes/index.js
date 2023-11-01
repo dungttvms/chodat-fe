@@ -22,26 +22,23 @@ import BlogDetail from "../features/blog/BlogDetail";
 import AdminControlPanel from "../features/user/AdminControlPanel";
 import Regulations from "../pages/Regulations";
 import PostByProvince from "../features/post/PostByProvince";
+import BlogFilteredList from "../features/blog/BlogFilteredList";
+import UpdatePostByAdmin from "../features/post/UpdatePostByAdmin";
+import WelcomePage from "../pages/WelcomePage";
+import UpdateUserByAdmin from "../features/user/UpdateUserByAdmin";
 
 function Router() {
   return (
     <Routes sx={{ m: 0, padding: 0 }}>
-      <Route path="/" element={<MainLayout />}>
-        <Route index element={<HomePage />} />
+      <Route path="/" element={<WelcomePage />} />
+      <Route element={<MainLayout />}>
+        <Route path="/HomePage" element={<HomePage />} />
 
         <Route
           path="/posts/:postId"
           element={
             <AuthRequire>
               <PostDetail />
-            </AuthRequire>
-          }
-        />
-        <Route
-          path="/posts/:province"
-          element={
-            <AuthRequire>
-              <PostByProvince />
             </AuthRequire>
           }
         />
@@ -61,7 +58,30 @@ function Router() {
             </AuthRequire>
           }
         />
-        <Route path="/users/:userId" element={<UserProfile />} />
+        <Route
+          path="/admin/editPost/:postId"
+          element={
+            <AuthRequire>
+              <UpdatePostByAdmin />
+            </AuthRequire>
+          }
+        />
+        <Route
+          path="/admin/updateUser/:userId"
+          element={
+            <AuthRequire>
+              <UpdateUserByAdmin />
+            </AuthRequire>
+          }
+        />
+        <Route
+          path="/users/:userId"
+          element={
+            <AuthRequire>
+              <UserProfile />
+            </AuthRequire>
+          }
+        />
 
         <Route
           path="/createNewPost"
@@ -71,6 +91,8 @@ function Router() {
             </AuthRequire>
           }
         />
+        <Route path="/posts/province/:province" element={<PostByProvince />} />
+        <Route path="/blogs/blog/:type" element={<BlogFilteredList />} />
         <Route path="/introduce" element={<IntroducePage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/regulation" element={<Regulations />} />

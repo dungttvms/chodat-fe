@@ -8,7 +8,7 @@ const NotFoundPage = () => {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      navigate("/");
+      navigate("/HomePage");
     }, 5000);
 
     return () => {

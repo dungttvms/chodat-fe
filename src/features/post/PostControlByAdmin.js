@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deletePost, getAllPosts, updateSinglePost } from "./postSlice";
+import { deletePost, getAllPosts } from "./postSlice";
 import {
   Box,
   Card,
@@ -19,12 +19,13 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 function PostControlByAdmin() {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -240,7 +241,7 @@ function PostControlByAdmin() {
                             size="small"
                             variant="contained"
                             onClick={() =>
-                              dispatch(updateSinglePost(post._id, post.status))
+                              navigate(`/admin/editPost/${post._id}`)
                             }
                           >
                             SỬA

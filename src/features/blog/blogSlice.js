@@ -7,6 +7,7 @@ const initialState = {
   isLoading: false,
   error: null,
   blogs: [],
+  filteredBlogs: [],
   singleBlog: {},
 };
 
@@ -36,6 +37,13 @@ const slice = createSlice({
     deleteSingleBlogSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
+    },
+    getFilteredBlogsSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const { count, filteredBlogs } = action.payload.data;
+      state.totalBlogs = count;
+      state.filteredBlogs = filteredBlogs;
     },
   },
 });
@@ -68,10 +76,26 @@ export const getSingleBlog = ({ blogId }) => async (dispatch) => {
 export const deleteSingleBlog = (id) => async (dispatch) => {
   dispatch(slice.actions.startLoading());
   try {
-    const response = await apiService.delete(`blogs/${id}`);
+    const response = await apiService.delete(`/blogs/${id}`);
     dispatch(slice.actions.deleteSingleBlogSuccess(response.data));
     toast.success("Deleted Blog successfully");
     dispatch(getAllBlogs());
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+    toast.error(error.message);
+  }
+};
+
+export const getFilterBlogs = ({ page, limit = 10, type }) => async (
+  dispatch
+) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const response = await apiService.get(
+      `/blogs/blog/${type}?page=${page}&limit=${limit}`
+    );
+
+    dispatch(slice.actions.getFilteredBlogsSuccess(response.data));
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
     toast.error(error.message);

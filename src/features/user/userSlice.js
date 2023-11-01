@@ -10,6 +10,7 @@ const initialState = {
   updatedProfile: null,
   selectedUser: null,
   chatBot: null,
+  viewerCount: null,
 };
 
 const slice = createSlice({
@@ -68,6 +69,12 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.chatBot = action.payload.data;
+    },
+    getViewerCountSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+
+      state.totalViewers = action.payload.data;
     },
   },
 });
@@ -156,7 +163,8 @@ export const updateSingleUserByAdmin = ({
 }) => async (dispatch) => {
   dispatch(slice.actions.startLoading());
   try {
-    const data = { name, phoneNumber, email, role };
+    const data = { id, name, phoneNumber, email, role };
+    console.log(data);
     const response = await apiService.put(`/users/admin/${id}`, data);
     dispatch(slice.actions.updateSingleUserByAdminSuccess(response.data));
     toast.success("Updated Profile Success");
@@ -182,7 +190,6 @@ export const getChatBot = () => async (dispatch) => {
   try {
     const response = await apiService.get(`/chatBots`);
     dispatch(slice.actions.getChatBotSuccess(response.data));
-    console.log("Right Here:", response.data);
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
     toast.error(error.message);
@@ -196,6 +203,17 @@ export const deleteChatBot = (id) => async (dispatch) => {
     dispatch(slice.actions.deleteChatBotSuccess(response.data));
     dispatch(getChatBot());
     toast.success("Deleted User Success");
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+    toast.error(error.message);
+  }
+};
+
+export const getViewerCount = () => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const response = await apiService.get(`/viewerCounts`);
+    dispatch(slice.actions.getViewerCountSuccess(response.data));
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
     toast.error(error.message);

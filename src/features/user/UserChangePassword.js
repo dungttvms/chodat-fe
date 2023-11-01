@@ -61,7 +61,7 @@ function UserChangePassword() {
   const onSubmit = async ({ oldPassword, newPassword }) => {
     try {
       await dispatch(changePassword({ oldPassword, newPassword }));
-      navigate("/");
+      navigate("/HomePage");
       auth.logout();
     } catch (error) {
       setError("responseError", { type: "manual", message: error.message });

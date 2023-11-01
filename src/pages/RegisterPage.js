@@ -68,7 +68,7 @@ function RegisterPage() {
 
     try {
       await auth.register({ name, email, phoneNumber, password }, () => {
-        navigate("/", { replace: true });
+        navigate("/HomePage", { replace: true });
       });
     } catch (error) {
       reset();

@@ -8,6 +8,7 @@ const initialState = {
   isLoading: false,
   error: null,
   posts: [],
+  filteredPosts: [],
   postsById: {},
   currentPagePosts: [],
   singlePost: "",
@@ -102,9 +103,17 @@ const slice = createSlice({
       );
       state.totalPosts -= 1;
     },
+    getFilteredPostsSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const { count, filteredPosts } = action.payload.data;
+      state.totalPosts = count;
+      state.filteredPosts = filteredPosts;
+    },
   },
 });
 
+//===============================================
 export const createNewPost = ({
   title,
   address,
@@ -182,17 +191,14 @@ export const createNewPost = ({
   }
 };
 
-export const getAllPosts = ({
-  page,
-  limit = NUMBER_POSTS_OF_LIMIT,
-  filter = {},
-}) => async (dispatch) => {
+export const getAllPosts = ({ page, limit = NUMBER_POSTS_OF_LIMIT }) => async (
+  dispatch
+) => {
   dispatch(slice.actions.startLoading());
   try {
     const queryParams = new URLSearchParams({
       page: page,
       limit: limit,
-      ...filter,
     });
     const response = await apiService.get(`/posts?${queryParams.toString()}`);
     dispatch(slice.actions.getAllPostsSuccess(response.data));
@@ -274,6 +280,26 @@ export const deletePost = (id) => async (dispatch) => {
     dispatch(slice.actions.deleteSinglePostSuccess(response.data));
     toast.success("Deleted Post successfully");
     dispatch(getAllPosts());
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+    toast.error(error.message);
+  }
+};
+
+export const getFilterPosts = ({ page, limit = 20, province }) => async (
+  dispatch
+) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const queryParams = {
+      page,
+      limit,
+    };
+    const response = await apiService.get(
+      `/posts/province/${province}?${queryParams.toString()}`
+    );
+
+    dispatch(slice.actions.getFilteredPostsSuccess(response.data));
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
     toast.error(error.message);

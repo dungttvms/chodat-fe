@@ -1,45 +1,21 @@
 import { Card, Container, Grid, Stack, Typography } from "@mui/material";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMemo } from "react";
 
-import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import {
   FSelect,
   FTextField,
   FormProvider,
   FUploadMultipleImages,
   FUploadMultipleImagesLegal,
-  // FUploadImage,
 } from "../../components/form";
 import { LoadingButton } from "@mui/lab";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { createNewPost } from "./postSlice";
-import { useNavigate } from "react-router-dom";
-
-const createPostSchema = Yup.object().shape({
-  title: Yup.string().required("Nhập tiêu đề bài đăng"),
-  address: Yup.string().required("Nhập địa chỉ Bất động sản"),
-  acreage: Yup.string().required("Nhập diện tích (m2)"),
-  length: Yup.string().required("Nhập chiều dài (m)"),
-  width: Yup.string().required("Nhập chiều rộng (m)"),
-  direction: Yup.string().required("Nhập hướng cửa chính"),
-  legal: Yup.string().required("Thông tin pháp lý"),
-  status: Yup.string().required("Hiện trạng bất động sản"),
-  type: Yup.string().required("Loại bất động sản"),
-  description: Yup.string().required("Nhập mô tả chi tiết"),
-  province: Yup.string().required("Chọn tỉnh"),
-  images: Yup.array().required("Hình ảnh thực tế"),
-
-  price: Yup.string().required("Nhập giá trị"),
-
-  googleMapLocation: Yup.string().required("Nhập tọa độ Google Map (X, Y)"),
-
-  contact_name: Yup.string().required("Tên người liên hệ"),
-  contact_phoneNumber: Yup.string().required("Số điện thoại người liên hệ"),
-});
+import { getSinglePost, updateSinglePost } from "./postSlice";
+import { useNavigate, useParams } from "react-router-dom";
+import LoadingScreen from "../../components/LoadingScreen";
 
 const provinceList = [
   { code: "Gia Lai", label: "Gia Lai" },
@@ -90,36 +66,73 @@ const bedroomList = [
   { code: "5", label: "5" },
 ];
 
-function PostCreate() {
-  const defaultValues = {
-    title: "",
-    address: "",
-    acreage: "",
-    length: "",
-    width: "",
-    direction: "Đông Nam",
-    legal: "Đã có sổ hồng",
-    status: "Đang bán",
-    type: "Đất thổ cư",
-    province: "Gia Lai",
+function UpdatePostByAdmin() {
+  const { postId } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [uiUpdated, setUIUpdated] = useState(false);
+
+  const post = useSelector((state) => state.post.singlePost);
+  useEffect(() => {
+    dispatch(getSinglePost({ postId }));
+    setUIUpdated(true);
+  }, [dispatch, postId]);
+
+  const [defaultValues, setDefaultValues] = useState({
+    title: post.title,
+    address: post.address,
+    acreage: post.acreage,
+    length: post.length,
+    width: post.width,
+    direction: post.direction,
+    legal: post.legal,
+    status: post.status,
+    type: post.type,
+    province: post.province,
     images: [],
     legal_images: [],
-    price: "",
-    toilet: "0",
-    bedroom: "0",
-    videoYoutube: "",
-    videoFacebook: "",
-    videoTiktok: "",
-    googleMapLocation: "",
-    contact_name: "",
-    contact_phoneNumber: "",
-  };
+    price: post.price,
+    toilet: post.toilet,
+    bedroom: post.bedroom,
+    videoYoutube: post.videoYoutube,
+    videoFacebook: post.videoFacebook,
+    videoTiktok: post.videoTiktok,
+    googleMapLocation: post.googleMapLocation,
+    contact_name: post.contact_name,
+    contact_phoneNumber: post.contact_phoneNumber,
+  });
+  // useEffect(() => {
+  //   setDefaultValues({
+  //     title: post.title,
+  //     address: post.address,
+  //     acreage: post.acreage,
+  //     length: post.length,
+  //     width: post.width,
+  //     direction: post.direction,
+  //     legal: post.legal,
+  //     status: post.status,
+  //     type: post.type,
+  //     province: post.province,
+  //     images: [],
+  //     legal_images: [],
+  //     price: post.price,
+  //     toilet: post.toilet,
+  //     bedroom: post.bedroom,
+  //     videoYoutube: post.videoYoutube,
+  //     videoFacebook: post.videoFacebook,
+  //     videoTiktok: post.videoTiktok,
+  //     googleMapLocation: post.googleMapLocation,
+  //     contact_name: post.contact_name,
+  //     contact_phoneNumber: post.contact_phoneNumber,
+  //   });
+  //   setUIUpdated(true);
+  // }, [post]);
 
   const methods = useForm({
     defaultValues,
-    resolver: yupResolver(createPostSchema),
   });
-
+  console.log(defaultValues);
   const handleDescriptionChange = (event) => {
     const updatedDescription = event.target.value.replace(/\n/g, "<br>");
     methods.setValue("description", updatedDescription);
@@ -132,13 +145,14 @@ function PostCreate() {
     reset,
   } = methods;
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const onSubmit = async (data) => {
-    dispatch(createNewPost(data));
-    reset();
-    navigate("/HomePage");
+    try {
+      dispatch(updateSinglePost({ postId, ...data }));
+      reset();
+      navigate("/HomePage");
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const handleDrop = useCallback(
@@ -210,7 +224,13 @@ function PostCreate() {
       </option>
     ));
   }, []);
-
+  if (!uiUpdated) {
+    return (
+      <div>
+        <LoadingScreen />
+      </div>
+    );
+  }
   return (
     <Container>
       <Card sx={{ p: 3 }}>
@@ -226,7 +246,7 @@ function PostCreate() {
             justifyContent: "center",
           }}
         >
-          TẠO BÀI ĐĂNG MỚI
+          CHỈNH SỬA BÀI ĐĂNG
         </Typography>
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={2}>
@@ -236,6 +256,7 @@ function PostCreate() {
               <FSelect name="province" label="Tỉnh">
                 {provinceOptions}
               </FSelect>
+
               <FSelect sx={{ ml: 1, mr: 1 }} name="direction" label="Hướng">
                 {directionOptions}
               </FSelect>
@@ -370,4 +391,4 @@ function PostCreate() {
   );
 }
 
-export default PostCreate;
+export default UpdatePostByAdmin;
