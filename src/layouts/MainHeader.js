@@ -7,28 +7,23 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-
 import Button from "@mui/material/Button";
-
 import MenuItem from "@mui/material/MenuItem";
 import Logo from "../components/Logo";
-
 import ListIcon from "@mui/icons-material/List";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import LogoutIcon from "@mui/icons-material/Logout";
-
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import EditNoteIcon from "@mui/icons-material/EditNote";
-
-import { Avatar, Divider, Stack, Tooltip } from "@mui/material";
+import { Avatar, Divider, Stack, Tooltip, useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
 import useAuth from "../hooks/useAuth";
 
 function MainHeader() {
   const navigate = useNavigate();
+  const isMobile = useMediaQuery("(max-width: 600px)");
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -67,7 +62,6 @@ function MainHeader() {
   };
 
   const handlePassword = () => {
-    // Navigate to the change password page
     try {
       navigate("/changePassword");
     } catch (error) {
@@ -75,7 +69,6 @@ function MainHeader() {
     }
   };
   const handleAdminControl = () => {
-    // Navigate to the change password page
     try {
       navigate("admin/controlpanel");
     } catch (error) {
@@ -191,16 +184,18 @@ function MainHeader() {
               display: { xs: "flex", md: "none" },
             }}
           >
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
+            {isMobile && (
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -335,4 +330,5 @@ function MainHeader() {
     </AppBar>
   );
 }
+
 export default MainHeader;
