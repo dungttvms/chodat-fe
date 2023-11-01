@@ -102,32 +102,32 @@ function UpdatePostByAdmin() {
     contact_name: post.contact_name,
     contact_phoneNumber: post.contact_phoneNumber,
   });
-  // useEffect(() => {
-  //   setDefaultValues({
-  //     title: post.title,
-  //     address: post.address,
-  //     acreage: post.acreage,
-  //     length: post.length,
-  //     width: post.width,
-  //     direction: post.direction,
-  //     legal: post.legal,
-  //     status: post.status,
-  //     type: post.type,
-  //     province: post.province,
-  //     images: [],
-  //     legal_images: [],
-  //     price: post.price,
-  //     toilet: post.toilet,
-  //     bedroom: post.bedroom,
-  //     videoYoutube: post.videoYoutube,
-  //     videoFacebook: post.videoFacebook,
-  //     videoTiktok: post.videoTiktok,
-  //     googleMapLocation: post.googleMapLocation,
-  //     contact_name: post.contact_name,
-  //     contact_phoneNumber: post.contact_phoneNumber,
-  //   });
-  //   setUIUpdated(true);
-  // }, [post]);
+  useEffect(() => {
+    setDefaultValues({
+      title: post.title,
+      address: post.address,
+      acreage: post.acreage,
+      length: post.length,
+      width: post.width,
+      direction: post.direction,
+      legal: post.legal,
+      status: post.status,
+      type: post.type,
+      province: post.province,
+      images: [],
+      legal_images: [],
+      price: post.price,
+      toilet: post.toilet,
+      bedroom: post.bedroom,
+      videoYoutube: post.videoYoutube,
+      videoFacebook: post.videoFacebook,
+      videoTiktok: post.videoTiktok,
+      googleMapLocation: post.googleMapLocation,
+      contact_name: post.contact_name,
+      contact_phoneNumber: post.contact_phoneNumber,
+    });
+    setUIUpdated(true);
+  }, [post]);
 
   const methods = useForm({
     defaultValues,
