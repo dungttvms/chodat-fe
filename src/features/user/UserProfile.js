@@ -89,7 +89,7 @@ function UserProfile() {
               <Card sx={{ py: 10, px: 3, textAlign: "center" }}>
                 <FUploadAvatar
                   name="avatar"
-                  accept="image/*"
+                  accept=".jpeg, .jpg, .png"
                   maxSize={3145728}
                   onDrop={handleDropAvatar}
                   helperText={

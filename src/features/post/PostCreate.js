@@ -285,7 +285,7 @@ function PostCreate() {
               <FUploadMultipleImages
                 sx={{ mr: 1 }}
                 name="images"
-                accept="image/*"
+                accept=".jpeg, .jpg, .png"
                 maxSize={3145728}
                 onDrop={handleDrop}
               />
@@ -293,7 +293,7 @@ function PostCreate() {
               <FUploadMultipleImagesLegal
                 sx={{ ml: 1 }}
                 name="legal_images"
-                accept="image/*"
+                accept=".jpeg, .jpg, .png"
                 maxSize={3145728}
                 onDrop={handleDrop_Legal}
               />

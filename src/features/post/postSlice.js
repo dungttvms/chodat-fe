@@ -235,6 +235,20 @@ export const updateSinglePost = ({ postId, data }) => async (dispatch) => {
   dispatch(slice.actions.startLoading());
 
   try {
+    const imageUrls = [];
+    for (let i = 0; i < data.images.length; i++) {
+      const imageUrl = await cloudinaryUpload(data.images[i]);
+      imageUrls.push(imageUrl);
+    }
+
+    // Upload legal images to the Cloudinary
+    const legal_imageUrls = [];
+    for (let j = 0; j < data.legal_images.length; j++) {
+      const legal_imageUrl = await cloudinaryUpload(data.legal_images[j]);
+      legal_imageUrls.push(legal_imageUrl);
+    }
+    data.images = imageUrls;
+    data.legal_images = legal_imageUrls;
     const response = await apiService.put(`/posts/${postId}`, data);
     console.log(response);
     dispatch(slice.actions.updateSinglePostSuccess(response.data));

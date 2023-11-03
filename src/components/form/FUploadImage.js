@@ -15,7 +15,7 @@ function FUploadImage({ name, ...other }) {
 
         return (
           <UploadSingleFile
-            accept="image/*"
+            accept=".jpeg, .jpg, .png"
             file={field.value}
             error={checkError}
             helperText={

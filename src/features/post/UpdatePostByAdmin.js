@@ -68,6 +68,7 @@ function UpdatePostByAdmin() {
 
   const onSubmit = (data) => {
     dispatch(updateSinglePost({ data, postId: post._id })).then(reset());
+
     navigate("/admin/controlPanel");
   };
 
@@ -204,7 +205,7 @@ function UpdatePostByAdmin() {
               <FUploadMultipleImages
                 sx={{ mr: 1 }}
                 name="images"
-                accept="image/*"
+                accept=".jpeg, .jpg, .png"
                 maxSize={3145728}
                 onDrop={handleDrop}
               />
@@ -212,7 +213,7 @@ function UpdatePostByAdmin() {
               <FUploadMultipleImagesLegal
                 sx={{ ml: 1 }}
                 name="legal_images"
-                accept="image/*"
+                accept=".jpeg, .jpg, .png"
                 maxSize={3145728}
                 onDrop={handleDrop_Legal}
               />

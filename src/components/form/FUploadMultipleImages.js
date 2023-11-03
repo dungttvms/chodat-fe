@@ -16,7 +16,7 @@ function FUploadMultipleImages({ name, ...other }) {
         return (
           <UploadMultipleFiles
             files={field.value}
-            accept="image/*"
+            accept=".jpeg, .jpg, .png"
             error={checkError}
             helperText={
               checkError && (
