@@ -10,7 +10,7 @@ const initialState = {
   updatedProfile: null,
   selectedUser: null,
   chatBot: null,
-  viewerCount: null,
+  totalViewers: null,
 };
 
 const slice = createSlice({
@@ -164,7 +164,7 @@ export const updateSingleUserByAdmin = ({
   dispatch(slice.actions.startLoading());
   try {
     const data = { id, name, phoneNumber, email, role };
-    console.log(data);
+
     const response = await apiService.put(`/users/admin/${id}`, data);
     dispatch(slice.actions.updateSingleUserByAdminSuccess(response.data));
     toast.success("Updated Profile Success");

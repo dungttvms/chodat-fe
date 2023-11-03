@@ -20,11 +20,11 @@ import { fData } from "../../utils/numberFormat";
 function UpdateUserByAdmin() {
   const navigate = useNavigate();
   const params = useParams();
+  const targetUserId = params.userId;
 
   const dispatch = useDispatch();
 
   let { user } = useAuth();
-  const targetUserId = params.userId;
 
   useEffect(() => {
     dispatch(getSingleUserByAdmin(targetUserId));
@@ -32,7 +32,6 @@ function UpdateUserByAdmin() {
 
   const isLoading = useSelector((state) => state.user.isLoading);
   const selectedUser = useSelector((state) => state.user.selectedUser);
-  console.log(selectedUser);
 
   const defaultValues = {
     name: selectedUser?.name || "",

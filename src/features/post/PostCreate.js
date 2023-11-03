@@ -42,6 +42,7 @@ const createPostSchema = Yup.object().shape({
 });
 
 const provinceList = [
+  { code: "", label: "Tỉnh/ Thành phố" },
   { code: "Gia Lai", label: "Gia Lai" },
   { code: "Kon Tum", label: "Kon Tum" },
   { code: "Đăk Lăk", label: "Đăk Lăk" },
@@ -50,6 +51,7 @@ const provinceList = [
 ];
 
 const directionList = [
+  { code: "", label: "Hướng" },
   { code: "Đông", label: "Đông" },
   { code: "Tây", label: "Tây" },
   { code: "Nam", label: "Nam" },
@@ -61,6 +63,7 @@ const directionList = [
 ];
 
 const typeList = [
+  { code: "", label: "Loại bất động sản" },
   { code: "Đất thổ cư", label: "Đất thổ cư" },
   { code: "Nhà đất thổ cư", label: "Nhà đất thổ cư" },
   { code: "Đất nông nghiệp", label: "Đất nông nghiệp" },
@@ -68,20 +71,24 @@ const typeList = [
   { code: "Nhà đất cho thuê", label: "Nhà đất cho thuê" },
 ];
 const legalList = [
+  { code: "", label: "Tình trạng pháp lý" },
   { code: "Đã có sổ hồng", label: "Đã có sổ hồng" },
   { code: "Không có sổ hồng", label: "Không có sổ hồng" },
 ];
 const statusList = [
+  { code: "", label: "Hiện trạng" },
   { code: "Đang bán", label: "Đang bán" },
   { code: "Đã bán", label: "Đã bán" },
 ];
 const toiletList = [
+  { code: "", label: "Số toilet" },
   { code: "0", label: "0" },
   { code: "1", label: "1" },
   { code: "2", label: "2" },
   { code: "3", label: "3" },
 ];
 const bedroomList = [
+  { code: "", label: "Số phòng ngủ" },
   { code: "0", label: "0" },
   { code: "1", label: "1" },
   { code: "2", label: "2" },
@@ -97,16 +104,16 @@ function PostCreate() {
     acreage: "",
     length: "",
     width: "",
-    direction: "Đông Nam",
-    legal: "Đã có sổ hồng",
-    status: "Đang bán",
-    type: "Đất thổ cư",
-    province: "Gia Lai",
+    direction: "",
+    legal: "",
+    status: "",
+    type: "",
+    province: "",
     images: [],
     legal_images: [],
     price: "",
-    toilet: "0",
-    bedroom: "0",
+    toilet: "",
+    bedroom: "",
     videoYoutube: "",
     videoFacebook: "",
     videoTiktok: "",
@@ -233,15 +240,11 @@ function PostCreate() {
             <FTextField name="title" label="Tiêu đề bài viết *" />
             <FTextField name="address" label="Nhập tên đường, xã, huyện *" />
             <Grid sx={{ display: "flex", flexDirection: "row" }}>
-              <FSelect name="province" label="Tỉnh">
-                {provinceOptions}
-              </FSelect>
-              <FSelect sx={{ ml: 1, mr: 1 }} name="direction" label="Hướng">
+              <FSelect name="province">{provinceOptions}</FSelect>
+              <FSelect sx={{ ml: 1, mr: 1 }} name="direction">
                 {directionOptions}
               </FSelect>
-              <FSelect name="type" label="Loại bất động sản">
-                {typeOptions}
-              </FSelect>
+              <FSelect name="type">{typeOptions}</FSelect>
             </Grid>
             <Grid sx={{ display: "flex", flexDirection: "row" }}>
               <FTextField name="acreage" label="Diện tích (m2)*" />
@@ -254,22 +257,14 @@ function PostCreate() {
             </Grid>
             <Grid sx={{ display: "flex", flexDirection: "row" }}>
               <FTextField name="price" label="Giá (triệu đồng)*" />
-              <FSelect sx={{ ml: 1, mr: 1 }} name="legal" label="Pháp lý">
+              <FSelect sx={{ ml: 1, mr: 1 }} name="legal">
                 {legalOptions}
               </FSelect>
-              <FSelect name="status" label="Trạng thái">
-                {statusOptions}
-              </FSelect>
+              <FSelect name="status">{statusOptions}</FSelect>
             </Grid>
             <Grid sx={{ display: "flex", flexDirection: "row" }}>
-              <FSelect name="toilet" label="Số nhà vệ sinh">
-                {toiletOptions}
-              </FSelect>
-              <FSelect
-                sx={{ ml: 1, mr: 1 }}
-                name="bedroom"
-                label="Số phòng ngủ"
-              >
+              <FSelect name="toilet">{toiletOptions}</FSelect>
+              <FSelect sx={{ ml: 1, mr: 1 }} name="bedroom">
                 {bedroomOptions}
               </FSelect>
               <FTextField

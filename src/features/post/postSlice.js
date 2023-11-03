@@ -12,6 +12,7 @@ const initialState = {
   postsById: {},
   currentPagePosts: [],
   singlePost: "",
+  favoritePosts: [],
 };
 
 const slice = createSlice({
@@ -58,11 +59,13 @@ const slice = createSlice({
         width,
         legal,
         type,
+        direction,
+        price,
+        toilet,
         description,
         images,
         legal_images,
         province,
-        price,
         googleMapLocation,
         videoFacebook,
         videoYoutube,
@@ -78,6 +81,9 @@ const slice = createSlice({
       state.postsById[_id].width = width;
       state.postsById[_id].legal = legal;
       state.postsById[_id].type = type;
+      state.postsById[_id].direction = direction;
+      state.postsById[_id].price = price;
+      state.postsById[_id].toilet = toilet;
       state.postsById[_id].description = description;
       state.postsById[_id].images = images;
       state.postsById[_id].legal_images = legal_images;
@@ -110,6 +116,12 @@ const slice = createSlice({
       state.totalPosts = count;
       state.filteredPosts = filteredPosts;
     },
+    getFavoritePostsSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const favoritePosts = action.payload.data;
+      state.favoritePosts = favoritePosts;
+    },
   },
 });
 
@@ -120,7 +132,6 @@ export const createNewPost = ({
   acreage,
   length,
   width,
-  direction,
   legal,
   status,
   type,
@@ -128,6 +139,7 @@ export const createNewPost = ({
   images,
   legal_images,
   province,
+  direction,
   price,
   toilet,
   bedroom,
@@ -219,53 +231,12 @@ export const getSinglePost = ({ postId }) => async (dispatch) => {
   }
 };
 
-export const updateSinglePost = ({
-  postId,
-  title,
-  address,
-  acreage,
-  length,
-  width,
-  legal,
-  type,
-  description,
-  images,
-  legal_images,
-  province,
-  price,
-  googleMapLocation,
-  videoFacebook,
-  videoYoutube,
-  videoTiktok,
-  contact_name,
-  contact_phoneNumber,
-  status,
-}) => async (dispatch) => {
-  dispatch(slice.actions.isLoading());
+export const updateSinglePost = ({ postId, data }) => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+
   try {
-    const imageUrls = await cloudinaryUpload(images);
-    const legal_imageUrls = await cloudinaryUpload(legal_images);
-    const response = await apiService.put(`posts/${postId}`, {
-      title,
-      address,
-      acreage,
-      length,
-      width,
-      legal,
-      type,
-      description,
-      province,
-      price,
-      googleMapLocation,
-      videoFacebook,
-      videoYoutube,
-      videoTiktok,
-      contact_name,
-      contact_phoneNumber,
-      status,
-      images: imageUrls,
-      legal_images: legal_imageUrls,
-    });
+    const response = await apiService.put(`/posts/${postId}`, data);
+    console.log(response);
     dispatch(slice.actions.updateSinglePostSuccess(response.data));
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
@@ -300,6 +271,18 @@ export const getFilterPosts = ({ page, limit = 20, province }) => async (
     );
 
     dispatch(slice.actions.getFilteredPostsSuccess(response.data));
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+    toast.error(error.message);
+  }
+};
+
+export const getFavoritePosts = ({ userId }) => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const response = await apiService.get(`/posts/${userId}/favoritePosts`);
+    dispatch(slice.actions.getFavoritePostsSuccess(response.data));
+    toast.success("Welcome your favorite posts list");
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
     toast.error(error.message);

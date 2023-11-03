@@ -90,7 +90,7 @@ function LoginPage() {
           <Link
             underline="hover"
             sx={{ display: "flex", alignItems: "center", color: "primary" }}
-            href="/"
+            href="/HomePage"
           >
             <HomeIcon sx={{ color: "primary", mr: 0.5 }} fontSize="inherit" />
             Home Page

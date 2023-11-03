@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Container,
@@ -16,7 +16,10 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FormCollectEmail from "../components/FormCollectEmail";
+import StreetviewIcon from "@mui/icons-material/Streetview";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getViewerCount } from "../features/user/userSlice";
 
 const ICON_LINK = [
   {
@@ -83,6 +86,33 @@ const styles = {
 
 function MainFooter() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  function hasViewedBefore() {
+    return localStorage.getItem("viewed") === "true";
+  }
+
+  const viewerCountFromRedux = useSelector((state) => state.user.totalViewers);
+
+  const initialViewerCount =
+    parseInt(localStorage.getItem("viewerCount"), 10) || 0;
+  const [viewerCount, setViewerCount] = useState(initialViewerCount);
+
+  useEffect(() => {
+    if (!hasViewedBefore()) {
+      dispatch(getViewerCount());
+      localStorage.setItem("viewed", "true");
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (viewerCountFromRedux !== null && viewerCountFromRedux !== undefined) {
+      setViewerCount(viewerCountFromRedux);
+
+      localStorage.setItem("viewerCount", viewerCountFromRedux.toString());
+    }
+  }, [viewerCountFromRedux]);
+
   const handleChangPage = () => {
     navigate("/regulation");
   };
@@ -144,6 +174,12 @@ function MainFooter() {
               <MailIcon />
               <Typography ml={1} variant="subtitle2">
                 info@chodattaynguyen.com
+              </Typography>
+            </Box>
+            <Box sx={styles.contactStyle}>
+              <StreetviewIcon />
+              <Typography ml={1} variant="subtitle2">
+                Đã có {viewerCount} lượt truy cập
               </Typography>
             </Box>
           </Stack>

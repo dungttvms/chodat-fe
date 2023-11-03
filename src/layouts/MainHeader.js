@@ -88,7 +88,7 @@ function MainHeader() {
 
   const handlePosts = () => {
     try {
-      navigate(`/posts/${user._id}`);
+      navigate(`/posts/favoritePosts`);
       handleCloseUserMenu();
     } catch (error) {
       console.error(error);
@@ -109,7 +109,6 @@ function MainHeader() {
       title: "GIỚI THIỆU",
       action: () => navigate("/introduce"),
     },
-
     {
       title: "PHONG THỦY",
       action: () => navigate("/blogs/blog/Phong thủy"),
@@ -129,7 +128,7 @@ function MainHeader() {
   ];
   let settings = [
     {
-      title: "Quản lý tin đăng",
+      title: "Quản lý tin yêu thích",
       action: handlePosts,
       icon: <ListIcon />,
     },
@@ -260,7 +259,7 @@ function MainHeader() {
                     variant={"body2"}
                     sx={{ display: "flex", alignItems: "center", p: 2 }}
                   >
-                    <FavoriteIcon onClick={() => navigate("/favoritePost")} />
+                    <FavoriteIcon />
                     <Typography
                       sx={{
                         color: "white",

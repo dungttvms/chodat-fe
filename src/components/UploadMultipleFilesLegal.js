@@ -36,6 +36,9 @@ function UploadMultipleFilesLegal({
     fileRejections,
   } = useDropzone({
     multiple: true,
+    accept: {
+      "image/*": [".jpeg", ".jpg", ".png"],
+    },
     ...other,
   });
 

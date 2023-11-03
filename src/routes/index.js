@@ -26,6 +26,7 @@ import BlogFilteredList from "../features/blog/BlogFilteredList";
 import UpdatePostByAdmin from "../features/post/UpdatePostByAdmin";
 import WelcomePage from "../pages/WelcomePage";
 import UpdateUserByAdmin from "../features/user/UpdateUserByAdmin";
+import FavoritePostList from "../features/post/FavoritePostList";
 
 function Router() {
   return (
@@ -39,6 +40,14 @@ function Router() {
           element={
             <AuthRequire>
               <PostDetail />
+            </AuthRequire>
+          }
+        />
+        <Route
+          path="/posts/favoritePosts"
+          element={
+            <AuthRequire>
+              <FavoritePostList />
             </AuthRequire>
           }
         />
