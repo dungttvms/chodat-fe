@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getFilterPosts } from "./postSlice";
-
 import {
   Box,
   Card,
@@ -21,19 +19,22 @@ const PostByProvince = () => {
   const province = params.province;
 
   const dispatch = useDispatch();
+
   const { filteredPosts, totalPosts } = useSelector((state) => state.post);
 
-  useEffect(() => {
+  const filteredPostsList = useMemo(() => {
     if (province) {
       dispatch(getFilterPosts({ page, province }));
     }
-  }, [dispatch, page, province]);
+    return filteredPosts;
+  }, [dispatch, page, province, filteredPosts]);
 
   const totalPages = totalPosts ? Math.ceil(totalPosts / 20) : 1;
 
   const handlePageChange = (e, page) => {
     setPage(page);
   };
+
   return (
     <Container
       maxWidth={false}
@@ -67,7 +68,7 @@ const PostByProvince = () => {
             backgroundColor: "transparent",
           }}
         >
-          {filteredPosts.map((post) => (
+          {filteredPostsList.map((post) => (
             <PostCard key={post._id} post={post} />
           ))}
         </Card>

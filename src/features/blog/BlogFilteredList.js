@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getFilterBlogs } from "./blogSlice";
@@ -20,15 +20,22 @@ function BlogFilteredList() {
   const { filteredBlogs, totalBlogs } = useSelector((state) => state.blog);
   const dispatch = useDispatch();
 
+  const totalPages = useMemo(
+    () => (totalBlogs ? Math.ceil(totalBlogs / 10) : 1),
+    [totalBlogs]
+  );
+
+  const handlePageChange = useCallback((e, page) => {
+    setPage(page);
+  }, []);
+
   useEffect(() => {
     dispatch(getFilterBlogs({ page, type }));
   }, [dispatch, page, type]);
 
-  const totalPages = totalBlogs ? Math.ceil(totalBlogs / 10) : 1;
-
-  const handlePageChange = (e, page) => {
-    setPage(page);
-  };
+  const filteredBlogsElements = useMemo(() => {
+    return filteredBlogs.map((blog) => <BlogCard key={blog._id} blog={blog} />);
+  }, [filteredBlogs]);
 
   return (
     <Container
@@ -74,9 +81,7 @@ function BlogFilteredList() {
             backgroundColor: "transparent",
           }}
         >
-          {filteredBlogs.map((blog) => (
-            <BlogCard key={blog._id} blog={blog} />
-          ))}
+          {filteredBlogsElements}
         </Card>
         <Pagination
           count={totalPages}

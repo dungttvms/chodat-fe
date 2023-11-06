@@ -187,7 +187,7 @@ function UserControlByAdmin() {
                           align="justify"
                           sx={{ display: { xs: "none", md: "table-cell" } }}
                         >
-                          <a href={`mailto:${user.email}?${THANK_YOU_EMAIL}`}>
+                          <a href={`mailto:${user.email}${THANK_YOU_EMAIL}`}>
                             {user.email}
                           </a>
                         </TableCell>

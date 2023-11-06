@@ -12,6 +12,7 @@ import { Box, Card, Container, Tab, Tabs } from "@mui/material";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ChatBotControl from "./ChatBotControlByAdmin";
+import { Helmet } from "react-helmet";
 
 function AdminControlPanel() {
   const { user } = useAuth();
@@ -56,6 +57,9 @@ function AdminControlPanel() {
 
   return (
     <Container>
+      <Helmet>
+        <title>Chợ đất Tây Nguyên | Quản trị</title>
+      </Helmet>
       <Card
         sx={{
           m: 3,

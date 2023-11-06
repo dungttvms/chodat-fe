@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deletePost, getAllPosts } from "./postSlice";
 import {
@@ -13,11 +13,11 @@ import {
   TableRow,
   TableCell,
   Typography,
-  TableBody,
   Link,
   Button,
   useMediaQuery,
   useTheme,
+  TableBody,
 } from "@mui/material";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 
@@ -44,6 +44,16 @@ function PostControlByAdmin() {
     dispatch(getAllPosts({ page, limit: rowsPerPage }));
   }, [page, rowsPerPage, dispatch]);
 
+  const totalPostsText = useMemo(() => {
+    if (totalPosts > 1) {
+      return `Có ${totalPosts} Bất động sản được tìm thấy`;
+    } else if (totalPosts === 1) {
+      return "Có 1 Bất động sản được tìm thấy";
+    } else {
+      return "Không tìm thấy Bất động sản nào";
+    }
+  }, [totalPosts]);
+
   return (
     <Container>
       <Typography variant="h4" sx={{ mb: 3 }}>
@@ -56,11 +66,7 @@ function PostControlByAdmin() {
               variant="subtitle"
               sx={{ color: "text.secondary", ml: 1 }}
             >
-              {totalPosts > 1
-                ? `Có ${totalPosts} Bất động sản được tìm thấy`
-                : totalPosts === 1
-                ? `Có 1 Bất động sản được tìm thấy`
-                : "Không tìm thấy Bất động sản nào"}
+              {totalPostsText}
             </Typography>
             <TablePagination
               sx={{

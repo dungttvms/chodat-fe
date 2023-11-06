@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -22,15 +22,19 @@ function BlogDetail() {
     dispatch(getSingleBlog({ blogId }));
   }, [dispatch, blogId, initialRender]);
 
-  const renderHtmlSafety = React.useCallback(
+  const renderHtmlSafety = useCallback(
     (htmlString) => ({ __html: htmlString }),
     []
   );
 
+  const titleHelmet = useMemo(() => `Chợ đất Tây Nguyên | ${blog.type}`, [
+    blog.type,
+  ]);
+
   return (
     <Container className="blog-detail-container">
       <Helmet>
-        <title>{`Chợ đất Tây Nguyên | ${blog.type}`}</title>
+        <title>{titleHelmet}</title>
       </Helmet>
       <div
         className="blog-detail-title"
@@ -47,7 +51,7 @@ function BlogDetail() {
       <div
         className="blog-detail-description"
         dangerouslySetInnerHTML={renderHtmlSafety(blog.descriptionDetail)}
-      />{" "}
+      />
     </Container>
   );
 }

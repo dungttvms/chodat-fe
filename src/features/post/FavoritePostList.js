@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useAuth from "../../hooks/useAuth";
 import { getFavoritePosts } from "./postSlice";
-import { useEffect } from "react";
 import { Card, Container, Grid, Stack, Typography } from "@mui/material";
 import PostCard from "./PostCard";
 
@@ -13,7 +12,9 @@ const FavoritePostList = () => {
   const { favoritePosts } = useSelector((state) => state.post);
 
   useEffect(() => {
-    dispatch(getFavoritePosts({ userId }));
+    if (userId) {
+      dispatch(getFavoritePosts({ userId }));
+    }
   }, [userId, dispatch]);
 
   return (

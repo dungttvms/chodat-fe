@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import Slider from "react-slick";
 import { styled } from "@mui/system";
 
@@ -22,47 +22,63 @@ function PostDetailImage({ post }) {
   const [nav1, setNav1] = useState();
   const [nav2, setNav2] = useState();
 
+  const slider1Settings = useMemo(
+    () => ({
+      asNavFor: nav2,
+      centerMode: true,
+      centerPadding: "0",
+    }),
+    [nav2]
+  );
+
+  const slider2Settings = useMemo(
+    () => ({
+      asNavFor: nav1,
+      slidesToShow: 3,
+      swipeToSlide: true,
+      focusOnSelect: true,
+      accessibility: true,
+      adaptiveHeight: true,
+      arrows: true,
+      autoplaySpeed: 3000,
+      centerMode: true,
+      centerPadding: "20px",
+    }),
+    [nav1]
+  );
+
+  const renderImageSliders = useCallback(() => {
+    return post?.image?.map((imageUrl, index) => (
+      <ImageSlider key={index}>
+        <img src={imageUrl} alt={`Slide ${index}`} />
+      </ImageSlider>
+    ));
+  }, [post?.image]);
+
+  const renderThumbnailSliders = useCallback(() => {
+    return post.image.map((imageUrl, index) => (
+      <div key={index}>
+        <img
+          height="100px"
+          width="100px"
+          src={imageUrl}
+          alt={`Slide ${index}`}
+        />
+      </div>
+    ));
+  }, [post.image]);
 
   return (
     <div>
-      <Slider
-        asNavFor={nav2}
-        ref={(slider1) => setNav1(slider1)}
-        centerMode={true}
-        centerPadding="0"
-      >
-        {post?.image?.map((imageUrl, index) => (
-          <ImageSlider key={index}>
-            <img src={imageUrl} alt={`Slide ${index}`} />
-          </ImageSlider>
-        ))}
+      <Slider {...slider1Settings} ref={(slider1) => setNav1(slider1)}>
+        {renderImageSliders()}
       </Slider>
 
-      <Slider
-        asNavFor={nav1}
-        ref={(slider2) => setNav2(slider2)}
-        slidesToShow={3}
-        swipeToSlide={true}
-        focusOnSelect={true}
-        accessibility={true}
-        adaptiveHeight={true}
-        arrows={true}
-        autoplaySpeed={3000}
-        centerMode={true}
-        centerPadding="20px"
-      >
-        {post.image.map((imageUrl, index) => (
-          <div key={index}>
-            <img
-              height="100px"
-              width="100px"
-              src={imageUrl}
-              alt={`Slide ${index}`}
-            />
-          </div>
-        ))}
+      <Slider {...slider2Settings} ref={(slider2) => setNav2(slider2)}>
+        {renderThumbnailSliders()}
       </Slider>
     </div>
   );
 }
+
 export default PostDetailImage;

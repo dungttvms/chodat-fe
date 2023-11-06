@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -14,18 +14,20 @@ import { FACEBOOK_URL } from "../../app/config";
 const BlogCard = ({ blog }) => {
   const navigate = useNavigate();
   const blogId = blog._id;
-  const shareUrl = `${window.location.origin}/blogs/${blogId}`;
+  const shareUrl = useMemo(() => `${window.location.origin}/blogs/${blogId}`, [
+    blogId,
+  ]);
 
-  const handleCardClick = () => {
+  const handleCardClick = useCallback(() => {
     navigate(`/blogs/${blogId}`);
-  };
+  }, [navigate, blogId]);
 
-  const [isSharing, setSharing] = React.useState(false);
+  const [isSharing, setSharing] = useState(false);
 
-  const shareFacebook = () => {
+  const shareFacebook = useCallback(() => {
     const facebookShareUrl = `${FACEBOOK_URL}${encodeURIComponent(shareUrl)}`;
     window.open(facebookShareUrl, "_blank");
-  };
+  }, [shareUrl]);
 
   return (
     <Card sx={{ m: 2, display: "flex" }}>

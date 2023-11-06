@@ -41,6 +41,20 @@ const PostCard = ({ post }) => {
     window.open(facebookShareUrl, "_blank");
   };
 
+  const truncatedTitle = React.useMemo(
+    () => post.title.slice(0, 25).toUpperCase(),
+    [post.title]
+  );
+  const formattedPrice = React.useMemo(() => `${post.price}`, [post.price]);
+  const formattedAcreage = React.useMemo(() => `${post.acreage} m²`, [
+    post.acreage,
+  ]);
+  const formattedProvince = React.useMemo(() => post.province, [post.province]);
+  const formattedStatus = React.useMemo(() => post.status, [post.status]);
+  const formattedCreatedTime = React.useMemo(() => fToNow(post.createdAt), [
+    post.createdAt,
+  ]);
+
   return (
     <Card xs={12} md={4} sx={{ m: 2 }}>
       <CardMedia
@@ -73,7 +87,7 @@ const PostCard = ({ post }) => {
           }}
           onClick={() => navigate(`/posts/${postId}`)}
         >
-          {post.title.slice(0, 25).toUpperCase()}...
+          {truncatedTitle}...
         </Typography>
         <Stack
           display="flex"
@@ -93,7 +107,7 @@ const PostCard = ({ post }) => {
               display="flex"
               alignItems="center"
             >
-              <AttachMoneyIcon /> {post.price}
+              <AttachMoneyIcon /> {formattedPrice}
             </Typography>
             <Typography
               sx={{ ml: 2, mr: 2 }}
@@ -101,7 +115,7 @@ const PostCard = ({ post }) => {
               display="flex"
               alignItems="center"
             >
-              <AspectRatioIcon sx={{ mr: 1 }} /> {post.acreage} m²
+              <AspectRatioIcon sx={{ mr: 1 }} /> {formattedAcreage}
             </Typography>
           </Box>
           <Box
@@ -115,7 +129,7 @@ const PostCard = ({ post }) => {
               display="flex"
               alignItems="center"
             >
-              <PlaceIcon sx={{ mr: 1 }} /> {post.province}
+              <PlaceIcon sx={{ mr: 1 }} /> {formattedProvince}
             </Typography>
             <Typography
               sx={{ ml: 2, mr: 2 }}
@@ -123,7 +137,7 @@ const PostCard = ({ post }) => {
               display="flex"
               alignItems="center"
             >
-              <SellIcon sx={{ mr: 1 }} /> {post.status}
+              <SellIcon sx={{ mr: 1 }} /> {formattedStatus}
             </Typography>
           </Box>
         </Stack>
@@ -159,7 +173,7 @@ const PostCard = ({ post }) => {
             fontStyle="italic"
             sx={{ display: "block" }}
           >
-            {fToNow(post.createdAt)}
+            {formattedCreatedTime}
           </Typography>
         </CardActions>
       </Stack>

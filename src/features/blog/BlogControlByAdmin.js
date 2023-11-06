@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import {
@@ -27,20 +27,30 @@ function BlogControlByAdmin() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const handleChangeRowsPerPage = (event) => {
+  const handleChangeRowsPerPage = useCallback((event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
-  };
+  }, []);
 
   const { blogs, totalBlogs } = useSelector((state) => state.blog);
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = useCallback((event, newPage) => {
     setPage(newPage);
-  };
+  }, []);
 
   useEffect(() => {
     dispatch(getAllBlogs({ page: page + 1, limit: rowsPerPage }));
   }, [page, rowsPerPage, dispatch]);
+
+  const formattedTotalBlogs = useMemo(() => {
+    if (totalBlogs > 1) {
+      return `Có ${totalBlogs} Bài viết được tìm thấy`;
+    } else if (totalBlogs === 1) {
+      return `Có 1 Bài viết được tìm thấy`;
+    } else {
+      return "Không tìm thấy Bài viết nào";
+    }
+  }, [totalBlogs]);
 
   return (
     <Container>
@@ -51,11 +61,7 @@ function BlogControlByAdmin() {
         <Stack spacing={2}>
           <Stack spacing={2} direction="column" alignItems="center">
             <Typography variant="subtitle" sx={{ color: "text.secondary" }}>
-              {totalBlogs > 1
-                ? `Có ${totalBlogs} Bài viết được tìm thấy`
-                : totalBlogs === 1
-                ? `Có 1 Bài viết được tìm thấy`
-                : "Không tìm thấy Bài viết nào"}
+              {formattedTotalBlogs}
             </Typography>
             <TablePagination
               sx={{
@@ -108,16 +114,18 @@ function BlogControlByAdmin() {
                     >
                       Lượt xem
                     </TableCell>
+                  )}{" "}
+                  {!isMobile && (
+                    <TableCell
+                      sx={{
+                        width: { xs: "none", sm: "10%" },
+                        fontWeight: "bold",
+                        textAlign: "center",
+                      }}
+                    >
+                      Xóa bài đăng
+                    </TableCell>
                   )}
-                  <TableCell
-                    sx={{
-                      width: { xs: "none", sm: "10%" },
-                      fontWeight: "bold",
-                      textAlign: "center",
-                    }}
-                  >
-                    Xóa bài đăng
-                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -155,23 +163,25 @@ function BlogControlByAdmin() {
                         >
                           {blog.readCount}
                         </TableCell>
-                      )}
-                      <TableCell
-                        align="center"
-                        sx={{
-                          display: "flex",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Button
-                          sx={{ fontSize: "0.6rem" }}
-                          size="small"
-                          variant="contained"
-                          onClick={() => dispatch(deleteSingleBlog(blog._id))}
+                      )}{" "}
+                      {!isMobile && (
+                        <TableCell
+                          align="center"
+                          sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                          }}
                         >
-                          XÓA
-                        </Button>
-                      </TableCell>
+                          <Button
+                            sx={{ fontSize: "0.6rem" }}
+                            size="small"
+                            variant="contained"
+                            onClick={() => dispatch(deleteSingleBlog(blog._id))}
+                          >
+                            XÓA
+                          </Button>
+                        </TableCell>
+                      )}
                     </TableRow>
                   ))
                 ) : (

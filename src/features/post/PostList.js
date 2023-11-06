@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import PostCard from "./PostCard";
 import { Box, Card, Container, Grid, Pagination, Stack } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,9 +15,9 @@ const PostList = () => {
     dispatch(getAllPosts({ page }));
   }, [dispatch, page]);
 
-  const totalPages = totalPosts
-    ? Math.ceil(totalPosts / NUMBER_POSTS_OF_LIMIT)
-    : 1;
+  const totalPages = useMemo(() => {
+    return totalPosts ? Math.ceil(totalPosts / NUMBER_POSTS_OF_LIMIT) : 1;
+  }, [totalPosts]);
 
   const handlePageChange = (e, page) => {
     setPage(page);

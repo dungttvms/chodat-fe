@@ -1,10 +1,8 @@
 import { Container } from "@mui/material";
-
-import React from "react";
+import React, { useMemo } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useNavigate } from "react-router-dom";
-
 import kontum from "../../images/province_images/kontum.jpg";
 import gialai from "../../images/province_images/gia lai.jpg";
 import daklak from "../../images/province_images/dak lak.png";
@@ -32,33 +30,36 @@ function PostListByImages({ deviceType }) {
 
   const navigate = useNavigate();
 
-  const provinces = [
-    {
-      name: "Kon Tum",
-      title: "Kon Tum",
-      image: kontum,
-    },
-    {
-      name: "Gia Lai",
-      title: "Gia Lai",
-      image: gialai,
-    },
-    {
-      name: "Đăk Lăk",
-      title: "Đăk Lăk",
-      image: daklak,
-    },
-    {
-      name: "Đăk Nông",
-      title: "Đăk Nông",
-      image: daknong,
-    },
-    {
-      name: "Lâm Đồng",
-      title: "Lâm Đồng",
-      image: lamdong,
-    },
-  ];
+  const provinces = useMemo(
+    () => [
+      {
+        name: "Kon Tum",
+        title: "Kon Tum",
+        image: kontum,
+      },
+      {
+        name: "Gia Lai",
+        title: "Gia Lai",
+        image: gialai,
+      },
+      {
+        name: "Đăk Lăk",
+        title: "Đăk Lăk",
+        image: daklak,
+      },
+      {
+        name: "Đăk Nông",
+        title: "Đăk Nông",
+        image: daknong,
+      },
+      {
+        name: "Lâm Đồng",
+        title: "Lâm Đồng",
+        image: lamdong,
+      },
+    ],
+    []
+  );
 
   return (
     <Container sx={{ p: 3 }}>

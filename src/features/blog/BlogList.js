@@ -1,5 +1,5 @@
 import { Card, Container, Grid, Pagination, Stack } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import BlogCard from "./BlogCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBlogs } from "./blogSlice";
@@ -11,17 +11,22 @@ function BlogList() {
 
   const dispatch = useDispatch();
 
+  const totalPages = useMemo(
+    () => (totalBlogs ? Math.ceil(totalBlogs / NUMBER_BLOGS_OF_LIMIT) : 1),
+    [totalBlogs]
+  );
+
+  const handlePageChange = useCallback((e, page) => {
+    setPage(page);
+  }, []);
+
   useEffect(() => {
     dispatch(getAllBlogs({ page }));
   }, [dispatch, page]);
 
-  const totalPages = totalBlogs
-    ? Math.ceil(totalBlogs / NUMBER_BLOGS_OF_LIMIT)
-    : 1;
-
-  const handlePageChange = (e, page) => {
-    setPage(page);
-  };
+  const blogCards = useMemo(() => {
+    return blogs.map((blog) => <BlogCard key={blog._id} blog={blog} />);
+  }, [blogs]);
 
   return (
     <Container
@@ -59,9 +64,7 @@ function BlogList() {
             backgroundColor: "transparent",
           }}
         >
-          {blogs.map((blog) => (
-            <BlogCard key={blog._id} blog={blog} />
-          ))}
+          {blogCards}
         </Card>
         <Pagination
           count={totalPages}
