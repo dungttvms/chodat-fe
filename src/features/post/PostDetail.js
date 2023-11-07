@@ -37,7 +37,7 @@ function PostDetail() {
   const { postId } = useParams();
   const { user } = useAuth();
 
-  const post = useSelector((state) => state.post.singlePost);
+  const post = useSelector((state) => state.post?.singlePost);
 
   const images = post?.images?.map((image) => ({
     original: image,

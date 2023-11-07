@@ -8,7 +8,7 @@ import { Container, Typography } from "@mui/material";
 
 function BlogDetail() {
   const dispatch = useDispatch();
-  const blog = useSelector((state) => state.blog.singleBlog);
+  const blog = useSelector((state) => state.blog?.singleBlog);
 
   const params = useParams();
   const blogId = params.blogId;

@@ -25,7 +25,7 @@ const updateCurrentUserSchema = Yup.object().shape({
 function UserProfile() {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const isLoading = useSelector((state) => state.user.isLoading);
+  const isLoading = useSelector((state) => state.user?.isLoading);
 
   const defaultValues = useMemo(
     () => ({

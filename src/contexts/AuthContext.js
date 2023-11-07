@@ -97,7 +97,7 @@ const AuthContext = createContext({ ...initialState });
 
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const updatedProfile = useSelector((state) => state.user.updatedProfile);
+  const updatedProfile = useSelector((state) => state?.user?.updatedProfile);
 
   useEffect(() => {
     const initialize = async () => {

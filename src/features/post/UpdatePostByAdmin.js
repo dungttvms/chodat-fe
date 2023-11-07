@@ -39,8 +39,8 @@ import LoadingScreen from "../../components/LoadingScreen";
 // };
 
 function UpdatePostByAdmin() {
-  const isLoading = useSelector((state) => state.post.isLoading);
-  const post = useSelector((state) => state.post.singlePost);
+  const isLoading = useSelector((state) => state.post?.isLoading);
+  const post = useSelector((state) => state.post?.singlePost);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();

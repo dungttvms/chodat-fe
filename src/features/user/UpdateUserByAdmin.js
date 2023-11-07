@@ -30,8 +30,8 @@ function UpdateUserByAdmin() {
     dispatch(getSingleUserByAdmin(targetUserId));
   }, [dispatch, targetUserId]);
 
-  const isLoading = useSelector((state) => state.user.isLoading);
-  const selectedUser = useSelector((state) => state.user.selectedUser);
+  const isLoading = useSelector((state) => state.user?.isLoading);
+  const selectedUser = useSelector((state) => state.user?.selectedUser);
 
   const defaultValues = {
     name: selectedUser?.name || "",

@@ -92,7 +92,7 @@ function MainFooter() {
     return localStorage.getItem("viewed") === "true";
   }
 
-  const viewerCountFromRedux = useSelector((state) => state.user.totalViewers);
+  const viewerCountFromRedux = useSelector((state) => state.user?.totalViewers);
 
   const initialViewerCount =
     parseInt(localStorage.getItem("viewerCount"), 10) || 0;
