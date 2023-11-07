@@ -2,6 +2,7 @@ import {
   Box,
   Card,
   CardContent,
+  CardHeader,
   Container,
   Grid,
   Link,
@@ -14,11 +15,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSinglePost } from "./postSlice";
 import LoadingScreen from "../../components/LoadingScreen";
 import ImageGallery from "react-image-gallery";
-import { Helmet } from "react-helmet";
-import "react-image-gallery/styles/css/image-gallery.css";
-import useAuth from "../../hooks/useAuth";
-import { GOOGLE_MAP_URL } from "../../app/config";
-import { fDateTimeNoHour } from "../../utils/formatTime";
 import LocalHotelIcon from "@mui/icons-material/LocalHotel";
 import DescriptionIcon from "@mui/icons-material/Description";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
@@ -30,6 +26,11 @@ import StraightenIcon from "@mui/icons-material/Straighten";
 import WidthFullIcon from "@mui/icons-material/WidthFull";
 import BathtubIcon from "@mui/icons-material/Bathtub";
 import TypeSpecimenIcon from "@mui/icons-material/TypeSpecimen";
+import { Helmet } from "react-helmet";
+import "react-image-gallery/styles/css/image-gallery.css";
+import useAuth from "../../hooks/useAuth";
+import { GOOGLE_MAP_URL } from "../../app/config";
+import { fDateTimeNoHour } from "../../utils/formatTime";
 
 function PostDetail() {
   const dispatch = useDispatch();
@@ -46,19 +47,20 @@ function PostDetail() {
     thumbnailHeight: 80,
     thumbnailWidth: 120,
   }));
-  if (user && user.role === "admin" && post?.legal_images) {
-    post.legal_images.forEach((legal_image) => {
-      images.push({
-        original: legal_image,
-        thumbnail: legal_image,
-        originalHeight: 400,
-        originalWidth: 700,
-        thumbnailHeight: 80,
-        thumbnailWidth: 120,
+  if (user && user.role === "admin") {
+    if (post?.legal_images) {
+      post.legal_images.forEach((legal_image) => {
+        images.push({
+          original: legal_image,
+          thumbnail: legal_image,
+          originalHeight: 400,
+          originalWidth: 700,
+          thumbnailHeight: 80,
+          thumbnailWidth: 120,
+        });
       });
-    });
+    }
   }
-
   const postLoading = useSelector((state) => state.post.isLoading);
 
   useEffect(() => {
@@ -67,14 +69,14 @@ function PostDetail() {
 
   if (postLoading || !post) return <LoadingScreen />;
 
-  return (
-    <Container>
-      <Helmet>
-        <title>{`Chợ đất Tây Nguyên | ${post.type}`}</title>
-      </Helmet>
-      <Stack spacing={2} sx={{ mt: 3 }}>
-        <Grid container spacing={2}>
-          <Grid item md={8} sm={12}>
+  if (!postLoading && post)
+    return (
+      <Container>
+        <Helmet>
+          <title>{`Chợ đất Tây Nguyên | ${post.type}`}</title>
+        </Helmet>
+        <Stack spacing={2} sx={{ mt: 3 }}>
+          <Grid sx={{ md: 8, sm: 12 }}>
             <ImageGallery
               items={images}
               showFullscreenButton={true}
@@ -85,6 +87,7 @@ function PostDetail() {
             />
           </Grid>
 
+          <CardHeader />
           <Card>
             <Stack>
               <Grid
@@ -135,86 +138,190 @@ function PostDetail() {
 
               <Grid container spacing={2} sx={{ m: 2 }}>
                 <Grid item xs={12} sm={6} md={4}>
-                  <DisplayIconTextPair
-                    icon={<WidthFullIcon />}
-                    text={`Diện tích: ${post.acreage} m²`}
-                  />
-                  <DisplayIconTextPair
-                    icon={<DirectionsIcon />}
-                    text={`Hướng: ${post.direction}`}
-                  />
-                  {user && user.role === "admin" && (
-                    <DisplayIconTextPair
-                      icon={<BathtubIcon />}
-                      text={`Số toilet: ${post.toilet}`}
+                  <Stack margin={1} direction="row" alignItems="center">
+                    <WidthFullIcon
+                      sx={{
+                        color: "#D2691E",
+                        width: "30px",
+                        height: "30px",
+                        m: 1,
+                      }}
                     />
-                  )}
-                  <DisplayIconTextPair
-                    icon={<PinDropIcon />}
-                    text={
-                      <Link
-                        href={`${GOOGLE_MAP_URL}${post.googleMapLocation}`}
-                        target="_blank"
+                    <span> Diện tích: {post.acreage} m²</span>
+                  </Stack>
+                  <Stack margin={1} direction="row" alignItems="center">
+                    <DirectionsIcon
+                      sx={{
+                        color: "#D2691E",
+                        width: "30px",
+                        height: "30px",
+                        m: 1,
+                      }}
+                    />
+                    <span> Hướng: {post.direction}</span>
+                  </Stack>{" "}
+                  {user && user.role === "admin" && (
+                    <Stack margin={1} direction="row" alignItems="center">
+                      <BathtubIcon
                         sx={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "left",
-                          textDecoration: "none",
+                          color: "#D2691E",
+                          width: "30px",
+                          height: "30px",
+                          m: 1,
                         }}
-                      >
-                        Địa chỉ Google map
-                      </Link>
-                    }
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                  <DisplayIconTextPair
-                    icon={<StraightenIcon />}
-                    text={`Chiều dài: ${post.length} m`}
-                  />
-                  <DisplayIconTextPair
-                    icon={<DescriptionIcon />}
-                    text={`Pháp lý: ${post.legal}`}
-                  />
-                  <DisplayIconTextPair
-                    icon={<TypeSpecimenIcon />}
-                    text={`Loại: ${post.type}`}
-                  />
-                  <DisplayIconTextPair
-                    icon={
-                      <LinkIcon
-                        link={post.videoYoutube}
-                        icon={<YouTubeIcon />}
-                        text="Xem review YouTube"
                       />
-                    }
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                  <DisplayIconTextPair
-                    icon={<WidthFullIcon />}
-                    text={`Chiều rộng: ${post.width} m`}
-                  />
-                  <DisplayIconTextPair
-                    icon={<AttachMoneyIcon />}
-                    text={`Giá: ${post.price}`}
-                  />
-                  {user && user.role === "admin" && (
-                    <DisplayIconTextPair
-                      icon={<LocalHotelIcon />}
-                      text={`Số phòng ngủ: ${post.bedroom}`}
-                    />
+                      <span>Số toilet: {post.toilet}</span>
+                    </Stack>
                   )}
-                  <DisplayIconTextPair
-                    icon={
-                      <LinkIcon
-                        link={post.videoFacebook}
-                        icon={<FacebookIcon />}
-                        text="Xem review Facebook"
+                  <Stack margin={1} direction="row" alignItems="center">
+                    <Link
+                      href={`${GOOGLE_MAP_URL}${post.googleMapLocation}`}
+                      target="_blank"
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "left",
+                        textDecoration: "none",
+                      }}
+                    >
+                      <PinDropIcon
+                        sx={{
+                          color: "#4285F4",
+                          width: "30px",
+                          height: "30px",
+                          ml: 1,
+                        }}
+                        style={{ cursor: "pointer" }}
                       />
-                    }
-                  />
+                      <span style={{ marginLeft: "8px" }}>
+                        {" "}
+                        Địa chỉ Google map
+                      </span>
+                    </Link>
+                  </Stack>
                 </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                  <Stack margin={1} direction="row" alignItems="center">
+                    <StraightenIcon
+                      sx={{
+                        color: "#D2691E",
+                        width: "30px",
+                        height: "30px",
+                        m: 1,
+                      }}
+                    />
+                    <span> Chiều dài: {post.length} m</span>
+                  </Stack>
+                  <Stack margin={1} direction="row" alignItems="center">
+                    <DescriptionIcon
+                      sx={{
+                        color: "#D2691E",
+                        width: "30px",
+                        height: "30px",
+                        m: 1,
+                      }}
+                    />
+                    <span>Pháp lý: {post.legal}</span>
+                  </Stack>{" "}
+                  <Stack margin={1} direction="row" alignItems="center">
+                    <TypeSpecimenIcon
+                      sx={{
+                        color: "#D2691E",
+                        width: "30px",
+                        height: "30px",
+                        m: 1,
+                      }}
+                    />
+                    <span>Loại: {post.type}</span>
+                  </Stack>
+                  <Stack margin={1} direction="row" alignItems="center">
+                    <Link
+                      href={`${post.videoYoutube}`}
+                      target="_blank"
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        textDecoration: "none",
+                      }}
+                    >
+                      <YouTubeIcon
+                        sx={{
+                          color: "#FF0000",
+                          width: "30px",
+                          height: "30px",
+                          ml: 1,
+                        }}
+                        style={{ cursor: "pointer" }}
+                      />
+                      <span style={{ marginLeft: "8px" }}>
+                        Xem review YouTube
+                      </span>
+                    </Link>
+                  </Stack>
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                  <Stack margin={1} direction="row" alignItems="center">
+                    <WidthFullIcon
+                      sx={{
+                        color: "#D2691E",
+                        width: "30px",
+                        height: "30px",
+                        m: 1,
+                      }}
+                    />
+                    <span> Chiều rộng: {post.width} m</span>
+                  </Stack>
+                  <Stack margin={1} direction="row" alignItems="center">
+                    <AttachMoneyIcon
+                      sx={{
+                        color: "#D2691E",
+                        width: "30px",
+                        height: "30px",
+                        m: 1,
+                      }}
+                    />
+                    <span>Giá: {post.price}</span>
+                  </Stack>{" "}
+                  {user && user.role === "admin" && (
+                    <Stack margin={1} direction="row" alignItems="center">
+                      <LocalHotelIcon
+                        sx={{
+                          color: "#D2691E",
+                          width: "30px",
+                          height: "30px",
+                          m: 1,
+                        }}
+                      />
+                      <span>Số phòng ngủ: {post.bedroom}</span>
+                    </Stack>
+                  )}
+                  <Stack margin={1} direction="row" alignItems="center">
+                    <Link
+                      href={`${post.videoFacebook}`}
+                      target="_blank"
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        textDecoration: "none",
+                      }}
+                    >
+                      <FacebookIcon
+                        sx={{
+                          color: "#1877F2",
+                          width: "30px",
+                          height: "30px",
+                          ml: 1,
+                        }}
+                        style={{ cursor: "pointer" }}
+                      />
+                      <span style={{ marginLeft: "8px" }}>
+                        Xem review Facebook
+                      </span>
+                    </Link>
+                  </Stack>
+                </Grid>{" "}
               </Grid>
 
               <CardContent>
@@ -232,37 +339,9 @@ function PostDetail() {
               </CardContent>
             </Stack>
           </Card>
-        </Grid>
-      </Stack>
-    </Container>
-  );
-}
-
-function DisplayIconTextPair({ icon, text }) {
-  return (
-    <Stack margin={1} direction="row" alignItems="center">
-      {icon}
-      <span>{text}</span>
-    </Stack>
-  );
-}
-
-function LinkIcon({ link, icon, text }) {
-  return (
-    <Link
-      href={link}
-      target="_blank"
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        textDecoration: "none",
-      }}
-    >
-      {icon}
-      <span style={{ marginLeft: "8px" }}>{text}</span>
-    </Link>
-  );
+        </Stack>
+      </Container>
+    );
 }
 
 export default PostDetail;

@@ -56,10 +56,10 @@ function UpdateUserByAdmin() {
       dispatch(
         updateSingleUserByAdmin({ id: selectedUser._id, ...updatedData })
       );
-      navigate("/HomePage");
     } catch (error) {
       console.log(error.message);
     }
+    navigate("/HomePage");
   };
 
   const handleDropAvatar = useCallback(

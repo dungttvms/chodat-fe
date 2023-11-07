@@ -1,14 +1,21 @@
-import * as React from "react";
+import React, { useState, useMemo, useCallback } from "react";
+import {
+  Box,
+  Container,
+  IconButton,
+  Typography,
+  Stack,
+  Tooltip,
+  useMediaQuery,
+  Menu,
+  MenuItem,
+  Divider,
+  Button,
+  Avatar,
+} from "@mui/material";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
 import Logo from "../components/Logo";
 import ListIcon from "@mui/icons-material/List";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
@@ -17,41 +24,71 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import EditNoteIcon from "@mui/icons-material/EditNote";
-import { Avatar, Divider, Stack, Tooltip, useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 function MainHeader() {
   const navigate = useNavigate();
-  const isMobile = useMediaQuery("(max-width: 600px)");
+  const isMobile = useMediaQuery("(max-width: 600px");
 
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const pages = useMemo(
+    () => [
+      {
+        title: "GIỚI THIỆU",
+        action: () => navigate("/introduce"),
+      },
+      {
+        title: "PHONG THỦY",
+        action: () => navigate("/blogs/blog/Phong thủy"),
+      },
+      {
+        title: "TIN TỨC",
+        action: () => navigate("/blogs/blog/Tin tức"),
+      },
+      {
+        title: "NHÀ ĐẸP",
+        action: () => navigate("/blogs/blog/Nhà đẹp"),
+      },
+      {
+        title: "LIÊN HỆ",
+        action: () => navigate("/contact"),
+      },
+    ],
+    [navigate]
+  );
 
   const { logout, isAuthenticated, user } = useAuth();
 
-  const favoritePostCount = user?.favoritePostList?.length;
+  const favoritePostCount = useMemo(() => user?.favoritePostList?.length, [
+    user,
+  ]);
 
-  const handleOpenNavMenu = (event) => {
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+
+  const handleOpenNavMenu = useCallback((event) => {
     setAnchorElNav(event.currentTarget);
-  };
+  }, []);
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = useCallback(() => {
     setAnchorElNav(null);
-  };
+  }, []);
 
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-    setTimeout(() => {
-      handleCloseUserMenu();
-    }, 3000);
-  };
-
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = useCallback(() => {
     setAnchorElUser(null);
-  };
+  }, []);
 
-  const handleLogOut = async () => {
+  const handleOpenUserMenu = useCallback(
+    (event) => {
+      setAnchorElUser(event.currentTarget);
+      setTimeout(() => {
+        handleCloseUserMenu();
+      }, 3000);
+    },
+    [handleCloseUserMenu]
+  );
+
+  const handleLogOut = useCallback(async () => {
     try {
       await logout(() => {
         navigate("/HomePage");
@@ -59,118 +96,108 @@ function MainHeader() {
     } catch (error) {
       console.error(error);
     }
-  };
+  }, [logout, navigate]);
 
-  const handlePassword = () => {
+  const handlePassword = useCallback(() => {
     try {
       navigate("/changePassword");
     } catch (error) {
       console.error(error);
     }
-  };
-  const handleAdminControl = () => {
+  }, [navigate]);
+
+  const handleAdminControl = useCallback(() => {
     try {
       navigate("admin/controlpanel");
+      handleCloseUserMenu();
     } catch (error) {
       console.error(error);
     }
-    handleCloseUserMenu();
-  };
+  }, [navigate, handleCloseUserMenu]);
 
-  const handleProfile = () => {
+  const handleProfile = useCallback(() => {
     try {
       navigate(`/users/me`);
       handleCloseUserMenu();
     } catch (error) {
       console.error(error);
     }
-  };
+  }, [navigate, handleCloseUserMenu]);
 
-  const handlePosts = () => {
+  const handlePosts = useCallback(() => {
     try {
       navigate(`/posts/favoritePosts`);
       handleCloseUserMenu();
     } catch (error) {
       console.error(error);
     }
-  };
+  }, [navigate, handleCloseUserMenu]);
 
-  const handleCreateNewPost = () => {
+  const handleCreateNewPost = useCallback(() => {
     try {
       navigate("/createNewPost");
       handleCloseUserMenu();
     } catch (error) {
       console.error(error);
     }
-  };
+  }, [navigate, handleCloseUserMenu]);
 
-  const pages = [
-    {
-      title: "GIỚI THIỆU",
-      action: () => navigate("/introduce"),
-    },
-    {
-      title: "PHONG THỦY",
-      action: () => navigate("/blogs/blog/Phong thủy"),
-    },
-    {
-      title: "TIN TỨC",
-      action: () => navigate("/blogs/blog/Tin tức"),
-    },
-    {
-      title: "NHÀ ĐẸP",
-      action: () => navigate("/blogs/blog/Nhà đẹp"),
-    },
-    {
-      title: "LIÊN HỆ",
-      action: () => navigate("/contact"),
-    },
-  ];
-  let settings = [
-    {
-      title: "Quản lý tin yêu thích",
-      action: handlePosts,
-      icon: <ListIcon />,
-    },
-    {
-      title: "Thông tin tài khoản",
-      action: handleProfile,
-      icon: <AccountBoxIcon />,
-    },
-  ];
+  const settings = useMemo(() => {
+    const settingsArray = [
+      {
+        title: "Quản lý tin yêu thích",
+        action: handlePosts,
+        icon: <ListIcon />,
+      },
+      {
+        title: "Thông tin tài khoản",
+        action: handleProfile,
+        icon: <AccountBoxIcon />,
+      },
+    ];
 
-  if (isAuthenticated) {
-    if (user?.isGoogleAuth === false) {
-      settings.push({
-        title: "Thay đổi mật khẩu",
-        action: handlePassword,
-        icon: <LockOpenIcon />,
+    if (isAuthenticated) {
+      if (user?.isGoogleAuth === false) {
+        settingsArray.push({
+          title: "Thay đổi mật khẩu",
+          action: handlePassword,
+          icon: <LockOpenIcon />,
+        });
+      }
+
+      if (user && user.role === "admin") {
+        settingsArray.push(
+          {
+            title: "Đăng tin",
+            action: handleCreateNewPost,
+            icon: <EditNoteIcon />,
+          },
+          {
+            title: "Quản lý Website",
+            action: handleAdminControl,
+            icon: <AdminPanelSettingsIcon />,
+          }
+        );
+      }
+
+      settingsArray.push({
+        title: "Đăng xuất",
+        action: handleLogOut,
+        icon: <LogoutIcon />,
       });
     }
 
-    if (user && user.role === "admin") {
-      settings.push(
-        {
-          title: "Đăng tin",
-          action: handleCreateNewPost,
-          icon: <EditNoteIcon />,
-        },
-        {
-          title: "Quản lý Website",
-          action: handleAdminControl,
-          icon: <AdminPanelSettingsIcon />,
-        }
-      );
-    }
-
-    settings.push({
-      title: "Đăng xuất",
-      action: handleLogOut,
-      icon: <LogoutIcon />,
-    });
-  }
-
-  settings = settings.filter((item) => item !== null);
+    return settingsArray;
+  }, [
+    isAuthenticated,
+    user,
+    handlePosts,
+    handlePassword,
+    handleAdminControl,
+    handleProfile,
+    handleCreateNewPost,
+    handleLogOut,
+  ]);
 
   return (
     <AppBar position="sticky">
@@ -270,7 +297,6 @@ function MainHeader() {
                     >
                       {favoritePostCount}
                     </Typography>
-
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                       <Typography
                         sx={{

@@ -30,7 +30,7 @@ import FavoritePostList from "../features/post/FavoritePostList";
 
 function Router() {
   return (
-    <Routes sx={{ m: 0, padding: 0 }}>
+    <Routes>
       <Route path="/" element={<WelcomePage />} />
       <Route element={<MainLayout />}>
         <Route path="/HomePage" element={<HomePage />} />
