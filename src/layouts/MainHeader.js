@@ -304,7 +304,7 @@ function MainHeader() {
                           fontSize: "16px",
                         }}
                       >
-                        {user.name}
+                        {user?.name}
                       </Typography>
                       <Avatar src={user?.avatar} sx={{ ml: 2 }} />
                     </IconButton>
