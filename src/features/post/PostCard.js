@@ -117,7 +117,8 @@ const PostCard = ({ post }) => {
               display="flex"
               alignItems="center"
             >
-              <AspectRatioIcon sx={{ mr: 1 }} /> {formattedAcreage}
+              {formattedAcreage}
+              <AspectRatioIcon sx={{ ml: 1 }} />
             </Typography>
           </Box>
           <Box
@@ -139,7 +140,8 @@ const PostCard = ({ post }) => {
               display="flex"
               alignItems="center"
             >
-              <SellIcon sx={{ mr: 1 }} /> {formattedStatus}
+              {formattedStatus}
+              <SellIcon sx={{ ml: 1 }} />
             </Typography>
           </Box>
         </Stack>
