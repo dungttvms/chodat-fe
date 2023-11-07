@@ -83,7 +83,7 @@ function ChatBotOpenAI() {
               scrollBehavior="smooth"
               typingIndicator={
                 typing ? (
-                  <TypingIndicator content="Chợ đất Gia Lai đang trả lời..." />
+                  <TypingIndicator content="Chợ đất Tây Nguyên đang trả lời..." />
                 ) : null
               }
             >
