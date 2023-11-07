@@ -29,7 +29,7 @@ import useAuth from "../hooks/useAuth";
 
 function MainHeader() {
   const navigate = useNavigate();
-  const isMobile = useMediaQuery("(max-width: 600px");
+  const isMobile = useMediaQuery("(max-width: 900px");
 
   const pages = useMemo(
     () => [

@@ -65,6 +65,7 @@ const PostCard = ({ post }) => {
           "&:hover": {
             backgroundColor: "#f5f5f5",
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            cursor: "pointer",
           },
         }}
         image={post.images[0]}
@@ -83,6 +84,7 @@ const PostCard = ({ post }) => {
             "&:hover": {
               backgroundColor: "#f5f5f5",
               boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+              cursor: "pointer",
             },
           }}
           onClick={() => navigate(`/posts/${postId}`)}

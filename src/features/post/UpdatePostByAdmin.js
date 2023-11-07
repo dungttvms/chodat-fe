@@ -13,30 +13,30 @@ import { getSinglePost, updateSinglePost } from "./postSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingScreen from "../../components/LoadingScreen";
 
-const defaultValues = {
-  title: "",
-  address: "",
-  acreage: "",
-  length: "",
-  width: "",
-  direction: "",
-  legal: "",
-  type: "",
-  description: "",
-  province: "",
-  price: "",
-  toilet: "",
-  bedroom: "",
-  googleMapLocation: "",
-  videoFacebook: "",
-  videoYoutube: "",
-  videoTiktok: "",
-  contact_name: "",
-  contact_phoneNumber: "",
-  status: "",
-  images: "",
-  legal_images: "",
-};
+// const defaultValues = {
+//   title: "",
+//   address: "",
+//   acreage: "",
+//   length: "",
+//   width: "",
+//   direction: "",
+//   legal: "",
+//   type: "",
+//   description: "",
+//   province: "",
+//   price: "",
+//   toilet: "",
+//   bedroom: "",
+//   googleMapLocation: "",
+//   videoFacebook: "",
+//   videoYoutube: "",
+//   videoTiktok: "",
+//   contact_name: "",
+//   contact_phoneNumber: "",
+//   status: "",
+//   images: "",
+//   legal_images: "",
+// };
 
 function UpdatePostByAdmin() {
   const isLoading = useSelector((state) => state.post.isLoading);
@@ -45,7 +45,30 @@ function UpdatePostByAdmin() {
   const navigate = useNavigate();
   const params = useParams();
   const postId = params.postId;
-
+  const defaultValues = {
+    title: post?.title || "",
+    address: post?.address || "",
+    acreage: post?.acreage || "",
+    length: post?.length || "",
+    width: post?.width || "",
+    direction: post?.direction || "",
+    legal: post?.legal || "",
+    type: post?.type || "",
+    description: post?.description || "",
+    province: post?.province || "",
+    price: post?.price || "",
+    toilet: post?.toilet || "",
+    bedroom: post?.bedroom || "",
+    googleMapLocation: post?.googleMapLocation || "",
+    videoFacebook: post?.videoFacebook || "",
+    videoYoutube: post?.videoYoutube || "",
+    videoTiktok: post?.videoTiktok || "",
+    contact_name: post?.contact_name || "",
+    contact_phoneNumber: post?.contact_phoneNumber || "",
+    status: post?.status || "",
+    images: "",
+    legal_images: "",
+  };
   const methods = useForm({
     defaultValues,
   });
