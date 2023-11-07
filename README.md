@@ -15,7 +15,7 @@
 
 ---
 
-Acount demo
+Account demo
 email: admin@coderschool.vn
 password: 1234
 

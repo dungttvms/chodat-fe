@@ -19,6 +19,8 @@ import {
   useTheme,
   TableBody,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import BuildIcon from "@mui/icons-material/Build";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 function PostControlByAdmin() {
@@ -91,7 +93,7 @@ function PostControlByAdmin() {
                 <TableRow>
                   <TableCell
                     sx={{
-                      width: { xs: "none", sm: "25%" },
+                      width: { xs: "70% ", md: "25%" },
                       fontWeight: "bold",
                       textAlign: "center",
                     }}
@@ -157,7 +159,7 @@ function PostControlByAdmin() {
                   {!isMobile && (
                     <TableCell
                       sx={{
-                        width: { xs: "none", md: "10%" },
+                        width: { xs: "30%", md: "10%" },
                         fontWeight: "bold",
                         textAlign: "center",
                       }}
@@ -249,6 +251,7 @@ function PostControlByAdmin() {
                             onClick={() =>
                               navigate(`/admin/editPost/${post._id}`)
                             }
+                            endIcon={<BuildIcon />}
                           >
                             SỬA
                           </Button>
@@ -257,6 +260,7 @@ function PostControlByAdmin() {
                             size="small"
                             variant="contained"
                             onClick={() => dispatch(deletePost(post._id))}
+                            endIcon={<DeleteIcon />}
                           >
                             XÓA
                           </Button>

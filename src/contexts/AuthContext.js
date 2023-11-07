@@ -13,7 +13,6 @@ const initialState = {
 const INITIALIZE = "AUTH.INITIALIZE";
 const LOGIN_SUCCESS = "AUTH.LOGIN_SUCCESS";
 const LOGIN_GOOGLE_SUCCESS = "AUTH.LOGIN_GOOGLE_SUCCESS";
-// const LOGIN_FACEBOOK_SUCCESS = "AUTH.LOGIN_FACEBOOK_SUCCESS";
 const REGISTER_SUCCESS = "AUTH.REGISTER_SUCCESS";
 const ADD_FAVORITE_POST_SUCCESS = "AUTH.ADD_FAVORITE_POST_SUCCESS";
 const REMOVE_POST_FROM_FAVORITE_LIST_SUCCESS =
@@ -43,12 +42,6 @@ const reducer = (state, action) => {
         isAuthenticated: true,
         user: action.payload.user,
       };
-    // case LOGIN_FACEBOOK_SUCCESS:
-    //   return {
-    //     ...state,
-    //     isAuthenticated: true,
-    //     user: action.payload.user,
-    //   };
 
     case REGISTER_SUCCESS:
       return {
@@ -170,7 +163,7 @@ function AuthProvider({ children }) {
   };
 
   const loginWithGoogle = async ({ email, name, picture }, callback) => {
-    const response = await apiService.post("/oauth/loginWithGoogle", {
+    const response = await apiService.post("/oauth/login", {
       email,
       name,
       picture,
@@ -185,23 +178,6 @@ function AuthProvider({ children }) {
     toast.success("Login success");
     callback();
   };
-
-  // const loginWithFacebook = async ({ email, name, picture }, callback) => {
-  //   const response = await apiService.post("/oauth/loginWithFacebook", {
-  //     email,
-  //     name,
-  //     picture,
-  //   });
-  //   const { user, accessToken } = response.data.data;
-
-  //   setSession(accessToken);
-  //   dispatch({
-  //     type: LOGIN_FACEBOOK_SUCCESS,
-  //     payload: { user, accessToken },
-  //   });
-  //   toast.success("Login success");
-  //   callback();
-  // };
 
   const register = async ({ name, phoneNumber, email, password }, callback) => {
     const response = await apiService.post("/users", {

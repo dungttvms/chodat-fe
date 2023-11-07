@@ -1,16 +1,19 @@
-import { Box, Container, IconButton } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import Lazy_1 from "../images/Lazy_1.png";
-import Lazy_2 from "../images/Lazy_2.png";
-import Lazy_3 from "../images/Lazy_3.png";
-import Lazy_4 from "../images/Lazy_4.png";
-import Lazy_5 from "../images/Lazy_5.png";
-import Lazy_6 from "../images/Lazy_6.png";
+import { Box, Container, IconButton } from "@mui/material";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import { CLOUDINARY_URL } from "../app/config";
+
+const images = [
+  `${CLOUDINARY_URL}v1699347524/Lazy_1.png`,
+  `${CLOUDINARY_URL}v1699347516/Lazy_2.png`,
+  `${CLOUDINARY_URL}v1699347519/Lazy_3.png`,
+  `${CLOUDINARY_URL}v1699347516/Lazy_4.png`,
+  `${CLOUDINARY_URL}v1699347517/Lazy_5.png`,
+  `${CLOUDINARY_URL}v1699347516/Lazy_6.png`,
+];
 
 function Lazy() {
-  const images = [Lazy_1, Lazy_2, Lazy_3, Lazy_4, Lazy_5, Lazy_6];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handleButtonClickNext = () => {
@@ -31,7 +34,7 @@ function Lazy() {
     return () => {
       clearInterval(intervalId);
     };
-  });
+  }, []);
 
   const customIconStyles = {
     fontSize: "100px",
@@ -51,14 +54,7 @@ function Lazy() {
       style={{ padding: 0, marginTop: 1, marginBottom: 5 }}
     >
       <Box
-        style={{
-          margin: 0,
-          padding: 0,
-          width: "100%",
-          display: "flex",
-          justifyContent: "space-between",
-          position: "relative",
-        }}
+        style={{ margin: 0, padding: 0, width: "100%", position: "relative" }}
       >
         <img
           width="100%"

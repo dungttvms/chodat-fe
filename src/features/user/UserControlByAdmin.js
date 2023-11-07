@@ -4,9 +4,9 @@ import { deleteSingleUserByAdmin, getAllUsersByAdmin } from "./userSlice";
 import {
   Avatar,
   Box,
-  Button,
   Card,
   Container,
+  IconButton,
   Link,
   Stack,
   Table,
@@ -20,6 +20,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { Link as RouterLink } from "react-router-dom";
 import UserFavoritePosts from "./UserFavoritePosts";
 import { THANK_YOU_EMAIL } from "../../app/config";
@@ -206,7 +207,7 @@ function UserControlByAdmin() {
                           justifyContent: "center",
                         }}
                       >
-                        <Button
+                        <IconButton
                           sx={{ fontSize: "0.6rem" }}
                           size="small"
                           variant="contained"
@@ -214,8 +215,8 @@ function UserControlByAdmin() {
                             dispatch(deleteSingleUserByAdmin(user._id))
                           }
                         >
-                          XÓA
-                        </Button>
+                          <DeleteIcon />
+                        </IconButton>
                       </TableCell>
                     </TableRow>
                   );
