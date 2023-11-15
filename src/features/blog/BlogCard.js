@@ -42,7 +42,7 @@ const BlogCard = ({ blog }) => {
         <CardMedia
           component="img"
           sx={{
-            width: "50%",
+            width: "39vh",
             minHeight: "200px",
             cursor: "pointer",
           }}
@@ -56,6 +56,7 @@ const BlogCard = ({ blog }) => {
             sx={{
               display: "relative",
               flexDirection: "column",
+              height: "100%",
             }}
           >
             <Link to="title-blog-detail" smooth={true} duration={500}>
@@ -78,8 +79,9 @@ const BlogCard = ({ blog }) => {
               {blog.descriptionTitle}
             </Typography>
             <Stack />
-            <Box flexGrow={1} />
+
             <Stack>
+              <Box flexGrow={1} />
               <Box
                 sx={{
                   display: "flex",

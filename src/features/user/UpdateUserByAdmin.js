@@ -38,6 +38,7 @@ function UpdateUserByAdmin() {
     email: selectedUser?.email || "",
     phoneNumber: selectedUser?.phoneNumber || "",
     avatar: selectedUser?.avatar || "",
+    role: selectedUser?.role || "",
   };
 
   const methods = useForm({
@@ -152,7 +153,7 @@ function UpdateUserByAdmin() {
                     label="Email *"
                     value={selectedUser.email}
                   />
-                  <FSelect name="role" label="Vai trò">
+                  <FSelect name="role">
                     {[
                       { code: "client", label: "Khách" },
                       { code: "admin", label: "Quản trị viên" },

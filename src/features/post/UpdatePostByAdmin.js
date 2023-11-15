@@ -40,32 +40,33 @@ import LoadingScreen from "../../components/LoadingScreen";
 
 function UpdatePostByAdmin() {
   const isLoading = useSelector((state) => state.post?.isLoading);
-  const post = useSelector((state) => state.post?.singlePost);
+  const singlePost = useSelector((state) => state.post?.singlePost);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
   const postId = params.postId;
   const defaultValues = {
-    title: post?.title || "",
-    address: post?.address || "",
-    acreage: post?.acreage || "",
-    length: post?.length || "",
-    width: post?.width || "",
-    direction: post?.direction || "",
-    legal: post?.legal || "",
-    type: post?.type || "",
-    description: post?.description || "",
-    province: post?.province || "",
-    price: post?.price || "",
-    toilet: post?.toilet || "",
-    bedroom: post?.bedroom || "",
-    googleMapLocation: post?.googleMapLocation || "",
-    videoFacebook: post?.videoFacebook || "",
-    videoYoutube: post?.videoYoutube || "",
-    videoTiktok: post?.videoTiktok || "",
-    contact_name: post?.contact_name || "",
-    contact_phoneNumber: post?.contact_phoneNumber || "",
-    status: post?.status || "",
+    title: singlePost?.title || "",
+    address: singlePost?.address || "",
+    acreage: singlePost?.acreage || "",
+    length: singlePost?.length || "",
+    width: singlePost?.width || "",
+    direction: singlePost?.direction || "",
+    legal: singlePost?.legal || "",
+    type: singlePost?.type || "",
+    description: singlePost?.description || "",
+    province: singlePost?.province || "",
+    price: singlePost?.price || "",
+    toilet: singlePost?.toilet || "",
+    bedroom: singlePost?.bedroom || "",
+    googleMapLocation: singlePost?.googleMapLocation || "",
+    videoFacebook: singlePost?.videoFacebook || "",
+    videoYoutube: singlePost?.videoYoutube || "",
+    videoTiktok: singlePost?.videoTiktok || "",
+    contact_name: singlePost?.contact_name || "",
+    contact_email: singlePost?.contact_email || "",
+    contact_phoneNumber: singlePost?.contact_phoneNumber || "",
+    status: singlePost?.status || "",
     images: "",
     legal_images: "",
   };
@@ -86,8 +87,38 @@ function UpdatePostByAdmin() {
     }
   }, [dispatch, postId]);
 
+  useEffect(() => {
+    if (singlePost) {
+      reset({
+        title: singlePost?.title || "",
+        address: singlePost?.address || "",
+        acreage: singlePost?.acreage || "",
+        length: singlePost?.length || "",
+        width: singlePost?.width || "",
+        direction: singlePost?.direction || "",
+        legal: singlePost?.legal || "",
+        type: singlePost?.type || "",
+        description: singlePost?.description || "",
+        province: singlePost?.province || "",
+        price: singlePost?.price || "",
+        toilet: singlePost?.toilet || "",
+        bedroom: singlePost?.bedroom || "",
+        googleMapLocation: singlePost?.googleMapLocation || "",
+        videoFacebook: singlePost?.videoFacebook || "",
+        videoYoutube: singlePost?.videoYoutube || "",
+        videoTiktok: singlePost?.videoTiktok || "",
+        contact_name: singlePost?.contact_name || "",
+        contact_phoneNumber: singlePost?.contact_phoneNumber || "",
+        status: singlePost?.status || "",
+        contact_email: singlePost?.contact_email || "",
+        images: "",
+        legal_images: "",
+      });
+    }
+  }, [singlePost, reset]);
+
   const onSubmit = (data) => {
-    dispatch(updateSinglePost({ data, postId: post._id })).then(reset());
+    dispatch(updateSinglePost({ data, postId: singlePost._id })).then(reset());
     navigate("/admin/controlPanel");
   };
 
@@ -111,8 +142,15 @@ function UpdatePostByAdmin() {
     [setValue]
   );
 
-  const renderTextField = (name, label, placeholder) => {
-    return <FTextField name={name} label={label} placeholder={placeholder} />;
+  const renderTextField = (name, label, placeholder, multiline) => {
+    return (
+      <FTextField
+        name={name}
+        label={label}
+        placeholder={placeholder}
+        multiline={multiline}
+      />
+    );
   };
 
   const renderGridRow = (items) => {
@@ -133,7 +171,7 @@ function UpdatePostByAdmin() {
   const contactInfo = [
     { name: "contact_name", label: "Tên người liên hệ" },
     { name: "contact_phoneNumber", label: "Điện thoại liên hệ" },
-    { name: "email", label: "Email" },
+    { name: "contact_email", label: "Email" },
   ];
 
   const socialMediaLinks = [
@@ -162,77 +200,94 @@ function UpdatePostByAdmin() {
         </Typography>
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={2}>
-            {renderTextField("title", "Tiêu đề bài viết *", post.title)}
+            {renderTextField(
+              "title",
+              "Tiêu đề bài viết *",
+              singlePost.title,
+              false
+            )}
             {renderTextField(
               "address",
               "Nhập tên đường, xã, huyện *",
-              post.address
+              singlePost.address,
+              false
             )}
             {renderGridRow([
               {
                 name: "province",
                 label: "Nhập tỉnh/ Thành phố *",
-                placeholder: post.province,
+                placeholder: singlePost.province,
               },
               {
                 name: "direction",
                 label: "Nhập hướng *",
-                placeholder: post.direction,
+                placeholder: singlePost.direction,
               },
               {
                 name: "type",
                 label: "Nhập loại Bất động sản *",
-                placeholder: post.type,
+                placeholder: singlePost.type,
               },
             ])}
             {renderGridRow([
               {
                 name: "acreage",
                 label: "Diện tích (m2)*",
-                placeholder: post.acreage,
+                placeholder: singlePost.acreage,
               },
               {
                 name: "width",
                 label: "Nhập chiều rộng (m)*",
-                placeholder: post.width,
+                placeholder: singlePost.width,
               },
               {
                 name: "length",
                 label: "Nhập chiều dài (m)*",
-                placeholder: post.length,
+                placeholder: singlePost.length,
               },
             ])}
             {renderGridRow([
               {
                 name: "price",
                 label: "Giá (triệu đồng)*",
-                placeholder: post.price,
+                placeholder: singlePost.price,
               },
               {
                 name: "legal",
                 label: "Tình trạng pháp lý",
-                placeholder: post.legal,
+                placeholder: singlePost.legal,
               },
-              { name: "status", label: "Trạng thái", placeholder: post.status },
+              {
+                name: "status",
+                label: "Trạng thái",
+                placeholder: singlePost.status,
+              },
             ])}
             {renderGridRow([
-              { name: "toilet", label: "Số toilet", placeholder: post.toilet },
+              {
+                name: "toilet",
+                label: "Số toilet",
+                placeholder: singlePost.toilet,
+              },
               {
                 name: "bedroom",
                 label: "Số phòng ngủ",
-                placeholder: post.bedroom,
+                placeholder: singlePost.bedroom,
               },
               {
                 name: "googleMapLocation",
                 label: "Nhập địa điểm theo tọa độ Google Map (X-Y)*",
-                placeholder: post.googleMapLocation,
+                placeholder: singlePost.googleMapLocation,
               },
             ])}
             {renderTextField(
               "description",
               "Mô tả chi tiết về Bất động sản",
-              post.description
+              singlePost.description,
+              true,
+              4
             )}
+
             <Grid sx={{ display: "flex", flexDirection: "row" }}>
               <FUploadMultipleImages
                 sx={{ mr: 1 }}
@@ -264,7 +319,7 @@ function UpdatePostByAdmin() {
                     sx={{ p: 1 }}
                     name={info.name}
                     label={info.label}
-                    placeholder={post[info.name]}
+                    placeholder={singlePost[info.name]}
                   />
                 ))}
               </Grid>
@@ -282,7 +337,7 @@ function UpdatePostByAdmin() {
                     sx={{ p: 1 }}
                     name={link.name}
                     label={link.label}
-                    placeholder={post[link.name]}
+                    placeholder={singlePost[link.name]}
                   />
                 ))}
               </Grid>

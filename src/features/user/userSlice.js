@@ -165,8 +165,8 @@ export const updateSingleUserByAdmin = ({
   try {
     const data = { id, name, phoneNumber, email, role };
 
-    const response = await apiService.put(`/users/admin/${id}`, data);
-    dispatch(slice.actions.updateSingleUserByAdminSuccess(response.data));
+    await apiService.put(`/users/admin/${id}`, data);
+
     toast.success("Updated Profile Success");
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));

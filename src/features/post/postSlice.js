@@ -254,7 +254,7 @@ export const updateSinglePost = ({ postId, data }) => async (dispatch) => {
     dispatch(slice.actions.updateSinglePostSuccess(response.data));
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
-    toast.error(error.message);
+    // toast.error(error.message);
   }
 };
 
