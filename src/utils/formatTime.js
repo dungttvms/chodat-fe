@@ -15,6 +15,7 @@ export function fTimestamp(date) {
 export function fDateTimeSuffix(date) {
   return format(new Date(date), "dd/MM/yyyy hh:mm");
 }
+
 export function fDateTimeNoHour(date) {
   return format(new Date(date), "dd/MM/yyyy");
 }

@@ -36,14 +36,6 @@ function Router() {
         <Route path="/HomePage" element={<HomePage />} />
 
         <Route
-          path="/posts/:postId"
-          element={
-            <AuthRequire>
-              <PostDetail />
-            </AuthRequire>
-          }
-        />
-        <Route
           path="/posts/favoritePosts"
           element={
             <AuthRequire>
@@ -51,14 +43,7 @@ function Router() {
             </AuthRequire>
           }
         />
-        <Route
-          path="/blogs/:blogId"
-          element={
-            <AuthRequire>
-              <BlogDetail />
-            </AuthRequire>
-          }
-        />
+
         <Route
           path="/admin/controlpanel"
           element={
@@ -100,6 +85,8 @@ function Router() {
             </AuthRequire>
           }
         />
+        <Route path="/posts/:postId" element={<PostDetail />} />
+        <Route path="/blogs/:blogId" element={<BlogDetail />} />
         <Route path="/posts/province/:province" element={<PostByProvince />} />
         <Route path="/blogs/blog/:type" element={<BlogFilteredList />} />
         <Route path="/introduce" element={<IntroducePage />} />

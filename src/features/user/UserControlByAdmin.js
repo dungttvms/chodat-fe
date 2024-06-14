@@ -145,82 +145,95 @@ function UserControlByAdmin() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {user?.users?.map((user) => {
-                  return (
-                    <TableRow key={user._id} hover>
-                      <TableCell
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          cursor: "pointer",
-                        }}
-                      >
-                        <Avatar
-                          alt={user.name}
-                          src={user.avatar}
-                          sx={{ mr: 2 }}
-                        />
-                        <Link
-                          variant="subtitle2"
-                          sx={{ fontWeight: 600 }}
-                          component={RouterLink}
-                          to={`/admin/updateUser/${user._id}`}
+                {user?.users
+                  ?.slice() // Create a shallow copy of the array to avoid modifying the original
+                  .sort((a, b) => {
+                    // Sort by role in descending order (admin first, then client)
+                    if (a.role === "admin" && b.role !== "admin") {
+                      return -1;
+                    } else if (a.role !== "admin" && b.role === "admin") {
+                      return 1;
+                    } else {
+                      // If roles are the same, maintain the existing order
+                      return 0;
+                    }
+                  })
+                  .map((user) => {
+                    return (
+                      <TableRow key={user._id} hover>
+                        <TableCell
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            cursor: "pointer",
+                          }}
                         >
-                          {user.name}
-                        </Link>
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        sx={{ display: { xs: "none", md: "table-cell" } }}
-                      >
-                        {user.role}
-                      </TableCell>
-                      {!isMobile && (
+                          <Avatar
+                            alt={user.name}
+                            src={user.avatar}
+                            sx={{ mr: 2 }}
+                          />
+                          <Link
+                            variant="subtitle2"
+                            sx={{ fontWeight: 600 }}
+                            component={RouterLink}
+                            to={`/admin/updateUser/${user._id}`}
+                          >
+                            {user.name}
+                          </Link>
+                        </TableCell>
                         <TableCell
                           align="center"
                           sx={{ display: { xs: "none", md: "table-cell" } }}
                         >
-                          {user.phoneNumber}
+                          {user.role}
                         </TableCell>
-                      )}
-                      {!isMobile && (
+                        {!isMobile && (
+                          <TableCell
+                            align="center"
+                            sx={{ display: { xs: "none", md: "table-cell" } }}
+                          >
+                            {user.phoneNumber}
+                          </TableCell>
+                        )}
+                        {!isMobile && (
+                          <TableCell
+                            align="justify"
+                            sx={{ display: { xs: "none", md: "table-cell" } }}
+                          >
+                            <a href={`mailto:${user.email}${THANK_YOU_EMAIL}`}>
+                              {user.email}
+                            </a>
+                          </TableCell>
+                        )}
                         <TableCell
-                          align="justify"
+                          align="center"
                           sx={{ display: { xs: "none", md: "table-cell" } }}
                         >
-                          <a href={`mailto:${user.email}${THANK_YOU_EMAIL}`}>
-                            {user.email}
-                          </a>
+                          <UserFavoritePosts user={user} />
                         </TableCell>
-                      )}
-                      <TableCell
-                        align="center"
-                        sx={{ display: { xs: "none", md: "table-cell" } }}
-                      >
-                        <UserFavoritePosts user={user} />
-                      </TableCell>
 
-                      <TableCell
-                        align="center"
-                        sx={{
-                          display: "flex",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <IconButton
-                          sx={{ fontSize: "0.6rem" }}
-                          size="small"
-                          variant="contained"
-                          onClick={() =>
-                            dispatch(deleteSingleUserByAdmin(user._id))
-                          }
+                        <TableCell
+                          align="center"
+                          sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                          }}
                         >
-                          <DeleteIcon />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
+                          <IconButton
+                            sx={{ fontSize: "0.6rem" }}
+                            size="small"
+                            variant="contained"
+                            onClick={() =>
+                              dispatch(deleteSingleUserByAdmin(user._id))
+                            }
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
               </TableBody>
             </Table>
           </TableContainer>

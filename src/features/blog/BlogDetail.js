@@ -35,6 +35,7 @@ function BlogDetail() {
     <Container className="blog-detail-container">
       <Helmet>
         <title>{titleHelmet}</title>
+        <meta name="description" content={blog.title} />
       </Helmet>
       <div
         className="blog-detail-title"

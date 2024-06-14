@@ -69,3 +69,66 @@ function IntroducePage() {
 }
 
 export default IntroducePage;
+
+// import React, { useState } from "react";
+// import { Container, Typography, Button } from "@mui/material";
+// import { Helmet } from "react-helmet";
+// import { Editor, EditorState, RichUtils } from "draft-js";
+// import "draft-js/dist/Draft.css";
+
+// function IntroducePage() {
+//   const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+//   const handleEditorChange = (state) => {
+//     setEditorState(state);
+//   };
+
+//   const handleKeyCommand = (command, state) => {
+//     const newState = RichUtils.handleKeyCommand(state, command);
+//     if (newState) {
+//       setEditorState(newState);
+//       return "handled";
+//     }
+//     return "not-handled";
+//   };
+
+//   const toggleInlineStyle = (style) => {
+//     setEditorState(RichUtils.toggleInlineStyle(editorState, style));
+//   };
+
+//   return (
+//     <Container>
+//       <Helmet>
+//         <title>Giới thiệu | Chợ đất Tây Nguyên</title>
+//       </Helmet>
+//       <Typography
+//         variant="h4"
+//         sx={{ m: 3, textAlign: "center", fontWeight: "bold" }}
+//       >
+//         GIỚI THIỆU VỀ CHODATTAYNGUYEN.COM
+//       </Typography>
+
+//       <Button onClick={() => toggleInlineStyle("BOLD")}>Bold</Button>
+//       <Button onClick={() => toggleInlineStyle("ITALIC")}>Italic</Button>
+//       <Button onClick={() => toggleInlineStyle("UNDERLINE")}>Underline</Button>
+
+//       <div
+//         style={{
+//           border: "1px solid #ddd",
+//           minHeight: "6em",
+//           cursor: "text",
+//           padding: "10px",
+//           marginTop: "10px",
+//         }}
+//       >
+//         <Editor
+//           editorState={editorState}
+//           onChange={handleEditorChange}
+//           handleKeyCommand={handleKeyCommand}
+//         />
+//       </div>
+//     </Container>
+//   );
+// }
+
+// export default IntroducePage;

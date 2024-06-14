@@ -30,7 +30,7 @@ const BlogCard = ({ blog }) => {
   }, [shareUrl]);
 
   return (
-    <Card sx={{ m: 2, display: "flex" }}>
+    <Card sx={{ m: 2, display: "flex", width: "100vh" }}>
       <Card
         sx={{
           display: "flex",
@@ -42,7 +42,7 @@ const BlogCard = ({ blog }) => {
         <CardMedia
           component="img"
           sx={{
-            width: "39vh",
+            width: { xs: "100%", sm: "39vh" },
             minHeight: "200px",
             cursor: "pointer",
           }}
@@ -78,15 +78,14 @@ const BlogCard = ({ blog }) => {
             >
               {blog.descriptionTitle}
             </Typography>
-            <Stack />
+            <Stack flexGrow={1} />
 
             <Stack>
-              <Box flexGrow={1} />
               <Box
                 sx={{
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "space-around ",
+                  justifyContent: "space-around",
                 }}
               >
                 <FacebookShareButton

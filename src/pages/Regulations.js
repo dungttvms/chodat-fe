@@ -2,6 +2,8 @@ import { Container, Typography } from "@mui/material";
 import React from "react";
 import { Helmet } from "react-helmet";
 
+// Admin nên sửa được các trường thông tin này
+
 function Regulations() {
   return (
     <Container>

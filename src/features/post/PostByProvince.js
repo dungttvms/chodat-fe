@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getFilterPosts } from "./postSlice";
 import {
@@ -22,12 +22,11 @@ const PostByProvince = () => {
 
   const { filteredPosts, totalPosts } = useSelector((state) => state.post);
 
-  const filteredPostsList = useMemo(() => {
+  useEffect(() => {
     if (province) {
       dispatch(getFilterPosts({ page, province }));
     }
-    return filteredPosts;
-  }, [dispatch, page, province, filteredPosts]);
+  }, [dispatch, page, province]);
 
   const totalPages = totalPosts ? Math.ceil(totalPosts / 20) : 1;
 
@@ -68,7 +67,7 @@ const PostByProvince = () => {
             backgroundColor: "transparent",
           }}
         >
-          {filteredPostsList.map((post) => (
+          {filteredPosts.map((post) => (
             <PostCard key={post._id} post={post} />
           ))}
         </Card>
@@ -89,4 +88,5 @@ const PostByProvince = () => {
     </Container>
   );
 };
+
 export default PostByProvince;
